@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.widget.Toast;
 
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -21,7 +22,6 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
         Retrofit retrofit=SearchController.getRetrofit();
         SearchInterface api = retrofit.create(SearchInterface.class);
         Call<List<Books>> call = api.getBooks();
