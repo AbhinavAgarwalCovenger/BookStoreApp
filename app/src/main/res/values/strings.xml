@@ -2,5 +2,7 @@
     <string name="app_name">BookStoreApp</string>
     <string name="facebook_app_id">2673091226142326</string>
     <string name="fb_login_protocol_scheme">fb2673091226142326</string>
+    <string name="openNavDrawer">Navigation Drawer Open</string>
+    <string name="closeNavDrawer">Navigation Drawer Close</string>
 
 </resources>

@@ -60,12 +60,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-
-
-
-
-
-
         //-------------------------------********** GOOGLE **********-------------------------------
 
         //GOOGLE SIGN-IN

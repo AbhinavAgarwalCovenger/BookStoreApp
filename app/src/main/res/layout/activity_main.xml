@@ -1,11 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:id="@+id/drawer_layout"
+    >
+
+
+ <androidx.coordinatorlayout.widget.CoordinatorLayout
+     android:layout_width="match_parent"
+     android:layout_height="match_parent">
+
+<com.google.android.material.appbar.AppBarLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+ <androidx.appcompat.widget.Toolbar
+     android:id="@+id/main_toolbar"
+     android:layout_width="match_parent"
+     android:layout_height="?attr/actionBarSize"
+     android:background="@android:color/white">
+ </androidx.appcompat.widget.Toolbar>
+
+</com.google.android.material.appbar.AppBarLayout>
+
+
+  <LinearLayout
+      android:layout_gravity="center"
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+   <Button
+       android:id="@+id/search_btn"
+       android:layout_margin="16dp"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="SEARCH BUTTON"
+       android:textSize="24sp"
+       android:textColor="#000"></Button>
+
+   <Button
+       android:id="@+id/cart_btn"
+       android:layout_margin="16dp"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="CART BUTTON"
+       android:textSize="24sp"
+       android:textColor="#000"></Button>
+
+
+
+   <Button
+       android:id="@+id/sign_out_btn"
+       android:layout_margin="16dp"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="SignOut"
+       android:textSize="24sp"
+       android:textColor="#000"></Button>
 
    <Button
        android:id="@+id/login_btn"
@@ -15,35 +71,32 @@
        android:text="LOGIN BUTTON"
        android:textSize="24sp"
        android:textColor="#000"></Button>
+   <TextView
+       android:id="@+id/user_txt"
+       android:layout_gravity="center"
+       android:layout_margin="16sp"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Guest/UserName"
+       android:textSize="24sp"
+       android:textColor="#000">
+   </TextView>
 
-    <Button
-        android:id="@+id/search_btn"
-        android:layout_margin="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="SEARCH BUTTON"
-        android:textSize="24sp"
-        android:textColor="#000"></Button>
-
-    <Button
-        android:id="@+id/cart_btn"
-        android:layout_margin="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="CART BUTTON"
-        android:textSize="24sp"
-        android:textColor="#000"></Button>
-
-
-    <Button
-        android:id="@+id/sign_out_btn"
-        android:layout_margin="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="SignOut"
-        android:textSize="24sp"
-        android:textColor="#000"></Button>
+  </LinearLayout>
 
 
 
-</LinearLayout>
+
+ </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+ <com.google.android.material.navigation.NavigationView
+     android:layout_width="wrap_content"
+     android:layout_height="match_parent"
+     app:menu="@menu/nav_menu"
+     android:id="@+id/nav_view"
+     android:layout_gravity="start"
+     ></com.google.android.material.navigation.NavigationView>
+
+
+
+</androidx.drawerlayout.widget.DrawerLayout>
