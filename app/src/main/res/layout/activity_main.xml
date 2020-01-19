@@ -35,5 +35,15 @@
         android:textColor="#000"></Button>
 
 
+    <Button
+        android:id="@+id/sign_out_btn"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SignOut"
+        android:textSize="24sp"
+        android:textColor="#000"></Button>
+
+
 
 </LinearLayout>
