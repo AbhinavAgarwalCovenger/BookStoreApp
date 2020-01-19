@@ -11,6 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -20,6 +25,8 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+import java.util.Arrays;
+
 public class LoginActivity extends AppCompatActivity {
     EditText emailEditText;
     EditText passwordEditText;
@@ -27,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     SignInButton google_btn;
     GoogleSignInClient mGoogleSignInClient;
     int RC_SIGN_IN = 0;
-  //  LoginButton fbloginBtn;
+
 
 
     @Override
@@ -42,6 +49,18 @@ public class LoginActivity extends AppCompatActivity {
         google_btn = (SignInButton) findViewById(R.id.google_btn);
 
 
+        //-------------------------------********** FACEBOOK **********-------------------------------
+
+
+
+
+
+
+
+
+
+        //-------------------------------********** GOOGLE **********-------------------------------
+
         //GOOGLE SIGN-IN
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -49,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
+        //GOOGLE LOGIN BUTTON IMPLEMENTATION
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,7 +117,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-
+//for google
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -123,10 +143,14 @@ public class LoginActivity extends AppCompatActivity {
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w("error", "signInResult:failed code=" + e.getStatusCode());
+            Log.w("error", "signInResult:failed code=" + e.getStatusCode()+" "+e.getMessage());
             Toast.makeText(this, "failed", Toast.LENGTH_SHORT).show();
         }
     }
+
+    //for facebook
+
+
 
    /* @Override
     protected void onStart() {
