@@ -26,10 +26,7 @@ import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
- private    Button loginBtn;
   private   Button searchBtn;
-  private   Button cartBtn;
-  private   Button signOut;
   private   TextView userTxt;
 
     private Toolbar toolbar;
@@ -52,10 +49,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        loginBtn = (Button) findViewById(R.id.login_btn);
         searchBtn = (Button) findViewById(R.id.search_btn);
-        cartBtn = (Button) findViewById(R.id.cart_btn);
-        signOut = (Button) findViewById(R.id.sign_out_btn);
         userTxt = (TextView) findViewById(R.id.user_txt);
         toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -76,15 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-
-               sendToLogin();
-               // Toast.makeText(MainActivity.this, "Login Activity will open", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,25 +81,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
 
-        cartBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendToCart();
-                Toast.makeText(MainActivity.this, "Cart Activity will open", Toast.LENGTH_SHORT).show();
-            }
-        });
 
-
-        signOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.sign_out_btn:
-                        signOut();
-                        break;
-                }
-            }
-        });
 
 
 
@@ -153,16 +121,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(account != null){
             //Information from google
             GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-          /*  if (acct != null) {
-                String personName = acct.getDisplayName();
-                String personGivenName = acct.getGivenName();
-                String personFamilyName = acct.getFamilyName();
-                String personEmail = acct.getEmail();
-                String personId = acct.getId();
-                Uri personPhoto = acct.getPhotoUrl();
-            }*/
             userTxt.setText("Welcome "+ acct.getDisplayName());
-            loginBtn.setEnabled(false);
             Toast.makeText(this, ""+account, Toast.LENGTH_SHORT).show();
 
         }else{
@@ -182,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.nav_my_cart:
+
                 sendToCart();
                 Toast.makeText(this, "cart clicked", Toast.LENGTH_SHORT).show();
                         break;
