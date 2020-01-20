@@ -84,6 +84,7 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.c
     private void sendToMain() {
         Intent main_intent  = new Intent(SearchActivity.this,MainActivity.class);
         startActivity(main_intent);
+    }
 
     @Override
     public void onClick(Books book) {
