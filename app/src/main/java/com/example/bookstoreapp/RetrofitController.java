@@ -6,7 +6,7 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class SearchController extends Application {
+public class RetrofitController extends Application {
     static Retrofit retrofit;
     public static Retrofit getRetrofit(){
         if (retrofit==null){
