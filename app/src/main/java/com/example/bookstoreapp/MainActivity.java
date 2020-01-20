@@ -1,12 +1,18 @@
 package com.example.bookstoreapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -16,13 +22,18 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    Button loginBtn;
-    Button searchBtn;
-    Button cartBtn;
-    Button signOut;
+  private   Button searchBtn;
+  private   TextView userTxt;
+
+    private Toolbar toolbar;
+
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+
 
     GoogleSignInClient mGoogleSignInClient;
     GoogleApiClient mGoogleApiClient;
@@ -38,21 +49,28 @@ public class MainActivity extends AppCompatActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        loginBtn = (Button) findViewById(R.id.login_btn);
         searchBtn = (Button) findViewById(R.id.search_btn);
-        cartBtn = (Button) findViewById(R.id.cart_btn);
-        signOut = (Button) findViewById(R.id.sign_out_btn);
+        userTxt = (TextView) findViewById(R.id.user_txt);
+        toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(
+                this,
+                drawerLayout,
+                toolbar,
+               R.string.openNavDrawer,
+                R.string.closeNavDrawer
+
+        );
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+
+        setSupportActionBar(toolbar);
 
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-
-               sendToLogin();
-               // Toast.makeText(MainActivity.this, "Login Activity will open", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,25 +81,19 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        cartBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Cart Activity will open", Toast.LENGTH_SHORT).show();
-            }
-        });
 
 
-        signOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.sign_out_btn:
-                        signOut();
-                        break;
-                }
-            }
-        });
 
+
+
+
+
+
+    }
+
+    private void sendToCart() {
+        Intent cart_intent = new Intent(MainActivity.this,CartActivity.class);
+        startActivity(cart_intent);
     }
 
     private void signOut() {
@@ -104,12 +116,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateUI(GoogleSignInAccount account) {
 
+
+
         if(account != null){
-            loginBtn.setEnabled(false);
+            //Information from google
+            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+            userTxt.setText("Welcome "+ acct.getDisplayName());
             Toast.makeText(this, ""+account, Toast.LENGTH_SHORT).show();
 
         }else{
-            sendToLogin();
+           // sendToLogin();
+            userTxt.setText("Welcome Guest");
             Toast.makeText(this, ""+account, Toast.LENGTH_SHORT).show();
         }
     }
@@ -120,7 +137,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.nav_my_cart:
+
+                sendToCart();
+                Toast.makeText(this, "cart clicked", Toast.LENGTH_SHORT).show();
+                        break;
+            case R.id.nav_logout:signOut();
+            break;
+
+            default: return true;
+
+        }
 
 
 
+
+
+        return false;
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
 }

@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".LoginActivity">
-
+    tools:context=".RegisterActivity">
 
     <LinearLayout
         android:orientation="vertical"
@@ -16,7 +15,17 @@
         android:layout_marginTop="16sp">
 
         <EditText
-            android:id="@+id/email_edit_txt"
+            android:id="@+id/name_edit_txt_reg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16sp"
+            android:layout_marginTop="16sp"
+            android:hint="Enter your email"
+            android:inputType="text"
+            android:textSize="18sp"></EditText>
+
+        <EditText
+            android:id="@+id/email_edit_txt_reg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16sp"
@@ -26,47 +35,29 @@
             android:textSize="18sp"></EditText>
 
         <EditText
-            android:id="@+id/password_edit_txt"
+            android:id="@+id/password_edit_txt_reg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16sp"
             android:hint="Enter your password"
             android:inputType="textPassword"></EditText>
 
-        <Button
-            android:id="@+id/login_btn_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16sp"
-            android:text="LOGIN"></Button>
-
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/google_btn"
-            android:layout_margin="16sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            ></com.google.android.gms.common.SignInButton>
 
 
 
         <Button
-            android:id="@+id/register_btn"
+            android:id="@+id/register_btn_reg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16sp"
-            android:text="NEW USER"></Button>
+            android:text="REGISTER"></Button>
 
 
-        <TextView
-            android:id="@+id/guest_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16sp"
-            android:clickable="true"
-            android:text="Enter as guest"
-            android:textColor="@android:color/black"
-            android:textSize="24sp"></TextView>
+
+
+
+
+
 
     </LinearLayout>
 

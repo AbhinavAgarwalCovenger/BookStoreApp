@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -25,12 +26,16 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+import org.w3c.dom.Text;
+
 import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity {
     EditText emailEditText;
     EditText passwordEditText;
     Button loginBtn;
+    Button newUser;
+    TextView guestTxt;
     SignInButton google_btn;
     GoogleSignInClient mGoogleSignInClient;
     int RC_SIGN_IN = 0;
@@ -43,20 +48,30 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         //Initializing all the views
+        newUser = (Button) findViewById(R.id.register_btn);
         loginBtn = (Button) findViewById(R.id.login_btn_1);
         emailEditText = (EditText) findViewById(R.id.email_edit_txt);
         passwordEditText = (EditText) findViewById(R.id.password_edit_txt);
         google_btn = (SignInButton) findViewById(R.id.google_btn);
+        guestTxt = (TextView) findViewById(R.id.guest_txt);
 
 
-        //-------------------------------********** FACEBOOK **********-------------------------------
+        //Go as guest
+        guestTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendToMain();
+            }
+        });
 
+        newUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(LoginActivity.this, "reg btn clkd!", Toast.LENGTH_SHORT).show();
+                sendToRegister();
 
-
-
-
-
-
+            }
+        });
 
 
         //-------------------------------********** GOOGLE **********-------------------------------
@@ -109,6 +124,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }//END-OnCreate
+
 
 
 
@@ -171,6 +187,13 @@ public class LoginActivity extends AppCompatActivity {
         Intent main_intent = new Intent(LoginActivity.this,MainActivity.class);
         startActivity(main_intent);
     }
+
+
+    private void sendToRegister() {
+        Intent reg_intent = new Intent(LoginActivity.this,RegisterActivity.class);
+        startActivity(reg_intent);
+    }
+
 
 
 }
