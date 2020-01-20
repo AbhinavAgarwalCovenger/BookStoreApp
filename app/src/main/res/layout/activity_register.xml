@@ -42,6 +42,38 @@
             android:hint="Enter your password"
             android:inputType="textPassword"></EditText>
 
+        <EditText
+            android:id="@+id/address_edit_txt_reg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16sp"
+            android:layout_marginTop="16sp"
+            android:hint="Enter your Address"
+            android:inputType="text"
+            android:textSize="18sp"></EditText>
+
+
+        <EditText
+            android:id="@+id/pincode_edit_txt_reg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16sp"
+            android:hint="Enter your pincode"
+            android:inputType="textPassword"></EditText>
+
+        <EditText
+            android:id="@+id/phone_edit_txt_reg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16sp"
+            android:layout_marginTop="16sp"
+            android:hint="Enter your Phone"
+            android:inputType="textEmailAddress"
+            android:textSize="18sp"></EditText>
+
+
+
+
 
 
 
