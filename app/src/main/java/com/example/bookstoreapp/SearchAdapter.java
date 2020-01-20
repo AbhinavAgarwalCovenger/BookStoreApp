@@ -16,10 +16,12 @@ import java.util.List;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
 
-    public SearchAdapter(List<Books> list){
+    public SearchAdapter(List<Books> list, clickProduct click){
         this.booksList=list;
+        this.mclick=click;
     }
     private List<Books> booksList;
+    private clickProduct mclick;
 
     @NonNull
     @Override
@@ -30,7 +32,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+        holder.itemView.getRootView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mclick.onClick(booksList.get(position));
+            }
+        });
         holder.book_name.setText(booksList.get(position).getName());
         holder.author.setText(booksList.get(position).getAuthor());
         holder.price.setText(booksList.get(position).getPrice());
@@ -60,5 +68,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             this.publisher = itemView.findViewById(R.id.publisher);
         }
 
+    }
+
+    public interface clickProduct{
+        void onClick(Books book);
     }
 }
