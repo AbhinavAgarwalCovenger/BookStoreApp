@@ -5,9 +5,10 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,7 +23,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -34,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
 
+    private List<Books> booksList;
+    private BottomNavigationView mMainNav;
 
     GoogleSignInClient mGoogleSignInClient;
     GoogleApiClient mGoogleApiClient;
@@ -42,6 +53,52 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        //Bottom navigation view
+
+            mMainNav = (BottomNavigationView) findViewById(R.id.bottom_nav_view);
+
+            mMainNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                    switch (item.getItemId()) {
+                        case R.id.bottom_nav_back: finish();
+                        return true;
+                        case R.id.bottom_nav_cart: sendToCart();
+                        return true;
+                        case R.id.bottom_nav_home: return true;
+                        default:return false;
+                    }
+                }
+            });
+
+
+        //genre recycler view
+
+        Retrofit retrofit=SearchController.getRetrofit();
+        SearchInterface api = retrofit.create(SearchInterface.class);
+        Call<List<Books>> call = api.getBooks();
+        call.enqueue(new Callback<List<Books>>() {
+            @Override
+            public void onResponse(Call<List<Books>> call, Response<List<Books>> response) {
+                booksList = response.body();
+                RecyclerView recyclerView = findViewById(R.id.genre_recycler);
+                GenreMainActivityAdapter genreMainActivityAdapter = new GenreMainActivityAdapter(booksList);
+                recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this,LinearLayoutManager.HORIZONTAL,true));
+                recyclerView.setAdapter(genreMainActivityAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Books>> call, Throwable t) {
+                Toast.makeText(MainActivity.this,"Failed",Toast.LENGTH_LONG);
+            }
+        });
+
+
+
+
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
