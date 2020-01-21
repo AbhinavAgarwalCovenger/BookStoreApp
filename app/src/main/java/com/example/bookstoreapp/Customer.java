@@ -19,10 +19,10 @@ public class Customer{
 	@SerializedName("name")
 	private String name;
 
-	@SerializedName("phone_number")
+	@SerializedName("phoneNumber")
 	private String phoneNumber;
 
-	@SerializedName("customer_id")
+	@SerializedName("customerId")
 	private String customerId;
 
 	@SerializedName("email")

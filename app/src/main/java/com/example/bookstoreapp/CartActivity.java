@@ -3,7 +3,9 @@ package com.example.bookstoreapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -23,9 +25,12 @@ public class CartActivity extends AppCompatActivity {
 
     Button checkoutBtn;
     TextView userTxt;
-    GoogleSignInClient mGoogleSignInClient;
-    GoogleApiClient mGoogleApiClient;
+//    GoogleSignInClient mGoogleSignInClient;
+//    GoogleApiClient mGoogleApiClient;
     private BottomNavigationView mCartNav;
+    SharedPreferences sharedPreferences;
+    public static final String myPreference = "mypref";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,15 +89,17 @@ public class CartActivity extends AppCompatActivity {
 
     protected void onStart() {
         super.onStart();
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        sharedPreferences=getSharedPreferences(myPreference, Context.MODE_PRIVATE);
+        String account = sharedPreferences.getString("user_id",null);
         updateUI(account);
     }
 
-    private void updateUI(GoogleSignInAccount account) {
+    private void updateUI(String account) {
         if(account!= null){
-            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+//            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
 
-            userTxt.setText("cart: "+acct.getDisplayName());
+            userTxt.setText("cart: "+account);
         }else{
             userTxt.setText("cart: Guest");
         }

@@ -2,7 +2,9 @@ package com.example.bookstoreapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -16,8 +18,10 @@ import java.util.Objects;
 
 public class CheckoutActivity extends AppCompatActivity {
 
-    GoogleSignInClient mGoogleSignInClient;
-    GoogleApiClient mGoogleApiClient;
+    //    GoogleSignInClient mGoogleSignInClient;
+//    GoogleApiClient mGoogleApiClient;
+    SharedPreferences sharedPreferences;
+    public static final String myPreference = "mypref";
 
 
     @Override
@@ -26,43 +30,43 @@ public class CheckoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_checkout);
 
         //ActionBar
-       // Objects.requireNonNull(getSupportActionBar()).setTitle("Checkout");
-       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // Objects.requireNonNull(getSupportActionBar()).setTitle("Checkout");
+        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //maintaining signin state in checkout
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
+//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestEmail()
+//                .build();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
+        String account = sharedPreferences.getString("user_id", null);
+
         updateUI(account);
     }
 
-    private void updateUI(GoogleSignInAccount account) {
+    private void updateUI(String account) {
 
-        if(account != null){
-            Toast.makeText(this, ""+account, Toast.LENGTH_SHORT).show();
+        if (account != null) {
+            Toast.makeText(this, "" + account, Toast.LENGTH_SHORT).show();
 
-        }else{
+        } else {
             sendToLogin();
-            Toast.makeText(this, "Please Login First"+account, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please Login First", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void sendToLogin() {
 
-        Intent login_intent = new Intent(CheckoutActivity.this,LoginActivity.class);
+        Intent login_intent = new Intent(CheckoutActivity.this, LoginActivity.class);
         startActivity(login_intent);
 
     }
-
-
-
 
 
 }

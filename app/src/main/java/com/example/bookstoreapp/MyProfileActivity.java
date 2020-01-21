@@ -17,10 +17,13 @@ public class MyProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
 
+        order_history =(Button) findViewById(R.id.cust_order_history);
+        login_history = (Button) findViewById(R.id.cust_login_history);
+
         order_history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MyProfileActivity.this,OrderHistory.class);
+                Intent intent=new Intent(MyProfileActivity.this, OrderHistoryActivity.class);
                 startActivity(intent);
             }
         });

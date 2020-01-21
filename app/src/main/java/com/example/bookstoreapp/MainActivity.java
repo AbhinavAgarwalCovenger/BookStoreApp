@@ -8,7 +8,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private List<Books> booksList;
     private BottomNavigationView mMainNav;
+    SharedPreferences sharedPreferences;
+    public static final String myPreference = "mypref";
 
     GoogleSignInClient mGoogleSignInClient;
     GoogleApiClient mGoogleApiClient;
@@ -147,31 +151,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void signOut() {
+        sharedPreferences = getSharedPreferences(myPreference,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         mGoogleSignInClient.signOut()
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        sendToLogin();
+//                        sendToLogin();
                     }
                 });
+        editor.clear();
+        editor.commit();
+        updateUI(null);
+
     }
+
 
 
     @Override
     protected void onStart() {
         super.onStart();
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        sharedPreferences=getSharedPreferences(myPreference, Context.MODE_PRIVATE);
+        String account = sharedPreferences.getString("user_id",null);
         updateUI(account);
     }
 
-    private void updateUI(GoogleSignInAccount account) {
+    private void updateUI(String account) {
 
 
 
         if(account != null){
             //Information from google
-            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-            userTxt.setText("Welcome "+ acct.getDisplayName());
+//            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+            userTxt.setText("Welcome"+account);
             Toast.makeText(this, ""+account, Toast.LENGTH_SHORT).show();
 
         }else{
@@ -199,7 +212,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 sendToCart();
                 Toast.makeText(this, "cart clicked", Toast.LENGTH_SHORT).show();
                         break;
-            case R.id.nav_logout:signOut();
+            case R.id.nav_logout:{
+                signOut();
+                sendToLogin();
+            }
             break;
 
             case R.id.nav_my_profile:
