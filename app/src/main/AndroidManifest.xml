@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".LoginHistoryActivity"></activity>
-        <activity android:name=".OrderHistory" />
+        <activity android:name=".OrderHistoryActivity" />
         <activity android:name=".MyProfileActivity" />
         <activity android:name=".ProductActivity" />
         <activity

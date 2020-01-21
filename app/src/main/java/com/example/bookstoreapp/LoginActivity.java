@@ -2,7 +2,9 @@ package com.example.bookstoreapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,6 +48,11 @@ public class LoginActivity extends AppCompatActivity {
     SignInButton google_btn;
     GoogleSignInClient mGoogleSignInClient;
     int RC_SIGN_IN = 0;
+    SharedPreferences sharedPreferences;
+    public static final String myPreference = "mypref";
+//    SharedPreferences.Editor editor = sharedPreferences.edit();
+
+
 
     Login login= new Login();
     CustId custId = new CustId();
@@ -61,14 +68,15 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText = (EditText) findViewById(R.id.password_edit_txt);
         google_btn = (SignInButton) findViewById(R.id.google_btn);
         guestTxt = (TextView) findViewById(R.id.guest_txt);
+        sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
 
 
         // Check if UserResponse is Already Logged In
-        if(SaveSharedPreference.getLoggedStatus(getApplicationContext())) {
-            sendToMain();
-        } else {
-            Toast.makeText(this, "Please Login here!!", Toast.LENGTH_SHORT).show();
-        }
+//        if(SaveSharedPreference.getLoggedStatus(getApplicationContext())) {
+//            sendToMain();
+//        } else {
+//            Toast.makeText(this, "Please Login here!!", Toast.LENGTH_SHORT).show();
+//        }
 
 
 
@@ -100,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        //GOOGLE LOGIN BUTTON IMPLEMENTATION
+        // LOGIN BUTTON IMPLEMENTATION
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,6 +138,10 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "wrong Password", Toast.LENGTH_SHORT).show();
                             }
                             else {
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                String id = custId.getResponse().toString();
+                                editor.putString("user_id",id);
+                                editor.commit();
                                 Toast.makeText(LoginActivity.this, "Successful!!", Toast.LENGTH_SHORT).show();
                                 //SaveSharedPreference.setLoggedIn(getApplicationContext(), true);
                                 sendToMain();
@@ -231,6 +243,11 @@ public class LoginActivity extends AppCompatActivity {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
             // Signed in successfully, show authenticated UI.
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+            editor.putString("user_id",account.toString());
+            editor.commit();
+
             Toast.makeText(this, "Sucessfull", Toast.LENGTH_SHORT).show();
             sendToMain();
 
