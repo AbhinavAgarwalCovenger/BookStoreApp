@@ -19,7 +19,7 @@
                 android:id="@+id/nav_setting" />
             <item android:title="Account"
                 android:id="@+id/nav_account" />
-            <item android:title="Login/Logout"
+            <item android:title="Login"
                 android:id="@+id/nav_logout" />
 
         </menu>

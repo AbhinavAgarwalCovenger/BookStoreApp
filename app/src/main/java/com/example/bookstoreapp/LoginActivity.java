@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText passwordEditText;
     Button loginBtn;
     Button newUser;
-    TextView guestTxt;
+    Button guestTxt;
     SignInButton google_btn;
     GoogleSignInClient mGoogleSignInClient;
     int RC_SIGN_IN = 0;
@@ -67,16 +67,10 @@ public class LoginActivity extends AppCompatActivity {
         emailEditText = (EditText) findViewById(R.id.email_edit_txt);
         passwordEditText = (EditText) findViewById(R.id.password_edit_txt);
         google_btn = (SignInButton) findViewById(R.id.google_btn);
-        guestTxt = (TextView) findViewById(R.id.guest_txt);
+        guestTxt = (Button) findViewById(R.id.guest_txt);
         sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
 
 
-        // Check if UserResponse is Already Logged In
-//        if(SaveSharedPreference.getLoggedStatus(getApplicationContext())) {
-//            sendToMain();
-//        } else {
-//            Toast.makeText(this, "Please Login here!!", Toast.LENGTH_SHORT).show();
-//        }
 
 
 
@@ -153,14 +147,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-//                        if(custId.getResponse().toString()!=null ){
-//
-//                            SaveSharedPreference.setLoggedIn(getApplicationContext(), true);
-//
-//                            sendToMain();
-//                        }else Toast.makeText(LoginActivity.this, "Credentials are not valid", Toast.LENGTH_SHORT).show();
-
-
                         }
 
                         @Override
@@ -177,11 +163,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-
-
-//                Toast.makeText(LoginActivity.this, "Email: "+email+"password: "+password, Toast.LENGTH_SHORT).show();
-
-            }
+      }
         });
 
 
@@ -259,24 +241,10 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    //for facebook
+    //for facebook code goes here
 
 
 
-   /* @Override
-    protected void onStart() {
-        super.onStart();
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        updateUI(account);
-    }
-
-    private void updateUI(GoogleSignInAccount account) {
-        if(account != null){
-            sendToMain();
-        }else {
-            Toast.makeText(this, "please sign in.", Toast.LENGTH_SHORT).show();
-        }
-    }*/
 
     private void sendToMain() {
         Intent main_intent = new Intent(LoginActivity.this,MainActivity.class);
