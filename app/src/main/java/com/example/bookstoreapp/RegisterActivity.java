@@ -39,14 +39,12 @@ public class RegisterActivity extends AppCompatActivity {
         mPhone = (EditText) findViewById(R.id.phone_edit_txt_reg);
 
 
-
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-
-                String email,name,password,address,phone_number,pincode;
+                String email, name, password, address, phone_number, pincode;
                 email = mEmail.getText().toString();
                 name = mName.getText().toString();
                 password = mPassword.getText().toString();
@@ -54,10 +52,10 @@ public class RegisterActivity extends AppCompatActivity {
                 phone_number = mPhone.getText().toString();
                 pincode = mPincode.getText().toString();
 
-                if(email.length()!=0 && name.length()!=0 && password.length()!=0){
+                if (email.length() != 0 && name.length() != 0 && password.length() != 0) {
 
 
-                    cust= new Customer();
+                    cust = new Customer();
 
                     cust.setName(name);
                     cust.setEmail(email);
@@ -68,12 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
                     cust.setPincode(pincode);
 
 
-
-
-
-
-
-                    Retrofit retrofit= RetrofitController.getRetrofit();
+                    Retrofit retrofit = RetrofitController.getRetrofit();
                     SignUpApi api = retrofit.create(SignUpApi.class);
                     Call<ResponseBody> call = api.createUser(cust);
                     call.enqueue(new Callback<ResponseBody>() {
@@ -87,18 +80,16 @@ public class RegisterActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<ResponseBody> call, Throwable t) {
-                            Toast.makeText(RegisterActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     });
 
                     Toast.makeText(RegisterActivity.this, "Register successfull!!", Toast.LENGTH_SHORT).show();
                     sendToMain();
 
-                }
-                else{
+                } else {
                     Toast.makeText(RegisterActivity.this, "Please enter details", Toast.LENGTH_SHORT).show();
                 }
-
 
 
             }
@@ -106,12 +97,12 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void sendToLogin() {
-        Intent login_intent = new Intent(RegisterActivity.this,LoginActivity.class);
+        Intent login_intent = new Intent(RegisterActivity.this, LoginActivity.class);
         startActivity(login_intent);
     }
 
     private void sendToMain() {
-        Intent main_intent = new Intent(RegisterActivity.this,MainActivity.class);
+        Intent main_intent = new Intent(RegisterActivity.this, MainActivity.class);
         startActivity(main_intent);
     }
 }
