@@ -35,6 +35,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
+
 public class LoginActivity extends AppCompatActivity {
     EditText emailEditText;
     EditText passwordEditText;
@@ -45,8 +47,8 @@ public class LoginActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     int RC_SIGN_IN = 0;
 
-    Customer customer = new Customer();
-
+    Login login= new Login();
+    CustId custId = new CustId();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +61,16 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText = (EditText) findViewById(R.id.password_edit_txt);
         google_btn = (SignInButton) findViewById(R.id.google_btn);
         guestTxt = (TextView) findViewById(R.id.guest_txt);
+
+
+        // Check if UserResponse is Already Logged In
+        if(SaveSharedPreference.getLoggedStatus(getApplicationContext())) {
+            sendToMain();
+        } else {
+            Toast.makeText(this, "Please Login here!!", Toast.LENGTH_SHORT).show();
+        }
+
+
 
 
         //Go as guest
@@ -95,24 +107,66 @@ public class LoginActivity extends AppCompatActivity {
                 String email = emailEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
 
-                customer.setEmail(email);
-                customer.setPassword(password);
 
-                Retrofit retrofit = RetrofitController.getRetrofit();
-                ApiInterface api = retrofit.create(ApiInterface.class);
-                Call<Customer> call = api.getCustId(customer);
-                call.enqueue(new Callback<Customer>() {
-                    @Override
-                    public void onResponse(Call<Customer> call, Response<Customer> response) {
-                        customer=response.body();
-                        Toast.makeText(LoginActivity.this,customer.getCustomerId(),Toast.LENGTH_LONG).show();
-                    }
 
-                    @Override
-                    public void onFailure(Call<Customer> call, Throwable t) {
+                if(email.length()!=0 && password.length()!=0){
+                    login.setEmail(email);
+                    login.setPassword(password);
+                    login.setLoginType("customer");
 
-                    }
-                });
+                    Retrofit retrofit = RetrofitController.getRetrofit();
+                    ApiInterface api = retrofit.create(ApiInterface.class);
+                    Call<CustId> call = api.getCustId(login);
+                    call.enqueue(new Callback<CustId>() {
+                        @Override
+                        public void onResponse(Call<CustId> call, Response<CustId> response) {
+                            custId=response.body();
+                            Toast.makeText(LoginActivity.this,custId.getResponse(),Toast.LENGTH_LONG).show();
+
+
+                            if(custId.getResponse().equals("Not registered")){
+                                Toast.makeText(LoginActivity.this, "Please Register First", Toast.LENGTH_SHORT).show();
+                            }else if(custId.getResponse().equals("Wrong Password")){
+                                Toast.makeText(LoginActivity.this, "wrong Password", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                Toast.makeText(LoginActivity.this, "Successful!!", Toast.LENGTH_SHORT).show();
+                                //SaveSharedPreference.setLoggedIn(getApplicationContext(), true);
+                                sendToMain();
+                            }
+
+
+
+
+
+
+
+//                        if(custId.getResponse().toString()!=null ){
+//
+//                            SaveSharedPreference.setLoggedIn(getApplicationContext(), true);
+//
+//                            sendToMain();
+//                        }else Toast.makeText(LoginActivity.this, "Credentials are not valid", Toast.LENGTH_SHORT).show();
+
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<CustId> call, Throwable t) {
+
+                        }
+                    });
+                }else {
+                    Toast.makeText(LoginActivity.this, "Please enter credentials!!", Toast.LENGTH_SHORT).show();
+
+                }
+
+
+
+
+
+
+
 //                Toast.makeText(LoginActivity.this, "Email: "+email+"password: "+password, Toast.LENGTH_SHORT).show();
 
             }
@@ -209,6 +263,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void sendToMain() {
         Intent main_intent = new Intent(LoginActivity.this,MainActivity.class);
+        main_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK |FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(main_intent);
     }
 

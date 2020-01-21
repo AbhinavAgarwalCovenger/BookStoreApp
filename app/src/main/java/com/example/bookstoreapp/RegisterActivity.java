@@ -9,8 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.io.IOException;
-
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,7 +46,6 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
-
                 String email,name,password,address,phone_number,pincode;
                 email = mEmail.getText().toString();
                 name = mName.getText().toString();
@@ -57,47 +54,63 @@ public class RegisterActivity extends AppCompatActivity {
                 phone_number = mPhone.getText().toString();
                 pincode = mPincode.getText().toString();
 
-                cust= new Customer();
-
-                cust.setName(name);
-                cust.setEmail(email);
-                cust.setAddress(address);
-                cust.setPassword(password);
-                cust.setLoginType("customer");
-                cust.setPhoneNumber(phone_number);
-                cust.setPincode(pincode);
+                if(email.length()!=0 && name.length()!=0 && password.length()!=0){
 
 
+                    cust= new Customer();
+
+                    cust.setName(name);
+                    cust.setEmail(email);
+                    cust.setAddress(address);
+                    cust.setPassword(password);
+                    cust.setLoginType("customer");
+                    cust.setPhoneNumber(phone_number);
+                    cust.setPincode(pincode);
 
 
 
 
 
-                Retrofit retrofit= RetrofitController.getRetrofit();
-                SignUpApi api = retrofit.create(SignUpApi.class);
-                Call<ResponseBody> call = api.createUser(cust);
-                call.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+
+                    Retrofit retrofit= RetrofitController.getRetrofit();
+                    SignUpApi api = retrofit.create(SignUpApi.class);
+                    Call<ResponseBody> call = api.createUser(cust);
+                    call.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 //                            String s = response.body().toString();
 //                            Toast.makeText(RegisterActivity.this,s,Toast.LENGTH_LONG).show();
-                        Toast.makeText(RegisterActivity.this, "Register successfull!!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, "Register successfull!!", Toast.LENGTH_SHORT).show();
 
-                    }
+                        }
 
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Toast.makeText(RegisterActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Toast.makeText(RegisterActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
+                        }
+                    });
 
-                Toast.makeText(RegisterActivity.this, "Register successfull!!", Toast.LENGTH_SHORT).show();
-                goToMain();
+                    Toast.makeText(RegisterActivity.this, "Register successfull!!", Toast.LENGTH_SHORT).show();
+                    sendToMain();
+
+                }
+                else{
+                    Toast.makeText(RegisterActivity.this, "Please enter details", Toast.LENGTH_SHORT).show();
+                }
+
+
+
             }
         });
     }
 
-    private void goToMain() {
+    private void sendToLogin() {
+        Intent login_intent = new Intent(RegisterActivity.this,LoginActivity.class);
+        startActivity(login_intent);
+    }
+
+    private void sendToMain() {
         Intent main_intent = new Intent(RegisterActivity.this,MainActivity.class);
         startActivity(main_intent);
     }
