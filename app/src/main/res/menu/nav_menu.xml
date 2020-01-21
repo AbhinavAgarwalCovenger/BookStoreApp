@@ -15,7 +15,7 @@
 
     <item android:title="Apps">
         <menu>
-            <item android:title="Setting"
+            <item android:title="Settings"
                 android:id="@+id/nav_setting" />
             <item android:title="Account"
                 android:id="@+id/nav_account" />

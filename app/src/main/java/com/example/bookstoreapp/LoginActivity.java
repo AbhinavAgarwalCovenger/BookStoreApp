@@ -30,6 +30,11 @@ import org.w3c.dom.Text;
 
 import java.util.Arrays;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 public class LoginActivity extends AppCompatActivity {
     EditText emailEditText;
     EditText passwordEditText;
@@ -40,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     int RC_SIGN_IN = 0;
 
-
+    Customer customer = new Customer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +94,26 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = emailEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
-                Toast.makeText(LoginActivity.this, "Email: "+email+"password: "+password, Toast.LENGTH_SHORT).show();
+
+                customer.setEmail(email);
+                customer.setPassword(password);
+
+                Retrofit retrofit = RetrofitController.getRetrofit();
+                ApiInterface api = retrofit.create(ApiInterface.class);
+                Call<Customer> call = api.getCustId(customer);
+                call.enqueue(new Callback<Customer>() {
+                    @Override
+                    public void onResponse(Call<Customer> call, Response<Customer> response) {
+                        customer=response.body();
+                        Toast.makeText(LoginActivity.this,customer.getCustomerId(),Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Customer> call, Throwable t) {
+
+                    }
+                });
+//                Toast.makeText(LoginActivity.this, "Email: "+email+"password: "+password, Toast.LENGTH_SHORT).show();
 
             }
         });

@@ -2,9 +2,7 @@ package com.example.bookstoreapp;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
-
-public class Customer implements Serializable {
+public class Customer{
 
 	@SerializedName("pincode")
 	private String pincode;
@@ -15,8 +13,8 @@ public class Customer implements Serializable {
 	@SerializedName("address")
 	private String address;
 
-	@SerializedName("Cust_or_Merc")
-	private boolean custOrMerc;
+	@SerializedName("loginType")
+	private String loginType;
 
 	@SerializedName("name")
 	private String name;
@@ -24,8 +22,13 @@ public class Customer implements Serializable {
 	@SerializedName("phone_number")
 	private String phoneNumber;
 
+	@SerializedName("customer_id")
+	private String customerId;
+
 	@SerializedName("email")
 	private String email;
+
+
 
 	public void setPincode(String pincode){
 		this.pincode = pincode;
@@ -51,12 +54,12 @@ public class Customer implements Serializable {
 		return address;
 	}
 
-	public void setCustOrMerc(boolean custOrMerc){
-		this.custOrMerc = custOrMerc;
+	public void setLoginType(String loginType){
+		this.loginType = loginType;
 	}
 
-	public boolean isCustOrMerc(){
-		return custOrMerc;
+	public String getLoginType(){
+		return loginType;
 	}
 
 	public void setName(String name){
@@ -75,6 +78,14 @@ public class Customer implements Serializable {
 		return phoneNumber;
 	}
 
+	public void setCustomerId(String customerId){
+		this.customerId = customerId;
+	}
+
+	public String getCustomerId(){
+		return customerId;
+	}
+
 	public void setEmail(String email){
 		this.email = email;
 	}
@@ -90,9 +101,10 @@ public class Customer implements Serializable {
 			"pincode = '" + pincode + '\'' + 
 			",password = '" + password + '\'' + 
 			",address = '" + address + '\'' + 
-			",cust_or_Merc = '" + custOrMerc + '\'' + 
+			",loginType = '" + loginType + '\'' +
 			",name = '" + name + '\'' + 
 			",phone_number = '" + phoneNumber + '\'' + 
+			",customer_id = '" + customerId + '\'' + 
 			",email = '" + email + '\'' + 
 			"}";
 		}

@@ -54,7 +54,7 @@
 //
 //
 //        Retrofit retrofit= RetrofitController.getRetrofit();
-//        SearchInterface api = retrofit.create(SearchInterface.class);
+//        ApiInterface api = retrofit.create(ApiInterface.class);
 //        Call<List<Books>> call = api.getBooks();
 //        call.enqueue(new Callback<List<Books>>() {
 //            @Override

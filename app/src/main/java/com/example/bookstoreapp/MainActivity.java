@@ -139,13 +139,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-
-
-
-
-
-
-
     }
 
     private void sendToCart() {
@@ -193,6 +186,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(login_intent);
     }
 
+    private void sendToProfile(){
+        Intent profile_intent = new Intent(MainActivity.this,MyProfileActivity.class);
+        startActivity(profile_intent);
+    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -204,6 +201,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         break;
             case R.id.nav_logout:signOut();
             break;
+
+            case R.id.nav_my_profile:
+                sendToProfile();
+                Toast.makeText(this, "profile clicked", Toast.LENGTH_SHORT).show();
+
+                break;
 
             default: return true;
 

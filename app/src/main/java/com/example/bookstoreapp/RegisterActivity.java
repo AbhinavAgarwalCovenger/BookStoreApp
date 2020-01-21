@@ -63,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
                 cust.setEmail(email);
                 cust.setAddress(address);
                 cust.setPassword(password);
-                cust.setCustOrMerc(false);
+                cust.setLoginType("customer");
                 cust.setPhoneNumber(phone_number);
                 cust.setPincode(pincode);
 
