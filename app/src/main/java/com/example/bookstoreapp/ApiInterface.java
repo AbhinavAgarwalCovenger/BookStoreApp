@@ -16,5 +16,5 @@ public interface ApiInterface {
 //      Call<Customer> getCustomer();
 
       @POST("login")
-      Call<Customer> getCustId(@Body Customer customer);
+      Call<CustId> getCustId(@Body Login login);
 }
