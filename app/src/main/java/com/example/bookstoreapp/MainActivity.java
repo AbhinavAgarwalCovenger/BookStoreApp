@@ -89,24 +89,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //genre recycler view
 
-//        Retrofit retrofit= RetrofitController.getRetrofit();
-//        SearchInterface api = retrofit.create(SearchInterface.class);
-//        Call<List<Books>> call = api.getBooks();
-//        call.enqueue(new Callback<List<Books>>() {
-//            @Override
-//            public void onResponse(Call<List<Books>> call, Response<List<Books>> response) {
-//                booksList = response.body();
-//                RecyclerView recyclerView = findViewById(R.id.genre_recycler);
-//                GenreMainActivityAdapter genreMainActivityAdapter = new GenreMainActivityAdapter(booksList);
-//                recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this,LinearLayoutManager.HORIZONTAL,true));
-//                recyclerView.setAdapter(genreMainActivityAdapter);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Books>> call, Throwable t) {
-//                Toast.makeText(MainActivity.this,"Failed",Toast.LENGTH_LONG);
-//            }
-//        });
+        Retrofit retrofit= RetrofitController.getRetrofit();
+        ApiInterface api = retrofit.create(ApiInterface.class);
+        Call<List<Books>> call = api.getBooksByGenre("fiction");
+        call.enqueue(new Callback<List<Books>>() {
+            @Override
+            public void onResponse(Call<List<Books>> call, Response<List<Books>> response) {
+                booksList = response.body();
+                RecyclerView recyclerView = findViewById(R.id.genre_recycler);
+                GenreMainActivityAdapter genreMainActivityAdapter = new GenreMainActivityAdapter(booksList);
+                recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this,LinearLayoutManager.HORIZONTAL,true));
+                recyclerView.setAdapter(genreMainActivityAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Books>> call, Throwable t) {
+                Toast.makeText(MainActivity.this,"Failed",Toast.LENGTH_LONG);
+            }
+        });
 
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -140,13 +140,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-//        searchBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent =new Intent(MainActivity.this,SearchActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(MainActivity.this,SearchActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
     }

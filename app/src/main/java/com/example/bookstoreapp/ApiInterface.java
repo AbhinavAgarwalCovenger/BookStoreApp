@@ -6,11 +6,12 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface ApiInterface {
 
-//    @GET("bins/aa0hm")
-//    Call<List<Books>> getBooks();
+      @GET("getProductByGenre/{genre}")
+      Call<List<Books>> getBooksByGenre(@Path("genre") String genre);
 
 //      @POST("getCustomer")
 //      Call<Customer> getCustomer();

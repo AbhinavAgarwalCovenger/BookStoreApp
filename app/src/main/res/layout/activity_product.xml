@@ -59,28 +59,6 @@
         android:layout_marginTop="16dp"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/decrease"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="decreaseInteger"
-            android:text="-" />
-
-        <TextView
-            android:id="@+id/integer_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="0"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/increase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="increaseInteger"
-            android:text="+" />
 
         <Button
             android:id="@+id/add_to_cart"

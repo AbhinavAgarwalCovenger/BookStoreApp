@@ -65,7 +65,7 @@
              android:layout_margin="16dp"
              android:text="SEARCH BUTTON"
              android:textColor="#000"
-             android:textSize="24sp"></Button>
+             android:textSize="24sp"/>
 
 
          <TextView
@@ -76,7 +76,7 @@
              android:layout_margin="16sp"
              android:text="Guest/UserName"
              android:textColor="#000"
-             android:textSize="24sp"></TextView>
+             android:textSize="24sp"/>
 
      </LinearLayout>
      <LinearLayout
