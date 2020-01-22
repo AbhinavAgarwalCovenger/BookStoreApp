@@ -2,9 +2,10 @@ package com.example.bookstoreapp;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
+public class Books{
 
-public class Books implements Serializable {
+	@SerializedName("productId")
+	private String productId;
 
 	@SerializedName("author")
 	private String author;
@@ -12,14 +13,34 @@ public class Books implements Serializable {
 	@SerializedName("price")
 	private String price;
 
-	@SerializedName("name")
-	private String name;
+	@SerializedName("isbn")
+	private String isbn;
 
-	@SerializedName("publisher")
-	private String publisher;
+	@SerializedName("genre")
+	private String genre;
+
+	@SerializedName("rating")
+	private String rating;
+
+	@SerializedName("description")
+	private String description;
+
+	@SerializedName("attributes")
+	private Attributes attributes;
+
+	@SerializedName("productName")
+	private String productName;
 
 	@SerializedName("url")
 	private String url;
+
+	public void setProductId(String productId){
+		this.productId = productId;
+	}
+
+	public String getProductId(){
+		return productId;
+	}
 
 	public void setAuthor(String author){
 		this.author = author;
@@ -37,20 +58,52 @@ public class Books implements Serializable {
 		return price;
 	}
 
-	public void setName(String name){
-		this.name = name;
+	public void setIsbn(String isbn){
+		this.isbn = isbn;
 	}
 
-	public String getName(){
-		return name;
+	public String getIsbn(){
+		return isbn;
 	}
 
-	public void setPublisher(String publisher){
-		this.publisher = publisher;
+	public void setGenre(String genre){
+		this.genre = genre;
 	}
 
-	public String getPublisher(){
-		return publisher;
+	public String getGenre(){
+		return genre;
+	}
+
+	public void setRating(String rating){
+		this.rating = rating;
+	}
+
+	public String getRating(){
+		return rating;
+	}
+
+	public void setDescription(String description){
+		this.description = description;
+	}
+
+	public String getDescription(){
+		return description;
+	}
+
+	public void setAttributes(Attributes attributes){
+		this.attributes = attributes;
+	}
+
+	public Attributes getAttributes(){
+		return attributes;
+	}
+
+	public void setProductName(String productName){
+		this.productName = productName;
+	}
+
+	public String getProductName(){
+		return productName;
 	}
 
 	public void setUrl(String url){
@@ -65,10 +118,15 @@ public class Books implements Serializable {
  	public String toString(){
 		return 
 			"Books{" + 
-			"author = '" + author + '\'' + 
+			"productId = '" + productId + '\'' + 
+			",author = '" + author + '\'' + 
 			",price = '" + price + '\'' + 
-			",name = '" + name + '\'' + 
-			",publisher = '" + publisher + '\'' + 
+			",isbn = '" + isbn + '\'' + 
+			",genre = '" + genre + '\'' + 
+			",rating = '" + rating + '\'' + 
+			",description = '" + description + '\'' + 
+			",Attributes = '" + attributes + '\'' +
+			",productName = '" + productName + '\'' + 
 			",url = '" + url + '\'' + 
 			"}";
 		}
