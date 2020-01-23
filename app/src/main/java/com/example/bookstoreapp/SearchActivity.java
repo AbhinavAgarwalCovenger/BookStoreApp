@@ -53,11 +53,6 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.c
             }
         });
 
-
-
-
-        //books = new Books();
-
         Call<List<Books>> call = api.getBooksByGenre("fiction");
         call.enqueue(new Callback<List<Books>>() {
             @Override
@@ -99,55 +94,4 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.c
         startActivity(intent);
     }
 
-
-
-//        Call<Books> call =api.getProductById(book_id);
-//        call.enqueue(new Callback<Books>() {
-//              @Override
-//              public void onResponse(Call<Books> call, Response<Books> response) {
-//                  books=response.body();
-//                  Toast.makeText(SearchActivity.this, "Success!!", Toast.LENGTH_SHORT).show();
-//              }
-//
-//              @Override
-//              public void onFailure(Call<Books> call, Throwable t) {
-//                  Toast.makeText(SearchActivity.this,"Failed",Toast.LENGTH_LONG);
-//              }
-//        });
-
-//        Toast.makeText(getBaseContext(),books.getAuthor(),Toast.LENGTH_LONG).show();
-//        if(books!=null) {
-//            String bookName = books.getProductName();
-//            String img = books.getUrl();
-//            String author = books.getAuthor();
-//            String price = books.getPrice();
-//        String publisher = books.getAttributes().getPublisher();
-//            String isbn = books.getIsbn();
-//            String genre = books.getGenre();
-//            String rating = books.getRating();
-//            String description = books.getDescription();
-//        String year = books.getAttributes().getYear();
-//        String binding = books.getAttributes().getBinding();
-//        String pages = books.getAttributes().getNoofpages();
-
-
-
-//            intent.putExtra("id", book_id);
-//            intent.putExtra("name", bookName);
-//            intent.putExtra("url", img);
-//            intent.putExtra("author", author);
-//            intent.putExtra("price", price);
-//        intent.putExtra("publisher",publisher);
-//            intent.putExtra("isbn", isbn);
-//            intent.putExtra("genre", genre);
-//            intent.putExtra("rating", rating);
-//            intent.putExtra("desc", description);
-//        intent.putExtra("year",year);
-//        intent.putExtra("bind",binding);
-//        intent.putExtra("pages",pages);
-
-
-//        else {
-//            Toast.makeText(getBaseContext(),"Sorry for inconvenience",Toast.LENGTH_LONG).show();
-//        }
 }
