@@ -69,10 +69,6 @@
          android:layout_width="match_parent"
          android:layout_height="wrap_content">
 
-       <androidx.recyclerview.widget.RecyclerView
-             android:id="@+id/genre_recycler"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content">
 
          <TextView
              android:id="@+id/top_picks"
@@ -87,7 +83,7 @@
          <androidx.recyclerview.widget.RecyclerView
              android:id="@+id/top_product_recycler"
              android:layout_width="match_parent"
-             android:layout_height="250dp">
+             android:layout_height="300dp">
 
          </androidx.recyclerview.widget.RecyclerView>
 

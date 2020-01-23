@@ -1,7 +1,9 @@
 package com.example.bookstoreapp;
 
 import com.example.bookstoreapp.pojo.Books;
+import com.example.bookstoreapp.pojo.Cart;
 import com.example.bookstoreapp.pojo.CustId;
+import com.example.bookstoreapp.pojo.Customer;
 import com.example.bookstoreapp.pojo.Login;
 
 import java.util.ArrayList;
@@ -18,8 +20,9 @@ public interface ApiInterface {
       @GET("getProductByGenre/{genre}")
       Call<List<Books>> getBooksByGenre(@Path("genre") String genre);
 
-//      @POST("getCustomer")
-//      Call<Customer> getCustomer();
+      @POST("getCustomerById/{id}")
+      Call<Customer> getCustomer(@Path("id") String id);
+
       @GET("getTopProducts")
       Call<List<Books>> getTopBooks();
 
@@ -31,4 +34,7 @@ public interface ApiInterface {
 
       @POST("login")
       Call<CustId> getCustId(@Body Login login);
+
+      @POST("addToCart")
+      Call<String> addToCart(@Body Cart cart);
 }
