@@ -148,28 +148,18 @@ public class LoginActivity extends AppCompatActivity {
                                 }
 
 
-
-
-
-
-
                             }
 
                             @Override
                             public void onFailure(Call<CustId> call, Throwable t) {
-
+                                Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_LONG).show();
                             }
                         });
-                    }else passwordEditText.setError("Please enter Password");
+                    }
+                    else
+                    { passwordEditText.setError("Please enter Password");}
 
 
-
-
-                        @Override
-                        public void onFailure(Call<CustId> call, Throwable t) {
-                            Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_LONG).show();
-                        }
-                    });
 
                 }else {
                     Toast.makeText(LoginActivity.this, "Please enter credentials!!", Toast.LENGTH_SHORT).show();

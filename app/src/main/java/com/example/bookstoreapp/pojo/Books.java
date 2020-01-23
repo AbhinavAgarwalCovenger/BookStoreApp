@@ -6,6 +6,9 @@ import java.util.LinkedHashMap;
 
 public class Books{
 
+	@SerializedName("merchantId")
+	private String merchantId;
+
 	@SerializedName("productId")
 	private String productId;
 
@@ -35,6 +38,9 @@ public class Books{
 
 	@SerializedName("url")
 	private String url;
+
+	@SerializedName("quantity")
+	private String quantity;
 
 	public void setProductId(String productId){
 		this.productId = productId;
@@ -116,6 +122,22 @@ public class Books{
 		return url;
 	}
 
+	public String getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(String quantity) {
+		this.quantity = quantity;
+	}
+
+	public String getMerchantId() {
+		return merchantId;
+	}
+
+	public void setMerchantId(String merchantId) {
+		this.merchantId = merchantId;
+	}
+
 	@Override
  	public String toString(){
 		return 
@@ -129,7 +151,9 @@ public class Books{
 			",description = '" + description + '\'' + 
 			",Attributes = '" + Attributes + '\'' +
 			",productName = '" + productName + '\'' + 
-			",url = '" + url + '\'' + 
+			",url = '" + url + '\'' +
+			",merchantId = '" + merchantId + '\'' +
+			",quantity = '" + quantity + '\'' +
 			"}";
 		}
 }
