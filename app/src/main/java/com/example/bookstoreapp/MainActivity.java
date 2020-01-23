@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,13 +45,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TextView userTxt;
 
     private Toolbar toolbar;
-
+    private ImageView cartBtn;
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
 
     private ArrayList<String> genreList;
-    private BottomNavigationView mMainNav;
     SharedPreferences sharedPreferences;
     public static final String myPreference = "mypref";
 
@@ -65,28 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-        //Bottom navigation view
 
-        mMainNav = (BottomNavigationView) findViewById(R.id.bottom_nav_view);
-
-        mMainNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                switch (item.getItemId()) {
-                    case R.id.bottom_nav_back:
-                        finish();
-                        return true;
-                    case R.id.bottom_nav_cart:
-                        sendToCart();
-                        return true;
-                    case R.id.bottom_nav_home:
-                        return true;
-                    default:
-                        return false;
-                }
-            }
-        });
 
 
         //genre recycler view
@@ -116,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
+        cartBtn = (ImageView) findViewById(R.id.cart_btn);
         searchBtn = (Button) findViewById(R.id.search_btn);
         userTxt = (TextView) findViewById(R.id.user_txt);
         toolbar = (Toolbar) findViewById(R.id.main_toolbar);
@@ -136,7 +115,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         actionBarDrawerToggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-
+cartBtn.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        sendToCart();
+    }
+});
 
 
 
