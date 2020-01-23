@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.bookstoreapp.pojo.Books;
 
 import java.util.List;
 
@@ -39,23 +40,35 @@ public class ProductActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
+
+        String id = intent.getStringExtra("id");
         String bookName = intent.getStringExtra("name");
         String img = intent.getStringExtra("url");
         String author = intent.getStringExtra("author");
         String price = intent.getStringExtra("price");
-     //   String publisher = intent.getStringExtra("publisher");
+//        String publisher = intent.getStringExtra("publisher");
+        String isbn = intent.getStringExtra("isbn");
+        String genre = intent.getStringExtra("genre");
+        String rating = intent.getStringExtra("rating");
+        String description = intent.getStringExtra("desc");
+//        String year = intent.getStringExtra("year");
+//        String binding = intent.getStringExtra("bind");
+//        String pages = intent.getStringExtra("pages");
+
         ImageView image = findViewById(R.id.book_img);
         TextView nameText = findViewById(R.id.book_name);
         TextView authorText = findViewById(R.id.author);
         TextView priceText = findViewById(R.id.price);
-   //     TextView publisherText = findViewById(R.id.publisher);
+//        TextView publisherText = findViewById(R.id.publisher);
+
         Glide.with(getBaseContext()).applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_launcher_foreground))
                 .load(img)
                 .into(image);
+
         nameText.setText(bookName);
         authorText.setText(author);
         priceText.setText(price);
- //       publisherText.setText(publisher);
+//        publisherText.setText(publisher);
 
 
 

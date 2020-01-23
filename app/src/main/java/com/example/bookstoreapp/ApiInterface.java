@@ -1,5 +1,10 @@
 package com.example.bookstoreapp;
 
+import com.example.bookstoreapp.pojo.Books;
+import com.example.bookstoreapp.pojo.CustId;
+import com.example.bookstoreapp.pojo.Login;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -15,6 +20,12 @@ public interface ApiInterface {
 
 //      @POST("getCustomer")
 //      Call<Customer> getCustomer();
+
+      @GET("getGenreList")
+      Call<ArrayList<String>> getGenre();
+
+      @GET("getProductByProductId/{id}")
+      Call<Books> getProductById(@Path("id") String id);
 
       @POST("login")
       Call<CustId> getCustId(@Body Login login);
