@@ -23,7 +23,7 @@ public class GenreMainActivityAdapter  extends RecyclerView.Adapter<GenreMainAct
     public  GenreMainActivityAdapter(ArrayList<String> list){
         this.genreList=list;
     }
-    private ArrayList<String> genreList = new ArrayList<>();
+    private ArrayList<String> genreList;
 
     @NonNull
     @Override

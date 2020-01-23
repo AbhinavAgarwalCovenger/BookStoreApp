@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onResponse(Call<ArrayList<String>> call, Response<ArrayList<String>> response) {
                 genreList = response.body();
                 RecyclerView recyclerView = findViewById(R.id.genre_recycler);
+                recyclerView.scrollToPosition(1);
                 GenreMainActivityAdapter genreMainActivityAdapter = new GenreMainActivityAdapter(genreList);
                 recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this,LinearLayoutManager.HORIZONTAL,true));
                 recyclerView.setAdapter(genreMainActivityAdapter);
@@ -91,14 +93,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        //Product recycler view
         Call<List<Books>> topBooks = api.getTopBooks();
         topBooks.enqueue(new Callback<List<Books>>() {
             @Override
             public void onResponse(Call<List<Books>> call, Response<List<Books>> response) {
                 topBooksList = response.body();
                 RecyclerView recyclerView = findViewById(R.id.top_product_recycler);
+                recyclerView.scrollToPosition(1);
                 TopPicksAdapter topPicksAdapter = new TopPicksAdapter(topBooksList,MainActivity.this);
-                recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this,LinearLayoutManager.VERTICAL,true));
+               // recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this,LinearLayoutManager.VERTICAL,true));
+                int numberOfColumns = 2;
+                recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, numberOfColumns));
                 recyclerView.setAdapter(topPicksAdapter);
             }
 
