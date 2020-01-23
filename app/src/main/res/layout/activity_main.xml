@@ -6,8 +6,7 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:id="@+id/drawer_layout"
-    >
+    android:id="@+id/drawer_layout">
 
 
  <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -20,28 +19,51 @@
 
  <androidx.appcompat.widget.Toolbar
      android:id="@+id/main_toolbar"
+     android:backgroundTint="@android:color/white"
      android:layout_width="match_parent"
-     android:layout_height="?attr/actionBarSize"
-     android:background="@android:color/white">
+     android:layout_height="wrap_content">
+
+
+     <ImageView
+         android:layout_marginStart="160dp"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:src="@drawable/ic_shopping_cart_black_24dp"/>
  </androidx.appcompat.widget.Toolbar>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/search_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Search for books"
+            android:textColor="@android:color/black"
+            android:textAllCaps="false"
+            android:layout_marginStart="8dp"
+            android:background="@color/colorPrimaryDark"
+            android:backgroundTint="@color/colorWhite"
+            android:drawableLeft="@drawable/search"
+            android:textSize="16sp"
+            />
+    </LinearLayout>
 
 </com.google.android.material.appbar.AppBarLayout>
 
      <LinearLayout
-         android:layout_marginTop="88dp"
+         android:layout_gravity="center"
          android:orientation="vertical"
          android:id="@+id/recycler_layout"
          android:layout_width="match_parent"
          android:layout_height="wrap_content">
 
-         <Button
-             android:id="@+id/search_btn"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_margin="16dp"
-             android:text="SEARCH BUTTON"
-             android:textColor="#000"
-             android:textSize="24sp"/>
+
+
+
 
          <androidx.recyclerview.widget.RecyclerView
              android:id="@+id/genre_recycler"
@@ -49,7 +71,6 @@
              android:layout_height="wrap_content">
 
          </androidx.recyclerview.widget.RecyclerView>
-
 
          <TextView
              android:layout_width="wrap_content"
@@ -59,7 +80,7 @@
              android:textSize="16sp"
              android:layout_marginBottom="8dp"
              android:textColor="@android:color/black"
-             ></TextView>
+             />
 
          <androidx.recyclerview.widget.RecyclerView
              android:id="@+id/top_product_recycler"
