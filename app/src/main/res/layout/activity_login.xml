@@ -8,66 +8,71 @@
     tools:context=".LoginActivity">
 
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:id="@+id/login_body_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="16sp">
 
-        <EditText
-            android:id="@+id/email_edit_txt"
+        <LinearLayout
+            android:id="@+id/login_body_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16sp"
             android:layout_marginTop="16sp"
-            android:hint="Enter your email"
-            android:inputType="textEmailAddress"
-            android:textSize="18sp"></EditText>
+            android:orientation="vertical">
+            
 
-        <EditText
-            android:id="@+id/password_edit_txt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16sp"
-            android:hint="Enter your password"
-            android:inputType="textPassword"></EditText>
+            <EditText
+                android:id="@+id/email_edit_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16sp"
+                android:layout_marginTop="16sp"
+                android:hint="Enter your email"
+                android:inputType="textEmailAddress"
+                android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/login_btn_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16sp"
-            android:text="LOGIN"></Button>
+            <EditText
+                android:id="@+id/password_edit_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16sp"
+                android:hint="Enter your password"
+                android:inputType="textPassword" />
 
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/google_btn"
-            android:layout_margin="16sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            ></com.google.android.gms.common.SignInButton>
-
-
-        <Button
-            android:id="@+id/register_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16sp"
-            android:text="NEW USER"/>
+            <Button
+                android:id="@+id/login_btn_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16sp"
+                android:text="LOGIN" />
 
 
-        <Button
-            android:id="@+id/guest_txt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16sp"
-            android:clickable="true"
-            android:text="Enter as guest"
-            android:textColor="@android:color/white"
-            android:textSize="24sp"/>
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/google_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16sp"
 
-    </LinearLayout>
+                />
+
+            <Button
+                android:id="@+id/register_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16sp"
+                android:text="NEW USER" />
+
+
+            <Button
+                android:id="@+id/guest_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16sp"
+                android:clickable="true"
+                android:text="Enter as guest"
+                android:textColor="@android:color/white"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
+
+
 
 
 
