@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bookstoreapp.adapater.GenreMainActivityAdapter;
+import com.example.bookstoreapp.adapater.TopPicksAdapter;
 import com.example.bookstoreapp.pojo.Books;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -39,7 +40,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, TopPicksAdapter.clickProduct {
 
     private Button searchBtn;
     private TextView userTxt;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView navigationView;
 
     private ArrayList<String> genreList;
+    private List<Books> topBooksList;
     SharedPreferences sharedPreferences;
     public static final String myPreference = "mypref";
 
@@ -85,9 +87,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onFailure(Call<ArrayList<String>> call, Throwable t) {
-                Toast.makeText(MainActivity.this,"Failed",Toast.LENGTH_LONG);
+                Toast.makeText(MainActivity.this,"Failed",Toast.LENGTH_LONG).show();
             }
         });
+
+        Call<List<Books>> topBooks = api.getTopBooks();
+        topBooks.enqueue(new Callback<List<Books>>() {
+            @Override
+            public void onResponse(Call<List<Books>> call, Response<List<Books>> response) {
+                topBooksList = response.body();
+                RecyclerView recyclerView = findViewById(R.id.top_product_recycler);
+                TopPicksAdapter topPicksAdapter = new TopPicksAdapter(topBooksList,MainActivity.this);
+                recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this,LinearLayoutManager.VERTICAL,true));
+                recyclerView.setAdapter(topPicksAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Books>> call, Throwable t) {
+                Toast.makeText(MainActivity.this,"Failed",Toast.LENGTH_LONG).show();
+            }
+        });
+
 
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -97,7 +117,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         cartBtn = (ImageView) findViewById(R.id.cart_btn);
         searchBtn = (Button) findViewById(R.id.search_btn);
-        userTxt = (TextView) findViewById(R.id.user_txt);
         toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -194,12 +213,10 @@ cartBtn.setOnClickListener(new View.OnClickListener() {
 
 
 
-            userTxt.setText("Welcome" + account);
             Toast.makeText(this, "" + account, Toast.LENGTH_SHORT).show();
 
         } else {
             // sendToLogin();
-            userTxt.setText("Welcome Guest");
             Toast.makeText(this, "" + account, Toast.LENGTH_SHORT).show();
         }
     }
@@ -246,5 +263,15 @@ cartBtn.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
+    }
+
+    @Override
+    public void onClick(Books book) {
+        String book_id = book.getProductId();
+        Intent intent = new Intent(MainActivity.this, ProductActivity.class);
+
+        intent.putExtra("id",book_id);
+
+        startActivity(intent);
     }
 }
