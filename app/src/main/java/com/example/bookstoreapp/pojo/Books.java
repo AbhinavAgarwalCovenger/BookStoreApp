@@ -2,6 +2,8 @@ package com.example.bookstoreapp.pojo;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.LinkedHashMap;
+
 public class Books{
 
 	@SerializedName("productId")
@@ -25,8 +27,8 @@ public class Books{
 	@SerializedName("description")
 	private String description;
 
-	@SerializedName("Attributes")
-	private Attributes Attributes;
+	@SerializedName("attributes")
+	private LinkedHashMap<String,String> Attributes;
 
 	@SerializedName("productName")
 	private String productName;
@@ -90,11 +92,11 @@ public class Books{
 		return description;
 	}
 
-	public void setAttributes(Attributes attributes){
+	public void setAttributes(LinkedHashMap<String,String> attributes){
 		this.Attributes = attributes;
 	}
 
-	public Attributes getAttributes(){
+	public LinkedHashMap<String, String> getAttributes(){
 		return Attributes;
 	}
 

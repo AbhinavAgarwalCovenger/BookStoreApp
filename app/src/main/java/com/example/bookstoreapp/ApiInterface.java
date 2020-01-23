@@ -20,6 +20,8 @@ public interface ApiInterface {
 
 //      @POST("getCustomer")
 //      Call<Customer> getCustomer();
+      @GET("getTopProducts")
+      Call<List<Books>> getTopBooks();
 
       @GET("getGenreList")
       Call<ArrayList<String>> getGenre();

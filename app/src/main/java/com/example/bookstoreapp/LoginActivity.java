@@ -165,6 +165,12 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
+                        @Override
+                        public void onFailure(Call<CustId> call, Throwable t) {
+                            Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                        }
+                    });
+
                 }else {
                     Toast.makeText(LoginActivity.this, "Please enter credentials!!", Toast.LENGTH_SHORT).show();
                         emailEditText.setError("Please enter email");

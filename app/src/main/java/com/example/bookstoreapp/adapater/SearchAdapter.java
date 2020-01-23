@@ -44,7 +44,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         holder.book_name.setText(booksList.get(position).getProductName());
         holder.author.setText(booksList.get(position).getAuthor());
         holder.price.setText(booksList.get(position).getPrice());
-      //  holder.publisher.setText(booksList.get(position).getAttributes().getPublisher());
         Glide.with(holder.book_image.getContext()).applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_launcher_foreground))
                 .load(booksList.get(position).getUrl()).into(holder.book_image);
     }
@@ -59,7 +58,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         ImageView book_image;
         TextView author;
         TextView price;
-        TextView publisher;
 
         ViewHolder(View itemView){
             super(itemView);
@@ -67,7 +65,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             this.book_name = itemView.findViewById(R.id.book_name);
             this.author = itemView.findViewById(R.id.author);
             this.price = itemView.findViewById(R.id.price);
-        //    this.publisher = itemView.findViewById(R.id.publisher);
         }
 
     }

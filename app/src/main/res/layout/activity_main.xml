@@ -33,30 +33,6 @@
          android:id="@+id/recycler_layout"
          android:layout_width="match_parent"
          android:layout_height="wrap_content">
-         <TextView
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text="Top Picks"
-             android:layout_margin="16dp"
-             android:textSize="32sp"
-             android:layout_marginBottom="8dp"
-             android:textColor="@android:color/black"
-             ></TextView>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/genre_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </androidx.recyclerview.widget.RecyclerView>
-     </LinearLayout>
-
-
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:layout_marginTop="400dp"
-         android:orientation="vertical">
 
          <Button
              android:id="@+id/search_btn"
@@ -66,6 +42,41 @@
              android:text="SEARCH BUTTON"
              android:textColor="#000"
              android:textSize="24sp"/>
+
+         <androidx.recyclerview.widget.RecyclerView
+             android:id="@+id/genre_recycler"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+
+         </androidx.recyclerview.widget.RecyclerView>
+
+
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Top Picks"
+             android:layout_margin="16dp"
+             android:textSize="16sp"
+             android:layout_marginBottom="8dp"
+             android:textColor="@android:color/black"
+             ></TextView>
+
+         <androidx.recyclerview.widget.RecyclerView
+             android:id="@+id/top_product_recycler"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+
+         </androidx.recyclerview.widget.RecyclerView>
+
+     </LinearLayout>
+
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="400dp"
+         android:orientation="vertical">
+
 
 
          <TextView
