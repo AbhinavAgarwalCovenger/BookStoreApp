@@ -21,15 +21,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.101">
 
-        <ImageView
-            android:id="@+id/book_image_gnr"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_launcher_foreground" />
+<!--        <ImageView-->
+<!--            android:id="@+id/book_image_gnr"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:srcCompat="@drawable/ic_launcher_foreground" />-->
 
         <TextView
             android:id="@+id/book_name_gnr"
@@ -41,34 +41,34 @@
             app:layout_constraintStart_toEndOf="@id/book_image"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/author_gnr"
-            android:layout_width="103dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="TextView"
-            app:layout_constraintStart_toEndOf="@+id/book_image"
-            app:layout_constraintTop_toTopOf="@id/book_name_gnr" />
+<!--        <TextView-->
+<!--            android:id="@+id/author_gnr"-->
+<!--            android:layout_width="103dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:text="TextView"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/book_image"-->
+<!--            app:layout_constraintTop_toTopOf="@id/book_name_gnr" />-->
 
-        <TextView
-            android:id="@+id/price_gnr"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="30dp"
-            android:text="TextView"
-            app:layout_constraintStart_toEndOf="@id/book_image_gnr"
-            app:layout_constraintTop_toTopOf="@id/author_gnr" />
+<!--        <TextView-->
+<!--            android:id="@+id/price_gnr"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:text="TextView"-->
+<!--            app:layout_constraintStart_toEndOf="@id/book_image_gnr"-->
+<!--            app:layout_constraintTop_toTopOf="@id/author_gnr" />-->
 
-        <TextView
-            android:id="@+id/publisher_gnr"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="30dp"
-            android:text="TextView"
-            app:layout_constraintStart_toEndOf="@id/book_image_gnr"
-            app:layout_constraintTop_toTopOf="@id/price_gnr" />
+<!--        <TextView-->
+<!--            android:id="@+id/publisher_gnr"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:text="TextView"-->
+<!--            app:layout_constraintStart_toEndOf="@id/book_image_gnr"-->
+<!--            app:layout_constraintTop_toTopOf="@id/price_gnr" />-->
 
     </androidx.cardview.widget.CardView>
 

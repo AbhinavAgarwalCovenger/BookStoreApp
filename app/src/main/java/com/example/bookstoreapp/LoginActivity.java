@@ -142,7 +142,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<CustId> call, Throwable t) {
-
+                            Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_LONG).show();
                         }
                     });
                 }else {
