@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bookstoreapp.pojo.CustId;
@@ -22,6 +23,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
+import org.w3c.dom.Text;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,12 +36,14 @@ import retrofit2.Retrofit;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
 
 public class LoginActivity extends AppCompatActivity {
-    EditText emailEditText;
-    EditText passwordEditText;
+    TextInputEditText emailEditText;
+    TextInputEditText passwordEditText;
     Button loginBtn;
-    Button newUser;
+    TextView newUser;
     Button guestTxt;
     SignInButton google_btn;
+    TextInputLayout emailInput;
+    TextInputLayout passwordInput;
     GoogleSignInClient mGoogleSignInClient;
     int RC_SIGN_IN = 0;
     SharedPreferences sharedPreferences;
@@ -53,13 +60,15 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         //Initializing all the views
-        newUser = (Button) findViewById(R.id.register_btn);
+        newUser = (TextView) findViewById(R.id.register_btn);
         loginBtn = (Button) findViewById(R.id.login_btn_1);
-        emailEditText = (EditText) findViewById(R.id.email_edit_txt);
-        passwordEditText = (EditText) findViewById(R.id.password_edit_txt);
+        emailEditText = (TextInputEditText) findViewById(R.id.email_edit_txt);
+        passwordEditText = (TextInputEditText) findViewById(R.id.password_edit_txt);
         google_btn = (SignInButton) findViewById(R.id.google_btn);
         guestTxt = (Button) findViewById(R.id.guest_txt);
         sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
+        emailInput = (TextInputLayout) findViewById(R.id.email_input);
+        passwordInput = (TextInputLayout) findViewById(R.id.password_input);
 
 
 
@@ -98,55 +107,73 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String email = emailEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
+                final String password = passwordEditText.getText().toString();
 
 
 
-                if(email.length()!=0 && password.length()!=0){
-                    login.setEmail(email);
-                    login.setPassword(password);
-                    login.setLoginType("customer");
+                if(email.length()!=0){
+                    emailInput.setErrorEnabled(false);
 
-                    Retrofit retrofit = RetrofitController.getRetrofit();
-                    ApiInterface api = retrofit.create(ApiInterface.class);
-                    Call<CustId> call = api.getCustId(login);
-                    call.enqueue(new Callback<CustId>() {
-                        @Override
-                        public void onResponse(Call<CustId> call, Response<CustId> response) {
-                            custId=response.body();
-                            Toast.makeText(LoginActivity.this,custId.getResponse(),Toast.LENGTH_LONG).show();
+                    if(password.length()!=0){
+                        passwordInput.setErrorEnabled(false);
+                        login.setEmail(email);
+                        login.setPassword(password);
+                        login.setLoginType("customer");
+
+                        Retrofit retrofit = RetrofitController.getRetrofit();
+                        ApiInterface api = retrofit.create(ApiInterface.class);
+                        Call<CustId> call = api.getCustId(login);
+                        call.enqueue(new Callback<CustId>() {
+                            @Override
+                            public void onResponse(Call<CustId> call, Response<CustId> response) {
+                                custId=response.body();
+                                Toast.makeText(LoginActivity.this,custId.getResponse(),Toast.LENGTH_LONG).show();
 
 
-                            if(custId.getResponse().equals("Not registered")){
-                                Toast.makeText(LoginActivity.this, "Please Register First", Toast.LENGTH_SHORT).show();
-                            }else if(custId.getResponse().equals("Wrong Password")){
-                                Toast.makeText(LoginActivity.this, "wrong Password", Toast.LENGTH_SHORT).show();
+                                if(custId.getResponse().equals("Not registered")){
+                                    Toast.makeText(LoginActivity.this, "Please Register First", Toast.LENGTH_SHORT).show();
+                                }else if(custId.getResponse().equals("Wrong Password")){
+                                    Toast.makeText(LoginActivity.this, "wrong Password", Toast.LENGTH_SHORT).show();
+                                    passwordInput.setError("Invalid Password");
+                                   // passwordInput.setErrorEnabled(false);
+                                }
+                                else {
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    String id = custId.getResponse().toString();
+                                    editor.putString("user_id",id);
+                                    editor.commit();
+                                    Toast.makeText(LoginActivity.this, "Successful!!", Toast.LENGTH_SHORT).show();
+                                    //SaveSharedPreference.setLoggedIn(getApplicationContext(), true);
+                                    sendToMain();
+                                }
+
+
+
+
+
+
+
                             }
-                            else {
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                String id = custId.getResponse().toString();
-                                editor.putString("user_id",id);
-                                editor.commit();
-                                Toast.makeText(LoginActivity.this, "Successful!!", Toast.LENGTH_SHORT).show();
-                                //SaveSharedPreference.setLoggedIn(getApplicationContext(), true);
-                                sendToMain();
+
+                            @Override
+                            public void onFailure(Call<CustId> call, Throwable t) {
+
                             }
+                        });
+                    }else passwordEditText.setError("Please enter Password");
 
 
 
-
-
-
-
-                        }
 
                         @Override
                         public void onFailure(Call<CustId> call, Throwable t) {
                             Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_LONG).show();
                         }
                     });
+
                 }else {
                     Toast.makeText(LoginActivity.this, "Please enter credentials!!", Toast.LENGTH_SHORT).show();
+                        emailEditText.setError("Please enter email");
 
                 }
 
