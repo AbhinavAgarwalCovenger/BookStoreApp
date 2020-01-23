@@ -63,9 +63,6 @@
          android:layout_height="wrap_content">
 
 
-
-
-
          <androidx.recyclerview.widget.RecyclerView
              android:id="@+id/genre_recycler"
              android:layout_width="match_parent"
@@ -74,53 +71,26 @@
          </androidx.recyclerview.widget.RecyclerView>
 
          <TextView
+             android:id="@+id/top_picks"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:text="Top Picks"
-             android:layout_margin="16dp"
+             android:layout_margin="8dp"
              android:textSize="16sp"
-             android:layout_marginBottom="8dp"
              android:textColor="@android:color/black"
              />
 
          <androidx.recyclerview.widget.RecyclerView
              android:id="@+id/top_product_recycler"
              android:layout_width="match_parent"
-             android:layout_height="wrap_content">
+             android:layout_height="250dp">
 
          </androidx.recyclerview.widget.RecyclerView>
 
      </LinearLayout>
 
 
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:layout_marginTop="400dp"
-         android:orientation="vertical">
 
-
-
-         <TextView
-             android:id="@+id/user_txt"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_gravity="center"
-             android:layout_margin="16sp"
-             android:text="Guest/UserName"
-             android:textColor="#000"
-             android:textSize="24sp"/>
-
-     </LinearLayout>
-     <LinearLayout
-         android:orientation="vertical"
-         android:layout_gravity="bottom"
-         android:id="@+id/bottom_nav_layout"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content">
-
-
-     </LinearLayout>
 
 
  </androidx.coordinatorlayout.widget.CoordinatorLayout>
