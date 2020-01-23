@@ -3,7 +3,7 @@ package com.example.bookstoreapp;
 
 import com.google.gson.annotations.SerializedName;
 
-public class attributes {
+public class Attributes {
 
 	@SerializedName("year")
 	private String year;
@@ -52,7 +52,7 @@ public class attributes {
 	@Override
  	public String toString(){
 		return 
-			"attributes{" +
+			"Attributes{" +
 			"year = '" + year + '\'' + 
 			",noofpages = '" + noofpages + '\'' + 
 			",publisher = '" + publisher + '\'' + 

@@ -26,7 +26,7 @@ public class Books{
 	private String description;
 
 	@SerializedName("attributes")
-	private com.example.bookstoreapp.attributes attributes;
+	private Attributes attributes;
 
 	@SerializedName("productName")
 	private String productName;
@@ -90,11 +90,11 @@ public class Books{
 		return description;
 	}
 
-	public void setAttributes(com.example.bookstoreapp.attributes attributes){
+	public void setAttributes(Attributes attributes){
 		this.attributes = attributes;
 	}
 
-	public com.example.bookstoreapp.attributes getAttributes(){
+	public Attributes getAttributes(){
 		return attributes;
 	}
 
@@ -125,7 +125,7 @@ public class Books{
 			",genre = '" + genre + '\'' + 
 			",rating = '" + rating + '\'' + 
 			",description = '" + description + '\'' + 
-			",attributes = '" + attributes + '\'' +
+			",Attributes = '" + attributes + '\'' +
 			",productName = '" + productName + '\'' + 
 			",url = '" + url + '\'' + 
 			"}";
