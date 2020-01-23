@@ -34,9 +34,9 @@
 
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <Button
             android:id="@+id/search_btn"
             android:layout_width="match_parent"
@@ -51,6 +51,13 @@
             android:drawableLeft="@drawable/search"
             android:textSize="16sp"
             />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/genre_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
     </LinearLayout>
 
 </com.google.android.material.appbar.AppBarLayout>
@@ -66,12 +73,7 @@
 
 
 
-         <androidx.recyclerview.widget.RecyclerView
-             android:id="@+id/genre_recycler"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content">
 
-         </androidx.recyclerview.widget.RecyclerView>
 
          <TextView
              android:layout_width="wrap_content"

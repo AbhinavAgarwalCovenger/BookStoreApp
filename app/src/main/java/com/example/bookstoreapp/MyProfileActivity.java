@@ -7,33 +7,27 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MyProfileActivity extends AppCompatActivity {
 
-    Button order_history;
-    Button login_history;
+private CircleImageView mProfilePic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
 
-        order_history = (Button) findViewById(R.id.cust_order_history);
-        login_history = (Button) findViewById(R.id.cust_login_history);
+        mProfilePic = (CircleImageView) findViewById(R.id.profile_image);
 
-        order_history.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MyProfileActivity.this, OrderHistoryActivity.class);
-                startActivity(intent);
-            }
-        });
+        Glide.with(this).applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_launcher_background))
+                .load("https://image.shutterstock.com/image-photo/beautiful-water-drop-on-dandelion-260nw-789676552.jpg")
+                .into(mProfilePic);
 
-        login_history.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MyProfileActivity.this, LoginHistoryActivity.class);
-                startActivity(intent);
-            }
-        });
+
+
     }
 }
