@@ -19,8 +19,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bookstoreapp.adapater.GenreMainActivityAdapter;
+import com.example.bookstoreapp.pojo.Books;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -29,6 +30,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
 
-    private List<Books> booksList;
+    private ArrayList<String> genreList;
     private BottomNavigationView mMainNav;
     SharedPreferences sharedPreferences;
     public static final String myPreference = "mypref";
@@ -91,19 +93,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Retrofit retrofit= RetrofitController.getRetrofit();
         ApiInterface api = retrofit.create(ApiInterface.class);
-        Call<List<Books>> call = api.getBooksByGenre("fiction");
-        call.enqueue(new Callback<List<Books>>() {
+        Call<ArrayList<String>> call = api.getGenre();
+        call.enqueue(new Callback<ArrayList<String>>() {
             @Override
-            public void onResponse(Call<List<Books>> call, Response<List<Books>> response) {
-                booksList = response.body();
+            public void onResponse(Call<ArrayList<String>> call, Response<ArrayList<String>> response) {
+                genreList = response.body();
                 RecyclerView recyclerView = findViewById(R.id.genre_recycler);
-                GenreMainActivityAdapter genreMainActivityAdapter = new GenreMainActivityAdapter(booksList);
+                GenreMainActivityAdapter genreMainActivityAdapter = new GenreMainActivityAdapter(genreList);
                 recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this,LinearLayoutManager.HORIZONTAL,true));
                 recyclerView.setAdapter(genreMainActivityAdapter);
             }
 
             @Override
-            public void onFailure(Call<List<Books>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<String>> call, Throwable t) {
                 Toast.makeText(MainActivity.this,"Failed",Toast.LENGTH_LONG);
             }
         });
