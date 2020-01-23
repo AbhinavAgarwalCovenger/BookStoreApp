@@ -1,4 +1,4 @@
-package com.example.bookstoreapp;
+package com.example.bookstoreapp.pojo;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -25,8 +25,8 @@ public class Books{
 	@SerializedName("description")
 	private String description;
 
-	@SerializedName("attributes")
-	private Attributes attributes;
+	@SerializedName("Attributes")
+	private Attributes Attributes;
 
 	@SerializedName("productName")
 	private String productName;
@@ -91,11 +91,11 @@ public class Books{
 	}
 
 	public void setAttributes(Attributes attributes){
-		this.attributes = attributes;
+		this.Attributes = attributes;
 	}
 
 	public Attributes getAttributes(){
-		return attributes;
+		return Attributes;
 	}
 
 	public void setProductName(String productName){
@@ -125,7 +125,7 @@ public class Books{
 			",genre = '" + genre + '\'' + 
 			",rating = '" + rating + '\'' + 
 			",description = '" + description + '\'' + 
-			",Attributes = '" + attributes + '\'' +
+			",Attributes = '" + Attributes + '\'' +
 			",productName = '" + productName + '\'' + 
 			",url = '" + url + '\'' + 
 			"}";
