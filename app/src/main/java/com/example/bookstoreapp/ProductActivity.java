@@ -69,6 +69,9 @@ public class ProductActivity extends AppCompatActivity {
                     String year = books.getAttributes().get("year");
                     String binding = books.getAttributes().get("binding");
                     String pages = books.getAttributes().get("noofpages");
+                    String mid = books.getMerchantId();
+
+                    Toast.makeText(getBaseContext(),mid,Toast.LENGTH_LONG).show();
 
                     ImageView image = findViewById(R.id.book_img);
                     TextView nameText = findViewById(R.id.book_name);
