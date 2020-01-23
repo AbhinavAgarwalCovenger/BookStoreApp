@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bookstoreapp.pojo.Customer;
+import com.google.android.material.textfield.TextInputEditText;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -19,26 +21,35 @@ import retrofit2.Retrofit;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText mEmail;
-    EditText mName;
-    EditText mPassword;
-    EditText mAddress;
-    EditText mPincode;
-    EditText mPhone;
+    TextInputEditText mEmail;
+    TextInputEditText mName;
+    TextInputEditText mPassword;
+    TextInputEditText mAddress;
+    TextInputEditText mPincode;
+    TextInputEditText mPhone;
     Button mRegister;
     Customer cust;
+    TextView loginText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         mRegister = (Button) findViewById(R.id.register_btn_reg);
-        mName = (EditText) findViewById(R.id.name_edit_txt_reg);
-        mEmail = (EditText) findViewById(R.id.email_edit_txt_reg);
-        mPassword = (EditText) findViewById(R.id.password_edit_txt_reg);
-        mAddress = (EditText) findViewById(R.id.address_edit_txt_reg);
-        mPincode = (EditText) findViewById(R.id.pincode_edit_txt_reg);
-        mPhone = (EditText) findViewById(R.id.phone_edit_txt_reg);
+        mName = (TextInputEditText) findViewById(R.id.name_edit_txt_reg);
+        mEmail = (TextInputEditText) findViewById(R.id.email_edit_txt_reg);
+        mPassword = (TextInputEditText) findViewById(R.id.password_edit_txt_reg);
+        mAddress = (TextInputEditText) findViewById(R.id.address_edit_txt_reg);
+        mPincode = (TextInputEditText) findViewById(R.id.pincode_edit_txt_reg);
+        mPhone = (TextInputEditText) findViewById(R.id.phone_edit_txt_reg);
+        loginText = (TextView) findViewById(R.id.login_txt);
+
+        loginText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendToLogin();
+            }
+        });
 
 
         mRegister.setOnClickListener(new View.OnClickListener() {
@@ -54,44 +65,61 @@ public class RegisterActivity extends AppCompatActivity {
                 phone_number = mPhone.getText().toString();
                 pincode = mPincode.getText().toString();
 
-                if (email.length() != 0 && name.length() != 0 && password.length() != 0) {
+                if(name.length()!=0){
+
+                    if(email.length()!=0){
+                        if(password.length()!=0){
+                            cust = new Customer();
+
+                            cust.setName(name);
+                            cust.setEmail(email);
+                            cust.setAddress(address);
+                            cust.setPassword(password);
+                            cust.setLoginType("customer");
+                            cust.setPhoneNumber(phone_number);
+                            cust.setPincode(pincode);
 
 
-                    cust = new Customer();
-
-                    cust.setName(name);
-                    cust.setEmail(email);
-                    cust.setAddress(address);
-                    cust.setPassword(password);
-                    cust.setLoginType("customer");
-                    cust.setPhoneNumber(phone_number);
-                    cust.setPincode(pincode);
-
-
-                    Retrofit retrofit = RetrofitController.getRetrofit();
-                    SignUpApi api = retrofit.create(SignUpApi.class);
-                    Call<ResponseBody> call = api.createUser(cust);
-                    call.enqueue(new Callback<ResponseBody>() {
-                        @Override
-                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            Retrofit retrofit = RetrofitController.getRetrofit();
+                            SignUpApi api = retrofit.create(SignUpApi.class);
+                            Call<ResponseBody> call = api.createUser(cust);
+                            call.enqueue(new Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 //                            String s = response.body().toString();
 //                            Toast.makeText(RegisterActivity.this,s,Toast.LENGTH_LONG).show();
+                                    Toast.makeText(RegisterActivity.this, "Register successfull!!", Toast.LENGTH_SHORT).show();
+
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                    Toast.makeText(RegisterActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            });
+
                             Toast.makeText(RegisterActivity.this, "Register successfull!!", Toast.LENGTH_SHORT).show();
+                            sendToMain();
 
+
+
+
+
+                        }//end of pass
+                        else {
+                            mPassword.setError("Please enter Password");
                         }
-
-                        @Override
-                        public void onFailure(Call<ResponseBody> call, Throwable t) {
-                            Toast.makeText(RegisterActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    });
-
-                    Toast.makeText(RegisterActivity.this, "Register successfull!!", Toast.LENGTH_SHORT).show();
-                    sendToMain();
-
-                } else {
-                    Toast.makeText(RegisterActivity.this, "Please enter details", Toast.LENGTH_SHORT).show();
+                    }//end of name
+                    else{
+                        mEmail.setError("Please enter Name");
+                    }
+                }//end of email
+                else{
+                    mName.setError("Please enter email");
                 }
+
+
+
 
 
             }
