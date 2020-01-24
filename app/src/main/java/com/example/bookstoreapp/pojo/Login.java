@@ -13,8 +13,8 @@ public class Login{
 	@SerializedName("email")
 	private String email;
 
-	@SerializedName("Uid")
-	private String cartId;
+	@SerializedName("deviceId")
+	private String deviceId;
 
 	public void setPassword(String password){
 		this.password = password;
@@ -40,12 +40,12 @@ public class Login{
 		return email;
 	}
 
-	public String getCartId() {
-		return cartId;
+	public String getDeviceId() {
+		return deviceId;
 	}
 
-	public void setCartId(String cartId) {
-		this.cartId = cartId;
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class Login{
 			"password = '" + password + '\'' + 
 			",loginType = '" + loginType + '\'' + 
 			",email = '" + email + '\'' +
-			",cartId = '" + cartId + '\'' +
+			",deviceId = '" + deviceId + '\'' +
 					"}";
 		}
 }
