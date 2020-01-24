@@ -1,71 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProductActivity">
-
-    <ImageView
-        android:id="@+id/book_img"
-        android:layout_width="240dp"
-        android:layout_height="320dp"
-        android:layout_margin="8sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <TextView
-        android:id="@+id/book_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:textSize="24sp"
-        app:layout_constraintTop_toBottomOf="@+id/book_img"
-        app:layout_constraintStart_toStartOf="parent"/>
-    <TextView
-        android:id="@+id/author"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/book_name"
-        app:layout_constraintStart_toStartOf="parent"/>
-    <TextView
-        android:id="@+id/price"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:textSize="40sp"
-        app:layout_constraintTop_toBottomOf="@+id/author"
-        app:layout_constraintStart_toStartOf="parent"/>
-    <TextView
-        android:id="@+id/publisher"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/price"
-        app:layout_constraintStart_toStartOf="parent"/>
+    tools:context=".ProductActivity"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/publisher"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal">
-
-
-        <Button
-            android:id="@+id/add_to_cart"
-            android:layout_width="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_margin="16dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:text="Add to Cart"/>
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_gravity="start"
+                android:id="@+id/book_img"
+                android:layout_width="160dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="8sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:layout_gravity="start"
+                    android:id="@+id/book_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Book Name"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    android:textSize="24sp" />
+                <TextView
+                    android:layout_gravity="start"
+                    android:id="@+id/author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    android:text="Author Name"
+                    android:textSize="16sp" />
+                <LinearLayout
+                    android:layout_gravity="center"
+                    android:gravity="start"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:gravity="start"
+                        android:layout_gravity="start"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
+                        android:text="Rs."
+                        android:textSize="32dp" />
+
+                    <TextView
+                        android:layout_gravity="start"
+                        android:id="@+id/price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:text="Price"
+                        android:textSize="32dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_gravity="start"
+                    android:id="@+id/publisher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Publisher"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/price"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:layout_marginStart="8dp"
+        android:layout_gravity="center"
+        android:id="@+id/product_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="@string/product_desc"
+        />
+
+    <Button
+        android:layout_margin="32dp"
+        android:id="@+id/add_to_cart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ADD TO CART"
+        android:layout_gravity="center"
+        />
+</LinearLayout>
+
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</ScrollView>
