@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -116,9 +117,12 @@ public class LoginActivity extends AppCompatActivity {
 
                     if(password.length()!=0){
                         passwordInput.setErrorEnabled(false);
+                        String id = Settings.Secure.getString(getContentResolver(),Settings.Secure.ANDROID_ID);
+
                         login.setEmail(email);
                         login.setPassword(password);
                         login.setLoginType("customer");
+                        login.setCartId(id);
 
                         Retrofit retrofit = RetrofitController.getRetrofit();
                         ApiInterface api = retrofit.create(ApiInterface.class);
@@ -135,15 +139,13 @@ public class LoginActivity extends AppCompatActivity {
                                 }else if(custId.getResponse().equals("Wrong Password")){
                                     Toast.makeText(LoginActivity.this, "wrong Password", Toast.LENGTH_SHORT).show();
                                     passwordInput.setError("Invalid Password");
-                                   // passwordInput.setErrorEnabled(false);
                                 }
                                 else {
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    String id = custId.getResponse().toString();
+                                    String id = custId.getResponse();
                                     editor.putString("user_id",id);
                                     editor.commit();
                                     Toast.makeText(LoginActivity.this, "Successful!!", Toast.LENGTH_SHORT).show();
-                                    //SaveSharedPreference.setLoggedIn(getApplicationContext(), true);
                                     sendToMain();
                                 }
 

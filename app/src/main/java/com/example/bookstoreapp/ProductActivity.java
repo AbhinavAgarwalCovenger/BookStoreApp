@@ -2,8 +2,11 @@ package com.example.bookstoreapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,6 +16,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.bookstoreapp.pojo.Books;
+import com.example.bookstoreapp.pojo.Cart;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -27,8 +31,12 @@ public class ProductActivity extends AppCompatActivity {
     private List<Books> booksList;
     Button add_to_cart_btn;
     Books books;
+    Cart cart;
     Retrofit retrofit= RetrofitController.getRetrofit();
     ApiInterface api = retrofit.create(ApiInterface.class);
+
+    SharedPreferences sharedPreferences;
+    public static final String myPreference = "mypref";
 
 
     @Override
@@ -41,15 +49,27 @@ public class ProductActivity extends AppCompatActivity {
         add_to_cart_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addToList();
+                Call<String> call = api.addToCart(cart);
+                call.enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        String res = response.body().toString();
+                        Toast.makeText(getBaseContext(),res,Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
 
         books = new Books();
-
+        cart = new Cart();
         Intent intent = getIntent();
 
-        String book_id = intent.getStringExtra("id");
+        final String book_id = intent.getStringExtra("id");
 
         Call<Books> call =api.getProductById(book_id);
         call.enqueue(new Callback<Books>() {
@@ -70,6 +90,23 @@ public class ProductActivity extends AppCompatActivity {
                     String binding = books.getAttributes().get("binding");
                     String pages = books.getAttributes().get("noofpages");
                     String mid = books.getMerchantId();
+//                    String pid = books.getProductId();
+                    sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
+                    String user_id = sharedPreferences.getString("user_id", null);
+
+//                    SharedPreferences.Editor editor = sharedPreferences.edit();
+//                    editor.putString("quantity",books.getQuantity());
+//                    editor.commit();
+                    cart.setProductId(book_id);
+                    cart.setMerchantId(mid);
+                    cart.setQuantity("1");
+                    if (user_id!=null) {
+                        cart.setCartId(user_id);
+                    }
+                    else {
+                        String id = Settings.Secure.getString(getContentResolver(),Settings.Secure.ANDROID_ID);
+                        cart.setCartId(id);
+                    }
 
                     Toast.makeText(getBaseContext(),mid,Toast.LENGTH_LONG).show();
 
@@ -110,11 +147,6 @@ public class ProductActivity extends AppCompatActivity {
 
     }
 
-    private void addToList() {
-
-
-
-    }
 
 
 }

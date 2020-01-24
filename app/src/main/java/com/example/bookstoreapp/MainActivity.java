@@ -54,20 +54,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private ArrayList<String> genreList;
     private List<Books> topBooksList;
+
     SharedPreferences sharedPreferences;
     public static final String myPreference = "mypref";
 
     GoogleSignInClient mGoogleSignInClient;
-    GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
-
 
 
 
@@ -148,10 +144,6 @@ cartBtn.setOnClickListener(new View.OnClickListener() {
 });
 
 
-
-
-
-
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -188,7 +180,6 @@ cartBtn.setOnClickListener(new View.OnClickListener() {
     @Override
     protected void onStart() {
         super.onStart();
-//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
         String account = sharedPreferences.getString("user_id", null);
         updateUI(account);
@@ -198,11 +189,8 @@ cartBtn.setOnClickListener(new View.OnClickListener() {
 
 
         if (account != null) {
-            //Information from google
-//            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
 
             //change drawer logout/login to logout
-
 
             Menu menu = navigationView.getMenu();
 
@@ -211,13 +199,6 @@ cartBtn.setOnClickListener(new View.OnClickListener() {
 
             // set new title to the MenuItem
             nav_logout.setTitle("Logout");
-
-
-
-
-
-
-
 
             Toast.makeText(this, "" + account, Toast.LENGTH_SHORT).show();
 

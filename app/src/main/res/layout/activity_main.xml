@@ -105,6 +105,10 @@
 
 
 
+         <androidx.recyclerview.widget.RecyclerView
+             android:id="@+id/top_product_recycler"
+             android:layout_width="match_parent"
+             android:layout_height="300dp">
 
 </LinearLayout>
 
