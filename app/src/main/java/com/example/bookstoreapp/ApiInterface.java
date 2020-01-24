@@ -15,6 +15,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiInterface {
 
@@ -29,6 +30,11 @@ public interface ApiInterface {
 
       @GET("getGenreList")
       Call<ArrayList<String>> getGenre();
+
+      @GET("search/")
+      Call<List<Books>> getSearch(
+              @Query("keyword") String keyword
+      );
 
       @GET("getProductByProductId/{id}")
       Call<Books> getProductById(@Path("id") String id);
