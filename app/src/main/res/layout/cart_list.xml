@@ -40,8 +40,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
+        android:textColor="@color/colorBlack"
         app:layout_constraintStart_toEndOf="@id/book_image_cart"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,17 +51,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/colorBlack"
         android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/book_image_cart"
         app:layout_constraintTop_toTopOf="@id/book_name_cart" />
 
     <TextView
         android:id="@+id/price_cart"
+        android:textColor="@color/colorBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
         app:layout_constraintStart_toEndOf="@id/book_image_cart"
         app:layout_constraintTop_toTopOf="@id/author_cart" />
