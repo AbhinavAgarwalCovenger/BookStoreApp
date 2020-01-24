@@ -57,7 +57,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.removeOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickItem.onClickRemove(booksList.get(position));
+                clickItem.onClickRemove(booksList.get(position),holder.getAdapterPosition());
             }
         });
         holder.removeItem.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +98,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     public interface clickItem{
         void onClickAdd(Books book, int position);
-        void onClickRemove(Books book);
+        void onClickRemove(Books book,int position);
         void onClickDelete(Books book, int position);
     }
 }
