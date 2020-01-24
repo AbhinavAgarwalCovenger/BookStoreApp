@@ -219,10 +219,10 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.click
     }
 
     @Override
-    public void onClickRemove(Books book) {
+    public void onClickRemove(final Books book, final int position) {
         int quantity = Integer.parseInt(book.getQuantity());
         quantity-=1;
-        String q = String.valueOf(quantity);
+        final String q = String.valueOf(quantity);
         cart.setMerchantId(book.getMerchantId());
         cart.setProductId(book.getProductId());
         cart.setQuantity(q);
@@ -233,18 +233,28 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.click
         }
         cart.setCartId(account);
 
-//        Call<String> call = api.addToCart(cart);
-//        call.enqueue(new Callback<String>() {
-//            @Override
-//            public void onResponse(Call<String> call, Response<String> response) {
-//                Toast.makeText(getBaseContext(),"Success",Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<String> call, Throwable t) {
-//                Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        Call<ResponseBody> call = api.addToCart(cart);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+
+                    if(null != response.body() && response.body().string().toLowerCase().equals("success")){
+                        Books books = cartList.get(position);
+                        books.setQuantity(q);
+                        cartList.set(position, book);
+                        cartAdapter.notifyDataSetChanged();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(CartActivity.this, "Failure", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 }
