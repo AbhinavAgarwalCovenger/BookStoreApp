@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 
@@ -31,10 +34,13 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.c
     Retrofit retrofit= RetrofitController.getRetrofit();
     ApiInterface api = retrofit.create(ApiInterface.class);
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        Button button = findViewById(R.id.search_button);
+        final EditText search = findViewById(R.id.search_bar);
 
         //bottom nav
         mSearchNav = (BottomNavigationView) findViewById(R.id.bottom_nav_view_search);
@@ -54,21 +60,28 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.c
             }
         });
 
-        Call<List<Books>> call = api.getBooksByGenre("fiction");
-        call.enqueue(new Callback<List<Books>>() {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(Call<List<Books>> call, Response<List<Books>> response) {
-                booksList = response.body();
-                RecyclerView recyclerView = findViewById(R.id.recycle);
-                SearchAdapter searchAdapter = new SearchAdapter(booksList,SearchActivity.this);
-                int no_of_coloumns = 2;
-                recyclerView.setLayoutManager(new GridLayoutManager(SearchActivity.this,no_of_coloumns));
-                recyclerView.setAdapter(searchAdapter);
-            }
+            public void onClick(View v) {
 
-            @Override
-            public void onFailure(Call<List<Books>> call, Throwable t) {
-                Toast.makeText(SearchActivity.this,"Failed",Toast.LENGTH_LONG);
+                String text = search.getText().toString();
+                Call<List<Books>> call = api.getSearch(text);
+                call.enqueue(new Callback<List<Books>>() {
+                    @Override
+                    public void onResponse(Call<List<Books>> call, Response<List<Books>> response) {
+                        booksList = response.body();
+                        RecyclerView recyclerView = findViewById(R.id.recycle);
+                        SearchAdapter searchAdapter = new SearchAdapter(booksList,SearchActivity.this);
+                        int no_of_coloumns = 2;
+                        recyclerView.setLayoutManager(new GridLayoutManager(SearchActivity.this,no_of_coloumns));
+                        recyclerView.setAdapter(searchAdapter);
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Books>> call, Throwable t) {
+                        Toast.makeText(SearchActivity.this,"Failed",Toast.LENGTH_LONG);
+                    }
+                });
             }
         });
     }
