@@ -39,7 +39,7 @@ public class CartActivity extends AppCompatActivity {
 
 //    GoogleSignInClient mGoogleSignInClient;
 //    GoogleApiClient mGoogleApiClient;
-    private BottomNavigationView mCartNav;
+  //  private BottomNavigationView mCartNav;
     SharedPreferences sharedPreferences;
     public static final String myPreference = "mypref";
     Retrofit retrofit = RetrofitController.getRetrofit();
@@ -57,22 +57,7 @@ public class CartActivity extends AppCompatActivity {
 
 
         //bottom nav
-        mCartNav = (BottomNavigationView) findViewById(R.id.bottom_nav_view_cart);
 
-        mCartNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                switch (item.getItemId()) {
-                    case R.id.bottom_nav_back: finish();
-                        return true;
-                    case R.id.bottom_nav_cart:
-                        return true;
-                    case R.id.bottom_nav_home: sendToMain();
-                    default:return false;
-                }
-            }
-        });
 
 
         sharedPreferences=getSharedPreferences(myPreference, Context.MODE_PRIVATE);
