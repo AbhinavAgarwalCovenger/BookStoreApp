@@ -54,12 +54,12 @@ public class ProductActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         String res = response.body().toString();
-                        Toast.makeText(getBaseContext(),res,Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(),res,Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
-                        Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -90,13 +90,11 @@ public class ProductActivity extends AppCompatActivity {
                     String binding = books.getAttributes().get("binding");
                     String pages = books.getAttributes().get("noofpages");
                     String mid = books.getMerchantId();
-//                    String pid = books.getProductId();
+
                     sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
                     String user_id = sharedPreferences.getString("user_id", null);
 
-//                    SharedPreferences.Editor editor = sharedPreferences.edit();
-//                    editor.putString("quantity",books.getQuantity());
-//                    editor.commit();
+
                     cart.setProductId(book_id);
                     cart.setMerchantId(mid);
                     cart.setQuantity("1");
@@ -105,10 +103,13 @@ public class ProductActivity extends AppCompatActivity {
                     }
                     else {
                         String id = Settings.Secure.getString(getContentResolver(),Settings.Secure.ANDROID_ID);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("guest_id",id);
+                        editor.commit();
                         cart.setCartId(id);
                     }
 
-                    Toast.makeText(getBaseContext(),mid,Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(),mid,Toast.LENGTH_SHORT).show();
 
                     ImageView image = findViewById(R.id.book_img);
                     TextView nameText = findViewById(R.id.book_name);
@@ -126,7 +127,7 @@ public class ProductActivity extends AppCompatActivity {
                     publisherText.setText(publisher);
                 }
                 else {
-                    Toast.makeText(getBaseContext(),"Failed",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(),"Failed",Toast.LENGTH_SHORT).show();
                 }
 
                 Toast.makeText(ProductActivity.this, "Success!!", Toast.LENGTH_SHORT).show();
@@ -134,7 +135,7 @@ public class ProductActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Books> call, Throwable t) {
-                Toast.makeText(ProductActivity.this,"Failed",Toast.LENGTH_LONG).show();
+                Toast.makeText(ProductActivity.this,"Failed",Toast.LENGTH_SHORT).show();
             }
         });
 
