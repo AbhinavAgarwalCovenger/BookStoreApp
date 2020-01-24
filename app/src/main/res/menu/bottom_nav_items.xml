@@ -4,8 +4,10 @@
 
     <item
         android:id="@+id/bottom_nav_back"
-        android:icon="@drawable/ic_arrow_back_black_24dp"
-        android:title="Back" />
+        android:icon="@drawable/back"
+        android:title="Back"
+        android:checked="false"
+        />
     <item
         android:id="@+id/bottom_nav_home"
         android:icon="@drawable/ic_home_black_24dp"
