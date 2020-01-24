@@ -19,7 +19,7 @@
         app:civ_border_color="#FF000000" />
 
     <LinearLayout
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="32dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -57,13 +57,14 @@
             android:textColor="@color/colorBlack" />
 
         <TextView
-            android:layout_marginTop="8dp"
             android:id="@+id/profile_change_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
             android:text="Change Password"
-            android:textSize="16dp"
             android:textColor="@color/colorAccent"
+            android:textSize="16dp"
             android:textStyle="bold" />
 
     </LinearLayout>
