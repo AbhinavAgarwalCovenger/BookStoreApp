@@ -13,6 +13,9 @@ public class Login{
 	@SerializedName("email")
 	private String email;
 
+	@SerializedName("cartId")
+	private String cartId;
+
 	public void setPassword(String password){
 		this.password = password;
 	}
@@ -37,13 +40,22 @@ public class Login{
 		return email;
 	}
 
+	public String getCartId() {
+		return cartId;
+	}
+
+	public void setCartId(String cartId) {
+		this.cartId = cartId;
+	}
+
 	@Override
  	public String toString(){
 		return 
 			"Login{" + 
 			"password = '" + password + '\'' + 
 			",loginType = '" + loginType + '\'' + 
-			",email = '" + email + '\'' + 
-			"}";
+			",email = '" + email + '\'' +
+			",cartId = '" + cartId + '\'' +
+					"}";
 		}
 }

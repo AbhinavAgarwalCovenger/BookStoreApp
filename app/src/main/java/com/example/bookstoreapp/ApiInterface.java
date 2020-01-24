@@ -37,4 +37,7 @@ public interface ApiInterface {
 
       @POST("addToCart")
       Call<String> addToCart(@Body Cart cart);
+
+      @GET("getFromCart/{id}")
+      Call<List<Books>> getCart(@Path("id") String id);
 }
