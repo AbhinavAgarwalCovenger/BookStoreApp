@@ -46,8 +46,6 @@ public class LoginActivity extends AppCompatActivity {
     int RC_SIGN_IN = 0;
     SharedPreferences sharedPreferences;
     public static final String myPreference = "mypref";
-//    SharedPreferences.Editor editor = sharedPreferences.edit();
-
 
 
     Login login;

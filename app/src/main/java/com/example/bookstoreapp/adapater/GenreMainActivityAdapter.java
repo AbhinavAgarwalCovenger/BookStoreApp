@@ -37,11 +37,6 @@ public class GenreMainActivityAdapter  extends RecyclerView.Adapter<GenreMainAct
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.genre_name.setText(genreList.get(position));
-//        holder.author.setText(booksList.get(position).getAuthor());
-//        holder.price.setText(booksList.get(position).getPrice());
-//        holder.publisher.setText(booksList.get(position).getAttributes().getPublisher());
-//        Glide.with(holder.book_image.getContext()).applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_launcher_foreground))
-//                .load(booksList.get(position).getUrl()).into(holder.book_image);
 
     }
 
@@ -52,19 +47,11 @@ public class GenreMainActivityAdapter  extends RecyclerView.Adapter<GenreMainAct
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView genre_name;
-//        ImageView book_image;
-//        TextView author;
-//        TextView price;
-//        TextView publisher;
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-//            this.book_image = itemView.findViewById(R.id.book_image_gnr);
             this.genre_name = itemView.findViewById(R.id.book_name_gnr);
-//            this.author = itemView.findViewById(R.id.author_gnr);
-//            this.price = itemView.findViewById(R.id.price_gnr);
-        //    this.publisher = itemView.findViewById(R.id.publisher_gnr);
         }
     }
 }

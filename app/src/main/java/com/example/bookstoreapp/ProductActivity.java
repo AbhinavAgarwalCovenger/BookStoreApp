@@ -23,9 +23,11 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.bookstoreapp.pojo.Books;
 import com.example.bookstoreapp.pojo.Cart;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -83,16 +85,21 @@ public class ProductActivity extends AppCompatActivity  implements View.OnTouchL
         add_to_cart_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<String> call = api.addToCart(cart);
-                call.enqueue(new Callback<String>() {
+                Call<ResponseBody> call = api.addToCart(cart);
+                call.enqueue(new Callback<ResponseBody>() {
                     @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
-                        String res = response.body().toString();
-                        Toast.makeText(getBaseContext(),res,Toast.LENGTH_SHORT).show();
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        String res = null;
+                        try {
+                            res = response.body().string();
+                            Toast.makeText(getBaseContext(),res,Toast.LENGTH_SHORT).show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override
-                    public void onFailure(Call<String> call, Throwable t) {
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
                         Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
                     }
                 });
