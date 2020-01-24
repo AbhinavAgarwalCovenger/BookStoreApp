@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProductActivity"
-    android:orientation="vertical">
+    android:padding="8dp"
+    tools:context=".ProductActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,7 +61,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginStart="16dp"
                         android:text="Rs."
-                        android:textSize="32dp" />
+                        android:textSize="24dp" />
 
                     <TextView
                         android:layout_gravity="start"
@@ -71,7 +71,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:text="Price"
-                        android:textSize="32dp" />
+                        android:textSize="24dp" />
                 </LinearLayout>
 
                 <TextView
@@ -98,9 +98,10 @@
     >
 
     <TextView
-        android:layout_marginStart="8dp"
+        android:padding="8dp"
         android:layout_gravity="center"
         android:id="@+id/product_desc"
+        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"

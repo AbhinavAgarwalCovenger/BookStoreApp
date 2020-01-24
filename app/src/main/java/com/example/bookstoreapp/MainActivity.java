@@ -79,18 +79,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ApiInterface api = retrofit.create(ApiInterface.class);
         Call<ArrayList<String>> call = api.getGenre();
         call.enqueue(new Callback<ArrayList<String>>() {
+            //show progress bar
             @Override
             public void onResponse(Call<ArrayList<String>> call, Response<ArrayList<String>> response) {
+                //hide progress
                 genreList = response.body();
                 RecyclerView recyclerView = findViewById(R.id.genre_recycler);
                 recyclerView.scrollToPosition(1);
                 GenreMainActivityAdapter genreMainActivityAdapter = new GenreMainActivityAdapter(genreList);
-                recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this,LinearLayoutManager.HORIZONTAL,true));
+                recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this,LinearLayoutManager.HORIZONTAL,false));
                 recyclerView.setAdapter(genreMainActivityAdapter);
             }
 
             @Override
             public void onFailure(Call<ArrayList<String>> call, Throwable t) {
+                //hide
                 Toast.makeText(MainActivity.this,"Failed",Toast.LENGTH_LONG).show();
             }
         });
