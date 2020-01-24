@@ -2,6 +2,7 @@ package com.example.bookstoreapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -60,7 +61,8 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.c
                 booksList = response.body();
                 RecyclerView recyclerView = findViewById(R.id.recycle);
                 SearchAdapter searchAdapter = new SearchAdapter(booksList,SearchActivity.this);
-                recyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
+                int no_of_coloumns = 2;
+                recyclerView.setLayoutManager(new GridLayoutManager(SearchActivity.this,no_of_coloumns));
                 recyclerView.setAdapter(searchAdapter);
             }
 
