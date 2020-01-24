@@ -161,7 +161,10 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_LONG).show();
                             }
                         });
-                    }else passwordEditText.setError("Please enter Password");
+                    }else {
+                        passwordEditText.setError("Please enter Password");
+                        passwordInput.setError("Please enter Password");
+                    }
 
                 }else {
                     Toast.makeText(LoginActivity.this, "Please enter credentials!!", Toast.LENGTH_SHORT).show();
