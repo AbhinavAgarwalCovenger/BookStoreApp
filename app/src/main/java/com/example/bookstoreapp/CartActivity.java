@@ -36,7 +36,7 @@ import retrofit2.Retrofit;
 public class CartActivity extends AppCompatActivity {
 
     Button checkoutBtn;
-    TextView userTxt;
+
 //    GoogleSignInClient mGoogleSignInClient;
 //    GoogleApiClient mGoogleApiClient;
     private BottomNavigationView mCartNav;
@@ -54,7 +54,6 @@ public class CartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cart);
 
         checkoutBtn = (Button) findViewById(R.id.checkout_btn);
-        userTxt = (TextView) findViewById(R.id.user_txt_cart);
 
 
         //bottom nav
@@ -138,9 +137,9 @@ public class CartActivity extends AppCompatActivity {
         if(account!= null){
 //            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
 
-            userTxt.setText("cart: "+account);
+
         }else{
-            userTxt.setText("cart: Guest");
+
         }
     }
 
