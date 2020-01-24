@@ -2,6 +2,7 @@ package com.example.bookstoreapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,21 +21,24 @@ import android.widget.Toast;
 import com.example.bookstoreapp.adapater.CartAdapter;
 import com.example.bookstoreapp.adapater.SearchAdapter;
 import com.example.bookstoreapp.pojo.Books;
+import com.example.bookstoreapp.pojo.Cart;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class CartActivity extends AppCompatActivity {
+public class CartActivity extends AppCompatActivity implements CartAdapter.clickItem {
 
     Button checkoutBtn;
 
@@ -45,6 +50,10 @@ public class CartActivity extends AppCompatActivity {
     Retrofit retrofit = RetrofitController.getRetrofit();
     ApiInterface api = retrofit.create(ApiInterface.class);
     private List<Books> cartList;
+    private Cart cart;
+    private List<Books> cartBooks;
+    private RecyclerView recyclerView;
+    private CartAdapter cartAdapter;
 
 
 
@@ -54,7 +63,7 @@ public class CartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cart);
 
         checkoutBtn = (Button) findViewById(R.id.checkout_btn);
-
+        cart = new Cart();
 
         //bottom nav
         mCartNav = (BottomNavigationView) findViewById(R.id.bottom_nav_view_cart);
@@ -86,8 +95,8 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Books>> call, Response<List<Books>> response) {
                 cartList =response.body();
-                RecyclerView recyclerView = findViewById(R.id.cart_recycler);
-                CartAdapter cartAdapter = new CartAdapter(cartList);
+                recyclerView = findViewById(R.id.cart_recycler);
+                cartAdapter = new CartAdapter(cartList,CartActivity.this);
                 recyclerView.setLayoutManager(new LinearLayoutManager(CartActivity.this));
                 recyclerView.setAdapter(cartAdapter);
             }
@@ -143,4 +152,114 @@ public class CartActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onClickAdd(final Books book,final int position) {
+        int quantity = Integer.parseInt(book.getQuantity());
+        quantity+=1;
+        final String q = String.valueOf(quantity);
+        cart.setMerchantId(book.getMerchantId());
+        cart.setProductId(book.getProductId());
+        cart.setQuantity(q);
+        sharedPreferences=getSharedPreferences(myPreference, Context.MODE_PRIVATE);
+        String account = sharedPreferences.getString("user_id",null);
+        if(account==null){
+            account = sharedPreferences.getString("guest_id",null);
+        }
+        cart.setCartId(account);
+
+        Call<ResponseBody> call = api.addToCart(cart);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+
+                    if(null != response.body() && response.body().string().toLowerCase().equals("success")){
+                        Books books = cartList.get(position);
+                        books.setQuantity(q);
+                        cartList.set(position, book);
+                        cartAdapter.notifyDataSetChanged();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(CartActivity.this, "Failure", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    @Override
+    public void onClickDelete(final Books book, final int position) {
+        int quantity=0;
+        final String q = String.valueOf(quantity);
+        cart.setMerchantId(book.getMerchantId());
+        cart.setProductId(book.getProductId());
+        cart.setQuantity(q);
+        sharedPreferences=getSharedPreferences(myPreference, Context.MODE_PRIVATE);
+        String account = sharedPreferences.getString("user_id",null);
+        if(account==null){
+            account = sharedPreferences.getString("guest_id",null);
+        }
+        cart.setCartId(account);
+
+        Call<ResponseBody> call = api.addToCart(cart);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+
+                    if(null != response.body() && response.body().string().toLowerCase().equals("success")){
+                        Books books = cartList.get(position);
+                        books.setQuantity(q);
+                        cartList.set(position, book);
+                        cartList.remove(position);
+                        cartAdapter.notifyItemRemoved(position);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(CartActivity.this, "Failure", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+
+    @Override
+    public void onClickRemove(Books book) {
+        int quantity = Integer.parseInt(book.getQuantity());
+        quantity-=1;
+        String q = String.valueOf(quantity);
+        cart.setMerchantId(book.getMerchantId());
+        cart.setProductId(book.getProductId());
+        cart.setQuantity(q);
+        sharedPreferences=getSharedPreferences(myPreference, Context.MODE_PRIVATE);
+        String account = sharedPreferences.getString("user_id",null);
+        if(account==null){
+            account = sharedPreferences.getString("guest_id",null);
+        }
+        cart.setCartId(account);
+
+//        Call<String> call = api.addToCart(cart);
+//        call.enqueue(new Callback<String>() {
+//            @Override
+//            public void onResponse(Call<String> call, Response<String> response) {
+//                Toast.makeText(getBaseContext(),"Success",Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<String> call, Throwable t) {
+//                Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
+    }
 }
