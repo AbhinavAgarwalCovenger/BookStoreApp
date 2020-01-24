@@ -11,7 +11,6 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,8 +25,6 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-
-import org.w3c.dom.Text;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -126,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                         login.setEmail(email);
                         login.setPassword(password);
                         login.setLoginType("customer");
-                        login.setCartId(id);
+                        login.setDeviceId(id);
 
                         Retrofit retrofit = RetrofitController.getRetrofit();
                         ApiInterface api = retrofit.create(ApiInterface.class);
