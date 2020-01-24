@@ -20,7 +20,7 @@ public interface ApiInterface {
       @GET("getProductByGenre/{genre}")
       Call<List<Books>> getBooksByGenre(@Path("genre") String genre);
 
-      @POST("getCustomerById/{id}")
+      @GET("getCustomerById/{id}")
       Call<Customer> getCustomer(@Path("id") String id);
 
       @GET("getTopProducts")

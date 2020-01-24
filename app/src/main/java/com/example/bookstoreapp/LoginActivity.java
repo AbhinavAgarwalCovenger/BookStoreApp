@@ -53,8 +53,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-    Login login= new Login();
-    CustId custId = new CustId();
+    Login login;
+    CustId custId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +72,8 @@ public class LoginActivity extends AppCompatActivity {
         passwordInput = (TextInputLayout) findViewById(R.id.password_input);
 
 
-
+        login = new Login();
+        custId = new CustId();
 
 
 
@@ -119,6 +120,9 @@ public class LoginActivity extends AppCompatActivity {
                         passwordInput.setErrorEnabled(false);
                         String id = Settings.Secure.getString(getContentResolver(),Settings.Secure.ANDROID_ID);
 
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("guest_id",id);
+                        editor.commit();
                         login.setEmail(email);
                         login.setPassword(password);
                         login.setLoginType("customer");

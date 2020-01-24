@@ -78,7 +78,9 @@ public class CartActivity extends AppCompatActivity {
 
         sharedPreferences=getSharedPreferences(myPreference, Context.MODE_PRIVATE);
         String account = sharedPreferences.getString("user_id",null);
-
+        if(account==null){
+            account = sharedPreferences.getString("guest_id",null);
+        }
 
         Call<List<Books>> call = api.getCart(account);
         call.enqueue(new Callback<List<Books>>() {

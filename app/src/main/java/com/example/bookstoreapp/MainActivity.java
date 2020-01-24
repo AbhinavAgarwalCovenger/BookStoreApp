@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -66,6 +67,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
 
+        sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        String id = Settings.Secure.getString(getContentResolver(),Settings.Secure.ANDROID_ID);
+        editor.putString("guest_id",id);
+        editor.commit();
 
         //genre recycler view
 
@@ -170,7 +176,7 @@ cartBtn.setOnClickListener(new View.OnClickListener() {
 //                        sendToLogin();
                     }
                 });
-        editor.clear();
+        editor.putString("user_id",null);
         editor.commit();
         updateUI(null);
 
