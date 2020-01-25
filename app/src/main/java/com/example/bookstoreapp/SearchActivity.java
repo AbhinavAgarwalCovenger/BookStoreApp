@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,7 +52,6 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.c
 
 
         //searchbar
-
         search.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 // If the event is a key-down event on the "enter" button
@@ -84,6 +84,47 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.c
                 return false;
             }
         });
+        //drawable left listner
+        search.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (search.getRight() - search.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        // your action here
+                        String text = search.getText().toString();
+                        Call<List<Books>> call = api.getSearch(text);
+                        call.enqueue(new Callback<List<Books>>() {
+                            @Override
+                            public void onResponse(Call<List<Books>> call, Response<List<Books>> response) {
+                                booksList = response.body();
+                                recyclerView = findViewById(R.id.recycle);
+                                searchAdapter = new SearchAdapter(booksList,SearchActivity.this);
+                                int no_of_coloumns = 2;
+                                recyclerView.setLayoutManager(new GridLayoutManager(SearchActivity.this,no_of_coloumns));
+                                recyclerView.setAdapter(searchAdapter);
+                            }
+
+                            @Override
+                            public void onFailure(Call<List<Books>> call, Throwable t) {
+                                Toast.makeText(SearchActivity.this,"Failed",Toast.LENGTH_LONG);
+                            }
+                        });
+
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+
+
+
 
 
 
