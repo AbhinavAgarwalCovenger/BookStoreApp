@@ -31,6 +31,12 @@ public class OrderDeatils{
 	@SerializedName("customerId")
 	private String customerId;
 
+	@SerializedName("productName")
+	private String productName;
+
+	@SerializedName("url")
+	private String url;
+
 	public void setTimeStamp(String timeStamp){
 		this.timeStamp = timeStamp;
 	}
@@ -103,6 +109,22 @@ public class OrderDeatils{
 		return customerId;
 	}
 
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	@Override
  	public String toString(){
 		return 
@@ -115,7 +137,8 @@ public class OrderDeatils{
 			",merchantId = '" + merchantId + '\'' + 
 			",price = '" + price + '\'' + 
 			",customerEmail = '" + customerEmail + '\'' + 
-			",customerId = '" + customerId + '\'' + 
-			"}";
+			",customerId = '" + customerId + '\'' +
+			",productName = '" + productName + '\'' +
+			",url = '" + url + '\'' +"}";
 		}
 }

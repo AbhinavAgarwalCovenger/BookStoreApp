@@ -3,11 +3,14 @@ package com.example.bookstoreapp.adapater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.bookstoreapp.R;
 import com.example.bookstoreapp.pojo.OrderDeatils;
 
@@ -32,9 +35,11 @@ public class CurrentOrderAdapter extends RecyclerView.Adapter<CurrentOrderAdapte
     @Override
     public void onBindViewHolder(@NonNull CurrentOrderAdapter.ViewHolder holder, int position) {
 
-        holder.prodName.setText(orderDeatils.get(position).getProductId());
+        holder.prodName.setText(orderDeatils.get(position).getProductName());
         holder.prodQuantity.setText(orderDeatils.get(position).getQuantity());
         holder.prodPrice.setText(orderDeatils.get(position).getPrice());
+        Glide.with(holder.url.getContext()).applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_launcher_foreground))
+                .load(orderDeatils.get(position).getUrl()).into(holder.url);
     }
 
     @Override
@@ -46,13 +51,14 @@ public class CurrentOrderAdapter extends RecyclerView.Adapter<CurrentOrderAdapte
         TextView prodName;
         TextView prodQuantity;
         TextView prodPrice;
-
+        ImageView url;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.prodName = itemView.findViewById(R.id.order_product);
             this.prodQuantity =itemView.findViewById(R.id.order_quantity);
             this.prodPrice = itemView.findViewById(R.id.order_price);
+            this.url = itemView.findViewById(R.id.order_url);
         }
     }
 }
