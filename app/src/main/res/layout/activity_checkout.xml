@@ -14,14 +14,15 @@
         app:layout_constraintBottom_toTopOf="@+id/orderRecyclerView"
         app:layout_constraintTop_toTopOf="parent"/>
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/orderRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="411dp"
+        android:layout_height="369dp"
         android:layout_marginBottom="160dp"
         app:layout_constraintBottom_toTopOf="@+id/doneButton"
-        app:layout_constraintTop_toTopOf="@+id/orderId" />
-
+        app:layout_constraintTop_toTopOf="@+id/orderId"
+        tools:layout_editor_absoluteX="0dp" />
 
     <TextView
         android:layout_width="wrap_content"
