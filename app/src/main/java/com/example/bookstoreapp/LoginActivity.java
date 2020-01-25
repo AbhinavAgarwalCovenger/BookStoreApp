@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        googleLogin = new GoogleLogin();
         //Initializing all the views
         newUser = (TextView) findViewById(R.id.register_btn);
         loginBtn = (Button) findViewById(R.id.login_btn_1);
