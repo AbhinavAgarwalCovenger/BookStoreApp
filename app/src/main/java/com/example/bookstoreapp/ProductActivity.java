@@ -126,7 +126,7 @@ public class ProductActivity extends AppCompatActivity  implements View.OnTouchL
                         cart.setCartId(id);
                     }
 
-                    Toast.makeText(getBaseContext(),mid,Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(getBaseContext(),mid,Toast.LENGTH_SHORT).show();
 
                     ImageView image = findViewById(R.id.book_img_prod);
                     TextView nameText = findViewById(R.id.book_name);

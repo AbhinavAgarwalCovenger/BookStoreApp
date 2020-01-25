@@ -2,6 +2,7 @@ package com.example.bookstoreapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -60,6 +61,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         googleLogin = new GoogleLogin();
+        //ProgressBars
+        final ProgressDialog progressBar = new ProgressDialog(this);
+        progressBar.setCancelable(true);
+        progressBar.setMessage("Please Wait...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.setProgress(0);
+        progressBar.setMax(100);
+        // progressBar.show();
         //Initializing all the views
         newUser = (TextView) findViewById(R.id.register_btn);
         loginBtn = (Button) findViewById(R.id.login_btn_1);
@@ -132,15 +141,17 @@ public class LoginActivity extends AppCompatActivity {
                         login.setDeviceId(id);
 
                         Call<CustId> call = api.getCustId(login);
+                        progressBar.show();
                         call.enqueue(new Callback<CustId>() {
                             @Override
                             public void onResponse(Call<CustId> call, Response<CustId> response) {
+                                progressBar.dismiss();
                                 custId=response.body();
 
                                 if(custId.getResponse().equals("Not registered")){
                                     Toast.makeText(LoginActivity.this, "Please Register First", Toast.LENGTH_SHORT).show();
                                 }else if(custId.getResponse().equals("Wrong Password")){
-                                    Toast.makeText(LoginActivity.this, "wrong Password", Toast.LENGTH_SHORT).show();
+                             //       Toast.makeText(LoginActivity.this, "wrong Password", Toast.LENGTH_SHORT).show();
                                     passwordInput.setError("Invalid Password");
                                 }
                                 else {
@@ -148,7 +159,7 @@ public class LoginActivity extends AppCompatActivity {
                                     String id = custId.getResponse();
                                     editor.putString("user_id",id);
                                     editor.commit();
-                                    Toast.makeText(LoginActivity.this, "Successful!!", Toast.LENGTH_SHORT).show();
+                                 //   Toast.makeText(LoginActivity.this, "Successful!!", Toast.LENGTH_SHORT).show();
                                     sendToMain();
                                 }
 
@@ -157,6 +168,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             @Override
                             public void onFailure(Call<CustId> call, Throwable t) {
+                                progressBar.dismiss();
                                 Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -167,7 +179,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 }else {
                     Toast.makeText(LoginActivity.this, "Please enter credentials!!", Toast.LENGTH_SHORT).show();
-                        emailEditText.setError("Please enter email");
+                    //    emailEditText.setError("Please enter email");
 
                 }
 

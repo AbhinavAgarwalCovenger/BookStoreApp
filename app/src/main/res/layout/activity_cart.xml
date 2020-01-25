@@ -13,23 +13,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        app:title="Cart"
-        app:titleTextColor="@color/colorWhite"
-        android:gravity="end">
-
-        <Button
-            android:layout_marginStart="180dp"
+        app:title="Cart">
+        <ImageButton
+            android:layout_marginStart="200dp"
             android:id="@+id/checkout_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CHECKOUT" />
+           android:src="@drawable/shoping"
+            android:background="@color/colorPrimary"
+             />
 
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cart_recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        />
+
+
+
 
 
 </LinearLayout>

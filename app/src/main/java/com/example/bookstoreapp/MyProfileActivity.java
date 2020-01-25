@@ -3,8 +3,10 @@ package com.example.bookstoreapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,7 @@ private CircleImageView mProfilePic;
     private TextView mName;
     private TextView mEmail;
     private TextView mPhone;
+    private TextView mLoginHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ private CircleImageView mProfilePic;
         mName = (TextView)findViewById(R.id.profile_name);
         mEmail = (TextView) findViewById(R.id.profile_email);
         mPhone = (TextView) findViewById(R.id.profile_phone);
+        mLoginHistory = (TextView) findViewById(R.id.profile_login_history);
 
         sharedPreferences=getSharedPreferences(myPreference, Context.MODE_PRIVATE);
         String account = sharedPreferences.getString("user_id",null);
@@ -77,6 +81,25 @@ private CircleImageView mProfilePic;
 //        Glide.with(this).applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_launcher_background))
 //                .load("https://image.shutterstock.com/image-photo/beautiful-water-drop-on-dandelion-260nw-789676552.jpg")
 //                .into(mProfilePic);
+
+
+        mLoginHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
+        String account = sharedPreferences.getString("user_id", null);
+        if (null!=account) {
+            Intent intent = new Intent(MyProfileActivity.this, LoginHistoryActivity.class);
+            intent.putExtra("id",account);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(getBaseContext(),"Login Required",Toast.LENGTH_SHORT).show();
+        }
+
+            }
+        });
+
 
 
 

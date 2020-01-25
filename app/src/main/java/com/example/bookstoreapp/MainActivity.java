@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ArrayList<String> genreList;
     private List<Books> topBooksList;
     private List<Books> booksByGenre;
-
     Retrofit retrofit = RetrofitController.getRetrofit();
     ApiInterface api = retrofit.create(ApiInterface.class);
     SharedPreferences sharedPreferences;
@@ -75,6 +76,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         customer = new Customer();
 
+        //ProgressBars
+        final ProgressDialog progressBar = new ProgressDialog(this);
+        progressBar.setCancelable(true);
+        progressBar.setMessage("Please Wait...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.setProgress(0);
+        progressBar.setMax(100);
+       // progressBar.show();
+
+
+
+
+
+
         sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         String id = Settings.Secure.getString(getContentResolver(),Settings.Secure.ANDROID_ID);
@@ -86,11 +101,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Retrofit retrofit= RetrofitController.getRetrofit();
         ApiInterface api = retrofit.create(ApiInterface.class);
         Call<ArrayList<String>> call = api.getGenre();
+        progressBar.show();
         call.enqueue(new Callback<ArrayList<String>>() {
             //show progress bar
             @Override
             public void onResponse(Call<ArrayList<String>> call, Response<ArrayList<String>> response) {
                 //hide progress
+                progressBar.dismiss();
+
                 genreList = response.body();
                 RecyclerView recyclerView = findViewById(R.id.genre_recycler);
                 recyclerView.scrollToPosition(1);
@@ -102,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onFailure(Call<ArrayList<String>> call, Throwable t) {
                 //hide
+                progressBar.dismiss();
                 Toast.makeText(MainActivity.this,"Failed",Toast.LENGTH_LONG).show();
             }
         });

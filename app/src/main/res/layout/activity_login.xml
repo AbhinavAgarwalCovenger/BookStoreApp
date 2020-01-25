@@ -15,6 +15,12 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center">
+            <ImageView
+                android:layout_marginBottom="32dp"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:src="@drawable/bookslogo"
+                />
 
 
 
@@ -49,7 +55,7 @@
                 app:endIconMode="password_toggle"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="24dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -69,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="24dp"
                 android:text="LOGIN"/>
 
             <LinearLayout
@@ -82,7 +88,7 @@
                     android:id="@+id/google_btn"
                     android:layout_marginStart="32dp"
                     android:layout_marginEnd="32dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="24dp"
                     android:layout_width="130dp"
                     android:layout_height="wrap_content" />
 
@@ -90,7 +96,7 @@
                     android:id="@+id/guest_txt"
                     android:layout_width="130dp"
                     android:layout_height="52dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="24dp"
                     android:clickable="true"
                     android:text="Guest"
                     android:textColor="@android:color/white" />
