@@ -18,6 +18,7 @@ import java.util.List;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
 
+
     public SearchAdapter(List<Books> list, clickProduct click){
         this.booksList=list;
         this.mclick=click;
@@ -25,13 +26,23 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     private List<Books> booksList;
     private clickProduct mclick;
 
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View listItem = layoutInflater.inflate(R.layout.book_list,parent,false);
+
+
+
+
+
         return new ViewHolder(listItem);
     }
+
+
+
+
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
@@ -48,10 +59,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 .load(booksList.get(position).getUrl()).into(holder.book_image);
     }
 
+
     @Override
     public int getItemCount() {
         return booksList.size();
     }
+
+
+
+
 
     class ViewHolder extends RecyclerView.ViewHolder{
         TextView book_name;

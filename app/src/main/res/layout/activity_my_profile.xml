@@ -17,6 +17,7 @@
             android:id="@+id/profile_image"
             android:layout_width="96dp"
             android:layout_height="96dp"
+            android:src="@color/colorWhite"
             android:layout_margin="32dp"
             app:civ_border_color="#FF000000"
             app:civ_border_width="2dp" />
@@ -80,7 +81,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp">
+                android:layout_marginStart="8dp"
+                android:elevation="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -109,7 +111,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/custom_background"
-                    android:padding="10dip">
+                    android:padding="10dip"
+                    android:elevation="10dp">
 
                     <TextView
                         android:id="@+id/profile_my_orders"

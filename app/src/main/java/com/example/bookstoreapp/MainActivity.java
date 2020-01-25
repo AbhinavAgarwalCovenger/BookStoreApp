@@ -22,21 +22,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.bookstoreapp.adapater.GenreMainActivityAdapter;
 import com.example.bookstoreapp.adapater.TopPicksAdapter;
 import com.example.bookstoreapp.pojo.Books;
+import com.example.bookstoreapp.pojo.Customer;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,16 +59,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private List<Books> topBooksList;
     private List<Books> booksByGenre;
 
+    Retrofit retrofit = RetrofitController.getRetrofit();
+    ApiInterface api = retrofit.create(ApiInterface.class);
     SharedPreferences sharedPreferences;
     public static final String myPreference = "mypref";
 
     GoogleSignInClient mGoogleSignInClient;
+    Customer customer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        customer = new Customer();
 
         sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -200,6 +207,31 @@ cartBtn.setOnClickListener(new View.OnClickListener() {
 
         if (account != null) {
 
+            //change nav bar header
+
+
+            Call<Customer> call = api.getCustomer(account);
+            call.enqueue(new Callback<Customer>() {
+                @Override
+                public void onResponse(Call<Customer> call, Response<Customer> response) {
+                    customer=response.body();
+                    View headerView = navigationView.getHeaderView(0);
+                    TextView navUsername = (TextView) headerView.findViewById(R.id.header_name);
+                    TextView navUserEmail = (TextView) headerView.findViewById(R.id.header_email);
+                    navUsername.setText(customer.getName());
+                    navUserEmail.setText(customer.getEmail());
+
+                }
+
+                @Override
+                public void onFailure(Call<Customer> call, Throwable t) {
+                    Toast.makeText(getBaseContext(),"Login Required",Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
+
+
             //change drawer logout/login to logout
 
             Menu menu = navigationView.getMenu();
@@ -213,6 +245,11 @@ cartBtn.setOnClickListener(new View.OnClickListener() {
 //            Toast.makeText(this, "" + account, Toast.LENGTH_SHORT).show();
 
         } else {
+            View headerView = navigationView.getHeaderView(0);
+            TextView navUsername = (TextView) headerView.findViewById(R.id.header_name);
+            TextView navUserEmail = (TextView) headerView.findViewById(R.id.header_email);
+            navUsername.setText("Guest");
+            navUserEmail.setVisibility(View.INVISIBLE);
             // sendToLogin();
 //            Toast.makeText(this, "" + account, Toast.LENGTH_SHORT).show();
         }
@@ -247,6 +284,7 @@ cartBtn.setOnClickListener(new View.OnClickListener() {
 //                Toast.makeText(this, "profile clicked", Toast.LENGTH_SHORT).show();
 
                 break;
+
 
             default:
                 return true;
