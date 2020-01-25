@@ -25,6 +25,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="4dp"
             android:inputType="text"
+            android:focusable="false"
             android:maxLines="1"
             android:layout_height="wrap_content"
             android:imeOptions="actionSearch"
