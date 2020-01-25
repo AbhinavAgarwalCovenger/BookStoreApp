@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/bottom_nav_back"
         android:icon="@drawable/back"
         android:title="Back"
-        android:checked="false"
-        />
+        android:checked="false" />
     <item
         android:id="@+id/bottom_nav_home"
         android:icon="@drawable/ic_home_black_24dp"
