@@ -60,8 +60,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
+        googleLogin = new GoogleLogin();
         //ProgressBars
         final ProgressDialog progressBar = new ProgressDialog(this);
         progressBar.setCancelable(true);
@@ -70,8 +69,6 @@ public class LoginActivity extends AppCompatActivity {
         progressBar.setProgress(0);
         progressBar.setMax(100);
         // progressBar.show();
-
-
         //Initializing all the views
         newUser = (TextView) findViewById(R.id.register_btn);
         loginBtn = (Button) findViewById(R.id.login_btn_1);

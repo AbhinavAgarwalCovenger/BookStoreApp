@@ -37,7 +37,7 @@ public class CurrentOrderAdapter extends RecyclerView.Adapter<CurrentOrderAdapte
 
         holder.prodName.setText(orderDeatils.get(position).getProductName());
         holder.prodQuantity.setText(orderDeatils.get(position).getQuantity());
-        holder.prodPrice.setText(orderDeatils.get(position).getPrice());
+        holder.prodPrice.setText(orderDeatils.get(position).getCost());
         Glide.with(holder.url.getContext()).applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_launcher_foreground))
                 .load(orderDeatils.get(position).getUrl()).into(holder.url);
     }
