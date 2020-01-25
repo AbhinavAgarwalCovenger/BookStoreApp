@@ -198,6 +198,7 @@ public class LoginActivity extends AppCompatActivity {
             String personEmail = acct.getEmail();
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
+            String token = acct.getIdToken();
         }
 
 
