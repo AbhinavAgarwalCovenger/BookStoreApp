@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.bookstoreapp.adapater.LoginHistoryAdapter;
 
@@ -24,12 +25,18 @@ public class LoginHistoryActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     public static final String myPreference = "mypref";
     private ArrayList<String> loginHistory;
-
+    private androidx.appcompat.widget.Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_history);
+
+        //toolbar
+        toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.login_history_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         Intent intent = getIntent();
         String id = intent.getStringExtra("id");
