@@ -243,7 +243,13 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.click
                         Books books = cartList.get(position);
                         books.setQuantity(q);
                         cartList.set(position, book);
-                        cartAdapter.notifyDataSetChanged();
+                        if (q.equals("0")){
+                            cartList.remove(position);
+                            cartAdapter.notifyItemRemoved(position);
+                        }
+                        else {
+                            cartAdapter.notifyDataSetChanged();
+                        }
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
