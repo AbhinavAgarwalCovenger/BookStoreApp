@@ -31,7 +31,7 @@ public interface ApiInterface {
       @GET("product/getGenreList")
       Call<ArrayList<String>> getGenre();
 
-      @GET("search/")
+      @GET("search/search/")
       Call<List<Books>> getSearch(
               @Query("keyword") String keyword
       );
