@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bookstoreapp.pojo.CustId;
+import com.example.bookstoreapp.pojo.GoogleLogin;
 import com.example.bookstoreapp.pojo.Login;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -48,10 +49,13 @@ public class LoginActivity extends AppCompatActivity {
     int RC_SIGN_IN = 0;
     SharedPreferences sharedPreferences;
     public static final String myPreference = "mypref";
+    private Retrofit retrofit;
+    private ApiInterface api;
+    private GoogleLogin googleLogin;
+    private Login login;
+    private CustId custId;
 
 
-    Login login;
-    CustId custId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +87,13 @@ public class LoginActivity extends AppCompatActivity {
         login = new Login();
         custId = new CustId();
 
+        retrofit = RetrofitController.getRetrofit();
+        api = retrofit.create(ApiInterface.class);
+
+        final String id = Settings.Secure.getString(getContentResolver(),Settings.Secure.ANDROID_ID);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("guest_id",id);
+        editor.commit();
 
 
         //Go as guest
@@ -126,18 +137,11 @@ public class LoginActivity extends AppCompatActivity {
 
                     if(password.length()!=0){
                         passwordInput.setErrorEnabled(false);
-                        String id = Settings.Secure.getString(getContentResolver(),Settings.Secure.ANDROID_ID);
-
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("guest_id",id);
-                        editor.commit();
                         login.setEmail(email);
                         login.setPassword(password);
                         login.setLoginType("customer");
                         login.setDeviceId(id);
 
-                        Retrofit retrofit = RetrofitController.getRetrofit();
-                        ApiInterface api = retrofit.create(ApiInterface.class);
                         Call<CustId> call = api.getCustId(login);
                         progressBar.show();
                         call.enqueue(new Callback<CustId>() {
@@ -145,8 +149,6 @@ public class LoginActivity extends AppCompatActivity {
                             public void onResponse(Call<CustId> call, Response<CustId> response) {
                                 progressBar.dismiss();
                                 custId=response.body();
-//                                Toast.makeText(LoginActivity.this,custId.getResponse(),Toast.LENGTH_LONG).show();
-
 
                                 if(custId.getResponse().equals("Not registered")){
                                     Toast.makeText(LoginActivity.this, "Please Register First", Toast.LENGTH_SHORT).show();
@@ -196,7 +198,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.google_btn:
-                        signIn();
+                        googleSignIn();
                         break;
 
                 }
@@ -225,7 +227,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-    private void signIn() {
+    private void googleSignIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -249,14 +251,35 @@ public class LoginActivity extends AppCompatActivity {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             googleIdToken = account.getIdToken();
-            // Signed in successfully, show authenticated UI.
-            SharedPreferences.Editor editor = sharedPreferences.edit();
 
-            editor.putString("user_id",googleIdToken);
-            editor.commit();
+            googleLogin.setAccessToken(googleIdToken);
+            googleLogin.setLoginType("customer");
+            Call<CustId> custIdCall = api.getCustIdGoogle(googleLogin);
+            custIdCall.enqueue(new Callback<CustId>() {
+                @Override
+                public void onResponse(Call<CustId> call, Response<CustId> response) {
+                    custId=response.body();
 
-            Toast.makeText(this, "Sucessfull", Toast.LENGTH_SHORT).show();
-            sendToMain();
+                    if(custId.getResponse().equals("Not Found")){
+                        Toast.makeText(LoginActivity.this, "Google Error", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        String id = custId.getResponse();
+                        editor.putString("user_id",id);
+                        editor.commit();
+                        Toast.makeText(LoginActivity.this, "Successful!!", Toast.LENGTH_SHORT).show();
+                        sendToMain();
+                    }
+
+
+                }
+
+                @Override
+                public void onFailure(Call<CustId> call, Throwable t) {
+                    Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
+                }
+            });
 
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.

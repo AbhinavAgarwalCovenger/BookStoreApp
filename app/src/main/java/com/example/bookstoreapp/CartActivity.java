@@ -37,13 +37,11 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.click
     ApiInterface api = retrofit.create(ApiInterface.class);
     private List<Books> cartList;
     private Cart cart;
-    private List<Books> cartBooks;
     private RecyclerView recyclerView;
     private CartAdapter cartAdapter;
     private androidx.appcompat.widget.Toolbar toolbar;
     private ImageButton checkoutBtn;
-
-
+    private Boolean emptyFlag=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +85,8 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.click
             public void onResponse(Call<List<Books>> call, Response<List<Books>> response) {
                 progressBar.dismiss();
                 cartList =response.body();
+                if (cartList.size()!=0)
+                    emptyFlag=false;
                 recyclerView = findViewById(R.id.cart_recycler);
                 cartAdapter = new CartAdapter(cartList,CartActivity.this);
                 recyclerView.setLayoutManager(new LinearLayoutManager(CartActivity.this));
@@ -112,7 +112,12 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.click
         checkoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sentToCheckOut();
+                if (emptyFlag){
+                    Toast.makeText(CartActivity.this,"Cart is empty",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    sentToCheckOut();
+                }
             }
         });
 

@@ -4,7 +4,9 @@ import com.example.bookstoreapp.pojo.Books;
 import com.example.bookstoreapp.pojo.Cart;
 import com.example.bookstoreapp.pojo.CustId;
 import com.example.bookstoreapp.pojo.Customer;
+import com.example.bookstoreapp.pojo.GoogleLogin;
 import com.example.bookstoreapp.pojo.Login;
+import com.example.bookstoreapp.pojo.OrderDeatils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,8 @@ public interface ApiInterface {
       @GET("login/getLoginHistoryById/{id}")
       Call<ArrayList<String>> getLoginHistory(@Path("id") String id);
 
+      @GET("order/checkout/{id}")
+      Call<List<OrderDeatils>> getCurrentOrder(@Path("id") String id);
 
       @GET("search/search/")
       Call<List<Books>> getSearch(
@@ -51,4 +55,8 @@ public interface ApiInterface {
 
       @GET("cart/getFromCart/{id}")
       Call<List<Books>> getCart(@Path("id") String id);
+
+      @POST("login/googlelogin")
+      Call<CustId> getCustIdGoogle(@Body GoogleLogin googleLogin);
+
 }
