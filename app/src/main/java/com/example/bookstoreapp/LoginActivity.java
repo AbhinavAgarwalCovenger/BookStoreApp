@@ -43,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     TextInputLayout emailInput;
     TextInputLayout passwordInput;
     GoogleSignInClient mGoogleSignInClient;
+    String googleIdToken;
     int RC_SIGN_IN = 0;
     SharedPreferences sharedPreferences;
     public static final String myPreference = "mypref";
@@ -232,11 +233,11 @@ public class LoginActivity extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-
+            googleIdToken = account.getIdToken();
             // Signed in successfully, show authenticated UI.
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
-            editor.putString("user_id",account.toString());
+            editor.putString("user_id",googleIdToken);
             editor.commit();
 
             Toast.makeText(this, "Sucessfull", Toast.LENGTH_SHORT).show();
