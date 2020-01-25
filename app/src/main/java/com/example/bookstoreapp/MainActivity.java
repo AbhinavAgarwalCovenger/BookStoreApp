@@ -226,6 +226,16 @@ cartBtn.setOnClickListener(new View.OnClickListener() {
     private void sendToProfile() {
         Intent profile_intent = new Intent(MainActivity.this, MyProfileActivity.class);
         startActivity(profile_intent);
+//        sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
+//        String account = sharedPreferences.getString("user_id", null);
+//        if (null!=account) {
+//            Intent intent = new Intent(MainActivity.this, LoginHistoryActivity.class);
+//            intent.putExtra("id",account);
+//            startActivity(intent);
+//        }
+//        else {
+//            Toast.makeText(getBaseContext(),"Login Required",Toast.LENGTH_SHORT).show();
+//        }
     }
 
     @Override
