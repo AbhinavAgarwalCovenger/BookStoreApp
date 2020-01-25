@@ -6,14 +6,29 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".LoginHistoryActivity">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/login_history_recycler"
-        android:orientation="vertical"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/login_history_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="Login History"
+            android:background="@color/colorPrimary"
+            />
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:id="@+id/login_history_recycler"
+            android:orientation="vertical">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
+
+
 
 
 

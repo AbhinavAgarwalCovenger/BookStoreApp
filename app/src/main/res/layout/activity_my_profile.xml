@@ -204,6 +204,7 @@
                     android:padding="10dip">
 
                     <TextView
+                        android:id="@+id/profile_login_history"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="4dp"
@@ -223,7 +224,7 @@
                     android:padding="10dip">
 
                     <TextView
-                        android:id="@+id/profile_login_history"
+                        android:id="@+id/profile_edit_information"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="4dp"

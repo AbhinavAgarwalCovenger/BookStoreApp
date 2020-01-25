@@ -2,6 +2,7 @@ package com.example.bookstoreapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -45,6 +46,16 @@ public class RegisterActivity extends AppCompatActivity {
         mPhone = (TextInputEditText) findViewById(R.id.phone_edit_txt_reg);
         loginText = (TextView) findViewById(R.id.login_txt);
 
+
+        //ProgressBars
+        final ProgressDialog progressBar = new ProgressDialog(this);
+        progressBar.setCancelable(true);
+        progressBar.setMessage("Please Wait...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.setProgress(0);
+        progressBar.setMax(100);
+        // progressBar.show();
+
         loginText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,13 +94,15 @@ public class RegisterActivity extends AppCompatActivity {
                             Retrofit retrofit = RetrofitController.getRetrofit();
                             SignUpApi api = retrofit.create(SignUpApi.class);
                             Call<ResponseBody> call = api.createUser(cust);
+                            progressBar.show();
                             call.enqueue(new Callback<ResponseBody>() {
                                 @Override
                                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                    progressBar.dismiss();
                                     String res = null;
                                     try {
                                         res = response.body().string();
-                                        Toast.makeText(RegisterActivity.this, "Register successfull!!", Toast.LENGTH_SHORT).show();
+                                 //       Toast.makeText(RegisterActivity.this, "Register successfull!!", Toast.LENGTH_SHORT).show();
                                         sendToMain();
                                     } catch (IOException e) {
                                         e.printStackTrace();
@@ -100,6 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                    progressBar.dismiss();
                                     Toast.makeText(RegisterActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             });

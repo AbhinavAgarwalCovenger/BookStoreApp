@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -48,6 +49,20 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.c
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         search = (TextInputEditText)findViewById(R.id.search_bar);
+
+
+
+
+        //ProgressBars
+        final ProgressDialog progressBar = new ProgressDialog(this);
+        progressBar.setCancelable(true);
+        progressBar.setMessage("Please Wait...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.setProgress(0);
+        progressBar.setMax(100);
+        // progressBar.show();
+
+
 
             //searchbar search btn
         search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -92,9 +107,11 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.c
                         // your action here
                         String text = search.getText().toString();
                         Call<List<Books>> call = api.getSearch(text);
+                        progressBar.show();
                         call.enqueue(new Callback<List<Books>>() {
                             @Override
                             public void onResponse(Call<List<Books>> call, Response<List<Books>> response) {
+                                progressBar.dismiss();
                                 booksList = response.body();
                                 recyclerView = findViewById(R.id.recycle);
                                 searchAdapter = new SearchAdapter(booksList,SearchActivity.this);
@@ -105,6 +122,7 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.c
 
                             @Override
                             public void onFailure(Call<List<Books>> call, Throwable t) {
+                                progressBar.dismiss();
                                 Toast.makeText(SearchActivity.this,"Failed",Toast.LENGTH_LONG);
                             }
                         });

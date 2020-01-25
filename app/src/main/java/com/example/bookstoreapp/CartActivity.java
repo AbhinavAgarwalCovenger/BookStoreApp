@@ -3,13 +3,13 @@ package com.example.bookstoreapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.bookstoreapp.adapater.CartAdapter;
@@ -27,7 +27,6 @@ import retrofit2.Retrofit;
 
 public class CartActivity extends AppCompatActivity implements CartAdapter.clickItem {
 
-    Button checkoutBtn;
 
 //    GoogleSignInClient mGoogleSignInClient;
 //    GoogleApiClient mGoogleApiClient;
@@ -41,6 +40,8 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.click
     private List<Books> cartBooks;
     private RecyclerView recyclerView;
     private CartAdapter cartAdapter;
+    private androidx.appcompat.widget.Toolbar toolbar;
+    private ImageButton checkoutBtn;
 
 
 
@@ -49,7 +50,24 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.click
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
-        checkoutBtn = (Button) findViewById(R.id.checkout_btn);
+
+        //toolbar
+        toolbar =  findViewById(R.id.cartToolBar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitle("Cart");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        //ProgressBars
+        final ProgressDialog progressBar = new ProgressDialog(this);
+        progressBar.setCancelable(true);
+        progressBar.setMessage("Please Wait...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.setProgress(0);
+        progressBar.setMax(100);
+        // progressBar.show();
+
+         checkoutBtn =  findViewById(R.id.checkout_btn);
         cart = new Cart();
 
         //bottom nav
@@ -63,18 +81,24 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.click
         }
 
         Call<List<Books>> call = api.getCart(account);
+        progressBar.show();
         call.enqueue(new Callback<List<Books>>() {
             @Override
             public void onResponse(Call<List<Books>> call, Response<List<Books>> response) {
+                progressBar.dismiss();
                 cartList =response.body();
                 recyclerView = findViewById(R.id.cart_recycler);
                 cartAdapter = new CartAdapter(cartList,CartActivity.this);
                 recyclerView.setLayoutManager(new LinearLayoutManager(CartActivity.this));
                 recyclerView.setAdapter(cartAdapter);
+                if (cartAdapter.getItemCount()==0){
+                    Toast.makeText(CartActivity.this, "Your cart is empty!!", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
             public void onFailure(Call<List<Books>> call, Throwable t) {
+                progressBar.dismiss();
                 Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
