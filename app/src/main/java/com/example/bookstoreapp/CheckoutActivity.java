@@ -1,59 +1,86 @@
 package com.example.bookstoreapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.GoogleApiClient;
+import com.example.bookstoreapp.adapater.CurrentOrderAdapter;
+import com.example.bookstoreapp.pojo.OrderDeatils;
 
-import java.util.Objects;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class CheckoutActivity extends AppCompatActivity {
 
-    //    GoogleSignInClient mGoogleSignInClient;
-//    GoogleApiClient mGoogleApiClient;
     SharedPreferences sharedPreferences;
     public static final String myPreference = "mypref";
-
+    private List<OrderDeatils> orderDeatils;
+    Button done;
+    TextView orderId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
+        orderId = findViewById(R.id.orderId);
+        done = findViewById(R.id.doneButton);
 
-        //ActionBar
-        // Objects.requireNonNull(getSupportActionBar()).setTitle("Checkout");
-        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
+        String account = sharedPreferences.getString("user_id", null);
 
-        //maintaining signin state in checkout
+        updateUI(account);
 
-//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestEmail()
-//                .build();
+
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendToMain();
+            }
+        });
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
-        String account = sharedPreferences.getString("user_id", null);
-
-        updateUI(account);
-    }
+        }
 
     private void updateUI(String account) {
 
         if (account != null) {
-            Toast.makeText(this, "" + account, Toast.LENGTH_SHORT).show();
+            Retrofit retrofit= RetrofitController.getRetrofit();
+            ApiInterface api = retrofit.create(ApiInterface.class);
+            Call<List<OrderDeatils>> call = api.getCurrentOrder(account);
+            call.enqueue(new Callback<List<OrderDeatils>>() {
+                @Override
+                public void onResponse(Call<List<OrderDeatils>> call, Response<List<OrderDeatils>> response) {
+                    orderDeatils = response.body();
+                    orderId.setText(orderDeatils.get(0).getOrderId());
+                    RecyclerView recyclerView = findViewById(R.id.orderRecyclerView);
+                    recyclerView.scrollToPosition(1);
+                    CurrentOrderAdapter currentOrderAdapter = new CurrentOrderAdapter(orderDeatils);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(CheckoutActivity.this,LinearLayoutManager.VERTICAL,false));
+                    recyclerView.setAdapter(currentOrderAdapter);
+                }
+
+                @Override
+                public void onFailure(Call<List<OrderDeatils>> call, Throwable t) {
+                    Toast.makeText(CheckoutActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
+
+                }
+            });
 
         } else {
             sendToLogin();
@@ -65,8 +92,11 @@ public class CheckoutActivity extends AppCompatActivity {
 
         Intent login_intent = new Intent(CheckoutActivity.this, LoginActivity.class);
         startActivity(login_intent);
-
     }
 
-
+    private void sendToMain(){
+        Intent intent = new Intent(CheckoutActivity.this,MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }
