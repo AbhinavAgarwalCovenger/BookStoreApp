@@ -31,6 +31,10 @@ public interface ApiInterface {
       @GET("product/getGenreList")
       Call<ArrayList<String>> getGenre();
 
+      @GET("login/getLoginHistoryById/{id}")
+      Call<ArrayList<String>> getLoginHistory(@Path("id") String id);
+
+
       @GET("search/search/")
       Call<List<Books>> getSearch(
               @Query("keyword") String keyword

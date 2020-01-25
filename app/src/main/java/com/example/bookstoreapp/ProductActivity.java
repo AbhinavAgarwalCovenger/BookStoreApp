@@ -82,29 +82,6 @@ public class ProductActivity extends AppCompatActivity  implements View.OnTouchL
 
 
 
-        add_to_cart_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Call<ResponseBody> call = api.addToCart(cart);
-                call.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        String res = null;
-                        try {
-                            res = response.body().string();
-                            Toast.makeText(getBaseContext(),res,Toast.LENGTH_SHORT).show();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
 
         books = new Books();
         cart = new Cart();
@@ -171,7 +148,7 @@ public class ProductActivity extends AppCompatActivity  implements View.OnTouchL
                     Toast.makeText(getBaseContext(),"Failed",Toast.LENGTH_SHORT).show();
                 }
 
-                Toast.makeText(ProductActivity.this, "Success!!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(ProductActivity.this, "Success!!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -180,15 +157,33 @@ public class ProductActivity extends AppCompatActivity  implements View.OnTouchL
             }
         });
 
+        add_to_cart_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Call<ResponseBody> call = api.addToCart(cart);
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        String res = null;
+                        try {
+                            res = response.body().string();
+                            Toast.makeText(getBaseContext(),res,Toast.LENGTH_SHORT).show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+
 
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-    }
-
 
 
     @Override
