@@ -13,6 +13,8 @@ import android.widget.Toast;
 import com.example.bookstoreapp.pojo.Customer;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.IOException;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -79,30 +81,29 @@ public class RegisterActivity extends AppCompatActivity {
                             cust.setPhoneNumber(phone_number);
                             cust.setPincode(pincode);
 
-
                             Retrofit retrofit = RetrofitController.getRetrofit();
                             SignUpApi api = retrofit.create(SignUpApi.class);
                             Call<ResponseBody> call = api.createUser(cust);
                             call.enqueue(new Callback<ResponseBody>() {
                                 @Override
                                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                            String s = response.body().toString();
-//                            Toast.makeText(RegisterActivity.this,s,Toast.LENGTH_LONG).show();
-                                    Toast.makeText(RegisterActivity.this, "Register successfull!!", Toast.LENGTH_SHORT).show();
+                                    String res = null;
+                                    try {
+                                        res = response.body().string();
+                                        Toast.makeText(RegisterActivity.this, "Register successfull!!", Toast.LENGTH_SHORT).show();
+                                        sendToMain();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+
 
                                 }
 
                                 @Override
                                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                    Toast.makeText(RegisterActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(RegisterActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             });
-
-                            Toast.makeText(RegisterActivity.this, "Register successfull!!", Toast.LENGTH_SHORT).show();
-                            sendToMain();
-
-
-
 
 
                         }//end of pass
@@ -117,10 +118,6 @@ public class RegisterActivity extends AppCompatActivity {
                 else{
                     mName.setError("Please enter email");
                 }
-
-
-
-
 
             }
         });

@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
         newUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(LoginActivity.this, "reg btn clkd!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(LoginActivity.this, "reg btn clkd!", Toast.LENGTH_SHORT).show();
                 sendToRegister();
 
             }
@@ -130,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<CustId> call, Response<CustId> response) {
                                 custId=response.body();
-                                Toast.makeText(LoginActivity.this,custId.getResponse(),Toast.LENGTH_LONG).show();
+//                                Toast.makeText(LoginActivity.this,custId.getResponse(),Toast.LENGTH_LONG).show();
 
 
                                 if(custId.getResponse().equals("Not registered")){
@@ -153,7 +153,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             @Override
                             public void onFailure(Call<CustId> call, Throwable t) {
-                                Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                                Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
                             }
                         });
                     }else {

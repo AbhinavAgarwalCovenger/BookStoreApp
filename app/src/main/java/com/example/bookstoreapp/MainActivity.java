@@ -42,7 +42,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, TopPicksAdapter.clickProduct {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, TopPicksAdapter.clickProduct, GenreMainActivityAdapter.clickGenre {
 
     private Button searchBtn;
     private TextView userTxt;
@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private ArrayList<String> genreList;
     private List<Books> topBooksList;
+    private List<Books> booksByGenre;
 
     SharedPreferences sharedPreferences;
     public static final String myPreference = "mypref";
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 genreList = response.body();
                 RecyclerView recyclerView = findViewById(R.id.genre_recycler);
                 recyclerView.scrollToPosition(1);
-                GenreMainActivityAdapter genreMainActivityAdapter = new GenreMainActivityAdapter(genreList);
+                GenreMainActivityAdapter genreMainActivityAdapter = new GenreMainActivityAdapter(genreList,MainActivity.this);
                 recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this,LinearLayoutManager.HORIZONTAL,false));
                 recyclerView.setAdapter(genreMainActivityAdapter);
             }
@@ -115,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onFailure(Call<List<Books>> call, Throwable t) {
-                Toast.makeText(MainActivity.this,"Failed",Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this,"Failed to fetch top books",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -209,11 +210,11 @@ cartBtn.setOnClickListener(new View.OnClickListener() {
             // set new title to the MenuItem
             nav_logout.setTitle("Logout");
 
-            Toast.makeText(this, "" + account, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "" + account, Toast.LENGTH_SHORT).show();
 
         } else {
             // sendToLogin();
-            Toast.makeText(this, "" + account, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "" + account, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -233,7 +234,7 @@ cartBtn.setOnClickListener(new View.OnClickListener() {
             case R.id.nav_my_cart:
 
                 sendToCart();
-                Toast.makeText(this, "cart clicked", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "cart clicked", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_logout: {
                 signOut();
@@ -243,7 +244,7 @@ cartBtn.setOnClickListener(new View.OnClickListener() {
 
             case R.id.nav_my_profile:
                 sendToProfile();
-                Toast.makeText(this, "profile clicked", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "profile clicked", Toast.LENGTH_SHORT).show();
 
                 break;
 
@@ -268,6 +269,13 @@ cartBtn.setOnClickListener(new View.OnClickListener() {
 
         intent.putExtra("id",book_id);
 
+        startActivity(intent);
+    }
+
+    @Override
+    public void onClick(String genre) {
+        Intent intent = new Intent(MainActivity.this,SearchActivity.class);
+        intent.putExtra("genre",genre);
         startActivity(intent);
     }
 }

@@ -3,7 +3,7 @@
     package="com.example.bookstoreapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginHistoryActivity"></activity>
+        <activity android:name=".LoginHistoryActivity" />
         <activity android:name=".OrderHistoryActivity" />
         <activity android:name=".MyProfileActivity" />
         <activity android:name=".ProductActivity" />

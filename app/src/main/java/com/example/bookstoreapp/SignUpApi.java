@@ -10,7 +10,7 @@ import retrofit2.http.POST;
 
 public interface SignUpApi {
 
-    @POST("signup")
+    @POST("/login/signup")
     Call<ResponseBody>  createUser(
             @Body Customer customer
 //      @Field("name") String name,

@@ -19,16 +19,16 @@ import retrofit2.http.Query;
 
 public interface ApiInterface {
 
-      @GET("getProductByGenre/{genre}")
+      @GET("product/getProductByGenre/{genre}")
       Call<List<Books>> getBooksByGenre(@Path("genre") String genre);
 
-      @GET("getCustomerById/{id}")
+      @GET("customer/getCustomerById/{id}")
       Call<Customer> getCustomer(@Path("id") String id);
 
-      @GET("getTopProducts")
+      @GET("product/getTopProducts")
       Call<List<Books>> getTopBooks();
 
-      @GET("getGenreList")
+      @GET("product/getGenreList")
       Call<ArrayList<String>> getGenre();
 
       @GET("search/")
@@ -36,15 +36,15 @@ public interface ApiInterface {
               @Query("keyword") String keyword
       );
 
-      @GET("getProductByProductId/{id}")
+      @GET("product/getProductByProductId/{id}")
       Call<Books> getProductById(@Path("id") String id);
 
-      @POST("login")
+      @POST("login/login")
       Call<CustId> getCustId(@Body Login login);
 
-      @POST("addToCart")
+      @POST("cart/addToCart")
       Call<ResponseBody> addToCart(@Body Cart cart);
 
-      @GET("getFromCart/{id}")
+      @GET("cart/getFromCart/{id}")
       Call<List<Books>> getCart(@Path("id") String id);
 }

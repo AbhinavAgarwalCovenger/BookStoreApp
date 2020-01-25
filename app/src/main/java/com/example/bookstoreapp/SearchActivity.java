@@ -33,6 +33,8 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.c
     private BottomNavigationView mSearchNav;
     Retrofit retrofit= RetrofitController.getRetrofit();
     ApiInterface api = retrofit.create(ApiInterface.class);
+    private RecyclerView recyclerView;
+    private SearchAdapter searchAdapter;
 
 
     @Override
@@ -60,6 +62,28 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.c
             }
         });
 
+        Intent intent = getIntent();
+        String genre = intent.getStringExtra("genre");
+        Call<List<Books>> booksByGenre = api.getBooksByGenre(genre);
+        booksByGenre.enqueue(new Callback<List<Books>>() {
+            @Override
+            public void onResponse(Call<List<Books>> call, Response<List<Books>> response) {
+                booksList=response.body();
+                recyclerView = findViewById(R.id.recycle);
+                searchAdapter = new SearchAdapter(booksList,SearchActivity.this);
+                int no_of_coloumns = 2;
+                recyclerView.setLayoutManager(new GridLayoutManager(SearchActivity.this,no_of_coloumns));
+                recyclerView.setAdapter(searchAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Books>> call, Throwable t) {
+                Toast.makeText(SearchActivity.this,"Failed",Toast.LENGTH_LONG);
+            }
+        });
+
+
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,8 +94,8 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.c
                     @Override
                     public void onResponse(Call<List<Books>> call, Response<List<Books>> response) {
                         booksList = response.body();
-                        RecyclerView recyclerView = findViewById(R.id.recycle);
-                        SearchAdapter searchAdapter = new SearchAdapter(booksList,SearchActivity.this);
+                        recyclerView = findViewById(R.id.recycle);
+                        searchAdapter = new SearchAdapter(booksList,SearchActivity.this);
                         int no_of_coloumns = 2;
                         recyclerView.setLayoutManager(new GridLayoutManager(SearchActivity.this,no_of_coloumns));
                         recyclerView.setAdapter(searchAdapter);

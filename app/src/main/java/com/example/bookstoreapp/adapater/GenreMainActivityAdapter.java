@@ -20,10 +20,12 @@ import java.util.List;
 public class GenreMainActivityAdapter  extends RecyclerView.Adapter<GenreMainActivityAdapter.ViewHolder> {
 
 
-    public  GenreMainActivityAdapter(ArrayList<String> list){
+    public  GenreMainActivityAdapter(ArrayList<String> list, clickGenre clickGenre){
         this.genreList=list;
+        this.genre=clickGenre;
     }
     private ArrayList<String> genreList;
+    private clickGenre genre;
 
     @NonNull
     @Override
@@ -35,8 +37,14 @@ public class GenreMainActivityAdapter  extends RecyclerView.Adapter<GenreMainAct
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.genre_name.setText(genreList.get(position));
+        holder.itemView.getRootView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                genre.onClick(genreList.get(position));
+            }
+        });
 
     }
 
@@ -53,5 +61,9 @@ public class GenreMainActivityAdapter  extends RecyclerView.Adapter<GenreMainAct
             super(itemView);
             this.genre_name = itemView.findViewById(R.id.book_name_gnr);
         }
+    }
+
+    public interface clickGenre{
+        void onClick(String genre);
     }
 }
