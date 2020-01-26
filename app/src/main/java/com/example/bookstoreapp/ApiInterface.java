@@ -6,6 +6,7 @@ import com.example.bookstoreapp.pojo.CustId;
 import com.example.bookstoreapp.pojo.Customer;
 import com.example.bookstoreapp.pojo.GoogleFacebookLogin;
 import com.example.bookstoreapp.pojo.Login;
+import com.example.bookstoreapp.pojo.MerchantDetails;
 import com.example.bookstoreapp.pojo.OrderDeatils;
 import com.example.bookstoreapp.pojo.OrderHistory;
 
@@ -46,7 +47,7 @@ public interface ApiInterface {
       );
 
       @GET("merchant/getMerchantByProductId/{id}")
-      Call<List<Books>> getMerchant(@Path("id") String id);
+      Call<List<MerchantDetails>> getMerchant(@Path("id") String id);
 
       @GET("product/getProductByProductId/{id}")
       Call<Books> getProductById(@Path("id") String id);

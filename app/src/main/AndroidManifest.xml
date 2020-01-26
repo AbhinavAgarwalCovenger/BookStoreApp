@@ -15,7 +15,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".OrderDetailsActivity"></activity>
+        <activity android:name=".MerchantDetailsActivity"></activity>
+        <activity android:name=".OrderDetailsActivity" />
         <activity
             android:name=".LoginHistoryActivity"
             android:parentActivityName=".MyProfileActivity" />
