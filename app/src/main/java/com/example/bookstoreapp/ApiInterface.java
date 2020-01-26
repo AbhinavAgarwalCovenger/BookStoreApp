@@ -66,6 +66,6 @@ public interface ApiInterface {
       @GET("order/getOrderHistoryByCustomerId/{id}")
       Call<List<OrderHistory>> getOrderHistory(@Path("id") String id);
 
-      @GET("order/getOrderDetailsByOrdrerId/{id}")
+      @GET("order/getOrderDetailsbyOrderId/{id}")
       Call<List<OrderDeatils>> getOrderDetails(@Path("id") String id);
 }
