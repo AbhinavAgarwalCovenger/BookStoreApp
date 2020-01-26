@@ -18,6 +18,15 @@ import android.widget.Toast;
 import com.example.bookstoreapp.pojo.CustId;
 import com.example.bookstoreapp.pojo.GoogleLogin;
 import com.example.bookstoreapp.pojo.Login;
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -27,6 +36,11 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Arrays;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,6 +68,10 @@ public class LoginActivity extends AppCompatActivity {
     private GoogleLogin googleLogin;
     private Login login;
     private CustId custId;
+    private LoginButton loginButton;
+    private CallbackManager callbackManager;
+
+
 
 
     @Override
@@ -61,6 +79,64 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         googleLogin = new GoogleLogin();
+
+        //FacebookLogin
+
+        loginButton = (LoginButton) findViewById(R.id.login_button);
+        callbackManager = CallbackManager.Factory.create();
+        loginButton.setReadPermissions(Arrays.asList("email","public_profile"));
+        checkLoginStatus();
+
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+
+                String accessToken = loginResult.getAccessToken().getToken();
+
+                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+
+                        try {
+                            Log.d("response",response.toString());
+                            String first_name = object.getString("first_name");
+                            String last_name = object.getString("last_name");
+                            String email = object.getString("email");
+                            String id = object.getString("id");
+                            String image_url = "https://graph.facebook.com/"+id+ "/picture?type=normal";
+                            Toast.makeText(LoginActivity.this, "in loadProfileUser", Toast.LENGTH_SHORT).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                //Request Graph APIS
+                Bundle parameters = new Bundle();
+                parameters.putString("fields","first_name,last_name,email,id");
+                request.setParameters(parameters);
+                request.executeAsync();
+
+                Toast.makeText(LoginActivity.this, accessToken, Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(LoginActivity.this, "fb success", Toast.LENGTH_SHORT).show();
+                    sendToMain();
+
+
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });
+
+
+
         //ProgressBars
         final ProgressDialog progressBar = new ProgressDialog(this);
         progressBar.setCancelable(true);
@@ -235,6 +311,9 @@ public class LoginActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        //For Facebook
+        callbackManager.onActivityResult(requestCode,resultCode,data);
+
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             // The Task returned from this call is always completed, no need to attach
@@ -243,6 +322,8 @@ public class LoginActivity extends AppCompatActivity {
             handleSignInResult(task);
         }
     }
+
+
 
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
@@ -287,7 +368,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    //for facebook code goes here
 
 
 
@@ -304,6 +384,12 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(reg_intent);
     }
 
+//***********For Facebook
+private void checkLoginStatus(){
+        if(AccessToken.getCurrentAccessToken() != null){
+            Toast.makeText(this, AccessToken.getCurrentAccessToken().getUserId(), Toast.LENGTH_SHORT).show();
+        }
 
+}
 
 }

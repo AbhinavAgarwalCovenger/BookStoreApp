@@ -4,13 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.bookstoreapp.adapater.CurrentOrderAdapter;
@@ -28,15 +29,17 @@ public class CheckoutActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     public static final String myPreference = "mypref";
     private List<OrderDeatils> orderDeatils;
-    Button done;
-    TextView orderId;
+    ImageButton done;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
-        orderId = findViewById(R.id.orderId);
-        done = findViewById(R.id.doneButton);
+        done = (ImageButton) findViewById(R.id.doneButton);
+
+
+
+
 
         sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
         String account = sharedPreferences.getString("user_id", null);
@@ -47,6 +50,7 @@ public class CheckoutActivity extends AppCompatActivity {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(CheckoutActivity.this, "Thanks for ordering!!", Toast.LENGTH_LONG).show();
                 sendToMain();
             }
         });
@@ -59,6 +63,15 @@ public class CheckoutActivity extends AppCompatActivity {
 
     private void updateUI(String account) {
 
+        //ProgressBars
+        final ProgressDialog progressBar = new ProgressDialog(this);
+        progressBar.setCancelable(true);
+        progressBar.setMessage("Please Wait...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.setProgress(0);
+        progressBar.setMax(100);
+         progressBar.show();
+
         if (account != null) {
             Retrofit retrofit= RetrofitController.getRetrofit();
             ApiInterface api = retrofit.create(ApiInterface.class);
@@ -66,8 +79,8 @@ public class CheckoutActivity extends AppCompatActivity {
             call.enqueue(new Callback<List<OrderDeatils>>() {
                 @Override
                 public void onResponse(Call<List<OrderDeatils>> call, Response<List<OrderDeatils>> response) {
+                    progressBar.dismiss();
                     orderDeatils = response.body();
-                    orderId.setText(orderDeatils.get(0).getOrderId());
                     RecyclerView recyclerView = findViewById(R.id.orderRecyclerView);
                     recyclerView.scrollToPosition(1);
                     CurrentOrderAdapter currentOrderAdapter = new CurrentOrderAdapter(orderDeatils);
@@ -77,6 +90,7 @@ public class CheckoutActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<List<OrderDeatils>> call, Throwable t) {
+                    progressBar.dismiss();
                     Toast.makeText(CheckoutActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
 
                 }

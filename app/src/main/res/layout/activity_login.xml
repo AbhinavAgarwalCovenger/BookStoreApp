@@ -26,8 +26,7 @@
                 android:text="Book Store"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
-                android:textSize="26dp"
-                />
+                android:textSize="26dp" />
 
 
 
@@ -131,12 +130,18 @@
                     android:layout_height="wrap_content"
                     android:text="Create new User"
                     android:textStyle="bold"
-                    android:textColor="@color/colorPrimary"
-                    />
+                    android:textColor="@color/colorPrimary" />
 
             </LinearLayout>
 
 
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/login_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp" />
 
 
 
