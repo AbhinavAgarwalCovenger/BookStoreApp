@@ -56,21 +56,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp">
-            <TextView
-                android:id="@+id/check_out_total_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Total"
-                android:textStyle="bold"
-                android:textSize="16dp" />
-
-        </LinearLayout>
-
     </LinearLayout>
 
 
