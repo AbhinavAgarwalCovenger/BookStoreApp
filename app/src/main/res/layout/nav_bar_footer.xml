@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
-                android:layout_margin="4dp"
+                android:layout_margin="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Welcome"
@@ -31,7 +31,7 @@
                 />
             <TextView
                 android:id="@+id/header_name"
-                android:layout_margin="4dp"
+                android:layout_margin="2dp"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
 
             <TextView
                 android:id="@+id/header_email"
-                android:layout_margin="4dp"
+                android:layout_margin="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Email Address"
