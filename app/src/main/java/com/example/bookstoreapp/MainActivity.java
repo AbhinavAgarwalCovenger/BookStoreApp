@@ -279,6 +279,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void sendToLogin() {
         Intent login_intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(login_intent);
+
     }
 
     private void sendToOrder(){
@@ -295,8 +296,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void sendToProfile() {
-        Intent profile_intent = new Intent(MainActivity.this, MyProfileActivity.class);
-        startActivity(profile_intent);
+        sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
+        String account = sharedPreferences.getString("user_id", null);
+        if (null!=account) {
+            Intent profile_intent = new Intent(MainActivity.this, MyProfileActivity.class);
+            profile_intent.putExtra("id",account);
+            startActivity(profile_intent);
+        }
+        else {
+            Toast.makeText(getBaseContext(),"Login Required",Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override

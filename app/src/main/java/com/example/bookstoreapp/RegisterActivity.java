@@ -92,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity {
                             cust.setPincode(pincode);
 
                             Retrofit retrofit = RetrofitController.getRetrofit();
-                            SignUpApi api = retrofit.create(SignUpApi.class);
+                            ApiInterface api = retrofit.create(ApiInterface.class);
                             Call<ResponseBody> call = api.createUser(cust);
                             progressBar.show();
                             call.enqueue(new Callback<ResponseBody>() {
@@ -139,10 +139,12 @@ public class RegisterActivity extends AppCompatActivity {
     private void sendToLogin() {
         Intent login_intent = new Intent(RegisterActivity.this, LoginActivity.class);
         startActivity(login_intent);
+        finish();
     }
 
     private void sendToMain() {
         Intent main_intent = new Intent(RegisterActivity.this, MainActivity.class);
         startActivity(main_intent);
+        finish();
     }
 }
