@@ -22,8 +22,6 @@ import retrofit2.Retrofit;
 
 public class LoginHistoryActivity extends AppCompatActivity {
 
-    SharedPreferences sharedPreferences;
-    public static final String myPreference = "mypref";
     private ArrayList<String> loginHistory;
     private androidx.appcompat.widget.Toolbar toolbar;
 

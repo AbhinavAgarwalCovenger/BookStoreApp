@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bookstoreapp.pojo.CustId;
-import com.example.bookstoreapp.pojo.GoogleLogin;
+import com.example.bookstoreapp.pojo.GoogleFacebookLogin;
 import com.example.bookstoreapp.pojo.Login;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
     public static final String myPreference = "mypref";
     private Retrofit retrofit;
     private ApiInterface api;
-    private GoogleLogin googleLogin;
+    private GoogleFacebookLogin googleFacebookLogin;
     private Login login;
     private CustId custId;
     private LoginButton loginButton;
@@ -78,8 +78,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        googleLogin = new GoogleLogin();
-
+        googleFacebookLogin = new GoogleFacebookLogin();
+        
         //FacebookLogin
 
         loginButton = (LoginButton) findViewById(R.id.login_button);
@@ -134,8 +134,6 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-
-
 
         //ProgressBars
         final ProgressDialog progressBar = new ProgressDialog(this);
@@ -331,9 +329,9 @@ public class LoginActivity extends AppCompatActivity {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             googleIdToken = account.getIdToken();
 
-            googleLogin.setAccessToken(googleIdToken);
-            googleLogin.setLoginType("customer");
-            Call<CustId> custIdCall = api.getCustIdGoogle(googleLogin);
+            googleFacebookLogin.setAccessToken(googleIdToken);
+            googleFacebookLogin.setLoginType("customer");
+            Call<CustId> custIdCall = api.getCustIdGoogle(googleFacebookLogin);
             custIdCall.enqueue(new Callback<CustId>() {
                 @Override
                 public void onResponse(Call<CustId> call, Response<CustId> response) {
