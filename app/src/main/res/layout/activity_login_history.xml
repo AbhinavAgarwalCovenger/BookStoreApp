@@ -6,10 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".LoginHistoryActivity">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/login_history_toolbar"
             android:layout_width="match_parent"
@@ -26,10 +23,5 @@
             android:orientation="vertical">
 
         </androidx.recyclerview.widget.RecyclerView>
-    </LinearLayout>
-
-
-
-
 
 </LinearLayout>

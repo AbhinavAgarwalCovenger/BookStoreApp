@@ -35,6 +35,7 @@ private CircleImageView mProfilePic;
     private TextView mEmail;
     private TextView mPhone;
     private TextView mLoginHistory;
+    private TextView mOrderHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ private CircleImageView mProfilePic;
         mEmail = (TextView) findViewById(R.id.profile_email);
         mPhone = (TextView) findViewById(R.id.profile_phone);
         mLoginHistory = (TextView) findViewById(R.id.profile_login_history);
+        mOrderHistory = (TextView) findViewById(R.id.profile_my_orders);
 
         sharedPreferences=getSharedPreferences(myPreference, Context.MODE_PRIVATE);
         String account = sharedPreferences.getString("user_id",null);
@@ -87,16 +89,32 @@ private CircleImageView mProfilePic;
             @Override
             public void onClick(View v) {
                 sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
-        String account = sharedPreferences.getString("user_id", null);
-        if (null!=account) {
-            Intent intent = new Intent(MyProfileActivity.this, LoginHistoryActivity.class);
-            intent.putExtra("id",account);
-            startActivity(intent);
-        }
-        else {
-            Toast.makeText(getBaseContext(),"Login Required",Toast.LENGTH_SHORT).show();
-        }
+                String account = sharedPreferences.getString("user_id", null);
+                if (null!=account) {
+                    Intent intent = new Intent(MyProfileActivity.this, LoginHistoryActivity.class);
+                    intent.putExtra("id",account);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(getBaseContext(),"Login Required",Toast.LENGTH_SHORT).show();
+                }
 
+            }
+        });
+
+        mOrderHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
+                String account = sharedPreferences.getString("user_id", null);
+                if (null!=account) {
+                    Intent intent = new Intent(MyProfileActivity.this, OrderHistoryActivity.class);
+                    intent.putExtra("id",account);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(getBaseContext(),"Login Required",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

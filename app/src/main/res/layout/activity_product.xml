@@ -109,18 +109,24 @@
         />
 
     <Button
-        android:layout_margin="32dp"
+        android:layout_margin="16dp"
         android:id="@+id/add_to_cart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="ADD TO CART"
         android:layout_gravity="center"
         />
+
+    <Button
+        android:layout_margin="16dp"
+        android:id="@+id/view_merchant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="VIEW MERCHANT"
+        android:layout_gravity="center"
+        />
 </LinearLayout>
 
     </LinearLayout>
-
-
-
 
 </ScrollView>

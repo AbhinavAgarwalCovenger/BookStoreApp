@@ -91,9 +91,6 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.click
                 cartAdapter = new CartAdapter(cartList,CartActivity.this);
                 recyclerView.setLayoutManager(new LinearLayoutManager(CartActivity.this));
                 recyclerView.setAdapter(cartAdapter);
-                if (cartAdapter.getItemCount()==0){
-                    Toast.makeText(CartActivity.this, "Your cart is empty!!", Toast.LENGTH_SHORT).show();
-                }
             }
 
             @Override

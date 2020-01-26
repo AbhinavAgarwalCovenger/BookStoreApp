@@ -2,7 +2,7 @@ package com.example.bookstoreapp.pojo;
 
 import com.google.gson.annotations.SerializedName;
 
-public class GoogleLogin{
+public class GoogleFacebookLogin {
 
 	@SerializedName("loginType")
 	private String loginType;
@@ -29,7 +29,7 @@ public class GoogleLogin{
 	@Override
  	public String toString(){
 		return 
-			"GoogleLogin{" + 
+			"GoogleFacebookLogin{" +
 			"loginType = '" + loginType + '\'' + 
 			",accessToken = '" + accessToken + '\'' + 
 			"}";
