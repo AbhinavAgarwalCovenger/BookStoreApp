@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bookstoreapp.adapater.CurrentOrderAdapter;
@@ -57,6 +58,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<OrderDeatils>> call, Response<List<OrderDeatils>> response) {
                 orderDeatils=response.body();
+                totalCost(orderDeatils);
                 progressBar.dismiss();
                 RecyclerView recyclerView = findViewById(R.id.orderRecyclerView);
                 recyclerView.scrollToPosition(1);
@@ -78,5 +80,17 @@ public class OrderDetailsActivity extends AppCompatActivity {
         Intent intent = new Intent(OrderDetailsActivity.this,MainActivity.class);
         startActivity(intent);
         finish();
+    }
+    private void totalCost(List<OrderDeatils> orderDeatils){
+        double cost=0;
+        for(OrderDeatils orders: orderDeatils){
+            double price = Double.parseDouble(orders.getCost());
+            cost+=price;
+
+        }
+        String tot = String.valueOf(cost);
+        TextView total = findViewById(R.id.price);
+
+        total.setText(tot);
     }
 }

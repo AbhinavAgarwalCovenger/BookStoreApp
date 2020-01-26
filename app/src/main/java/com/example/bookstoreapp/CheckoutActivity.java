@@ -10,8 +10,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bookstoreapp.adapater.CurrentOrderAdapter;
@@ -81,6 +81,7 @@ public class CheckoutActivity extends AppCompatActivity {
                 public void onResponse(Call<List<OrderDeatils>> call, Response<List<OrderDeatils>> response) {
                     progressBar.dismiss();
                     orderDeatils = response.body();
+                    totalCost(orderDeatils);
                     RecyclerView recyclerView = findViewById(R.id.orderRecyclerView);
                     recyclerView.scrollToPosition(1);
                     CurrentOrderAdapter currentOrderAdapter = new CurrentOrderAdapter(orderDeatils);
@@ -112,5 +113,17 @@ public class CheckoutActivity extends AppCompatActivity {
         Intent intent = new Intent(CheckoutActivity.this,MainActivity.class);
         startActivity(intent);
         finish();
+    }
+    private void totalCost(List<OrderDeatils> orderDeatils){
+        double cost=0;
+        for(OrderDeatils orders: orderDeatils){
+            double price = Double.parseDouble(orders.getCost());
+            cost+=price;
+
+        }
+        String tot = String.valueOf(cost);
+        TextView total = findViewById(R.id.price);
+
+        total.setText(tot);
     }
 }

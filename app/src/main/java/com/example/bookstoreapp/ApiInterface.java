@@ -23,37 +23,43 @@ import retrofit2.http.Query;
 
 public interface ApiInterface {
 
-      @GET("product/getProductByGenre/{genre}")
-      Call<List<Books>> getBooksByGenre(@Path("genre") String genre);
+      @POST("/login/signup")
+      Call<ResponseBody>  createUser(@Body Customer customer);
 
-      @GET("customer/getCustomerById/{id}")
-      Call<Customer> getCustomer(@Path("id") String id);
+      @POST("login/login")
+      Call<CustId> getCustId(@Body Login login);
 
-      @GET("product/getTopProducts")
-      Call<List<Books>> getTopBooks();
+      @POST("login/googlelogin")
+      Call<CustId> getCustIdGoogle(@Body GoogleFacebookLogin googleFacebookLogin);
 
-      @GET("product/getGenreList")
-      Call<ArrayList<String>> getGenre();
+      @POST("login/facebooklogin")
+      Call<CustId> getCustIdFB(@Body GoogleFacebookLogin googleFacebookLogin);
 
       @GET("login/getLoginHistoryById/{id}")
       Call<ArrayList<String>> getLoginHistory(@Path("id") String id);
 
-      @GET("order/checkout/{id}")
-      Call<List<OrderDeatils>> getCurrentOrder(@Path("id") String id);
+      @GET("customer/getCustomerById/{id}")
+      Call<Customer> getCustomer(@Path("id") String id);
 
       @GET("search/search")
       Call<List<Books>> getSearch(
               @Query("keyword") String keyword
       );
 
-      @GET("merchant/getMerchantByProductId/{id}")
-      Call<List<MerchantDetails>> getMerchant(@Path("id") String id);
+      @GET("product/getGenreList")
+      Call<ArrayList<String>> getGenre();
+
+      @GET("product/getTopProducts")
+      Call<List<Books>> getTopBooks();
+
+      @GET("product/getProductByGenre/{genre}")
+      Call<List<Books>> getBooksByGenre(@Path("genre") String genre);
 
       @GET("product/getProductByProductId/{id}")
       Call<Books> getProductById(@Path("id") String id);
 
-      @POST("login/login")
-      Call<CustId> getCustId(@Body Login login);
+      @GET("merchant/getMerchantByProductId/{id}")
+      Call<List<MerchantDetails>> getMerchant(@Path("id") String id);
 
       @POST("cart/addToCart")
       Call<ResponseBody> addToCart(@Body Cart cart);
@@ -61,11 +67,8 @@ public interface ApiInterface {
       @GET("cart/getFromCart/{id}")
       Call<List<Books>> getCart(@Path("id") String id);
 
-      @POST("login/googlelogin")
-      Call<CustId> getCustIdGoogle(@Body GoogleFacebookLogin googleFacebookLogin);
-
-      @POST("login/facebooklogin")
-      Call<CustId> getCustIdFB(@Body GoogleFacebookLogin googleFacebookLogin);
+      @GET("order/checkout/{id}")
+      Call<List<OrderDeatils>> getCurrentOrder(@Path("id") String id);
 
       @GET("order/getOrderHistoryByCustomerId/{id}")
       Call<List<OrderHistory>> getOrderHistory(@Path("id") String id);
