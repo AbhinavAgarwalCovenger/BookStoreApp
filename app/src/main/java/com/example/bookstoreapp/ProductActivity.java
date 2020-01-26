@@ -46,7 +46,6 @@ public class ProductActivity extends AppCompatActivity  implements View.OnTouchL
     private int shortAnimationDuration;
     SharedPreferences sharedPreferences;
     public static final String myPreference = "mypref";
-
     //for zooming he image
     private static final String TAG = "Touch";
     @SuppressWarnings("unused")
@@ -88,6 +87,8 @@ public class ProductActivity extends AppCompatActivity  implements View.OnTouchL
         Intent intent = getIntent();
 
         final String book_id = intent.getStringExtra("id");
+        final String merchantId = intent.getStringExtra("merchantId");
+        final String merchantPrice = intent.getStringExtra("price");
 
         Call<Books> call =api.getProductById(book_id);
         call.enqueue(new Callback<Books>() {
@@ -98,7 +99,6 @@ public class ProductActivity extends AppCompatActivity  implements View.OnTouchL
                     String bookName = books.getProductName();
                     String img = books.getUrl();
                     String author = books.getAuthor();
-                    String price = books.getPrice();
                     String publisher = books.getAttributes().get("publisher");
                     String isbn = books.getIsbn();
                     String genre = books.getGenre();
@@ -108,6 +108,13 @@ public class ProductActivity extends AppCompatActivity  implements View.OnTouchL
                     String binding = books.getAttributes().get("binding");
                     String pages = books.getAttributes().get("noofpages");
                     String mid = books.getMerchantId();
+                    String price = books.getPrice();
+
+                    if(merchantId!= null && merchantPrice!= null) {
+                        price = merchantPrice;
+                        mid = merchantId;
+                    }
+
 
                     sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
                     String user_id = sharedPreferences.getString("user_id", null);
@@ -184,7 +191,9 @@ public class ProductActivity extends AppCompatActivity  implements View.OnTouchL
         view_merchant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(ProductActivity.this,MerchantDetailsActivity.class);
+                intent.putExtra("id",book_id);
+                startActivity(intent);
             }
         });
 

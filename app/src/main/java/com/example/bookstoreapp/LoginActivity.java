@@ -19,7 +19,6 @@ import com.example.bookstoreapp.pojo.CustId;
 import com.example.bookstoreapp.pojo.GoogleFacebookLogin;
 import com.example.bookstoreapp.pojo.Login;
 import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -123,34 +122,29 @@ public class LoginActivity extends AppCompatActivity {
                 });
 
 
-//                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-//                    @Override
-//                    public void onCompleted(JSONObject object, GraphResponse response) {
-//
-//                        try {
-//                            Log.d("response",response.toString());
-//                            String first_name = object.getString("first_name");
-//                            String last_name = object.getString("last_name");
-//                            String email = object.getString("email");
-//                            String id = object.getString("id");
-//                            String image_url = "https://graph.facebook.com/"+id+ "/picture?type=normal";
-//                            Toast.makeText(LoginActivity.this, "in loadProfileUser", Toast.LENGTH_SHORT).show();
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                });
-                //Request Graph APIS
-//                Bundle parameters = new Bundle();
-//                parameters.putString("fields","first_name,last_name,email,id");
-//                request.setParameters(parameters);
-//                request.executeAsync();
+                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
 
-                Toast.makeText(LoginActivity.this, accessToken, Toast.LENGTH_SHORT).show();
-              //  Toast.makeText(LoginActivity.this, "fb success", Toast.LENGTH_SHORT).show();
-                    sendToMain();
-
-
+                        try {
+                            Log.d("response",response.toString());
+                            String first_name = object.getString("first_name");
+                            String last_name = object.getString("last_name");
+                            String email = object.getString("email");
+                            String id = object.getString("id");
+                            String image_url = "https://graph.facebook.com/"+id+ "/picture?type=normal";
+                            Toast.makeText(LoginActivity.this, "in loadProfileUser", Toast.LENGTH_SHORT).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+//                Request Graph APIS
+                Bundle parameters = new Bundle();
+                parameters.putString("fields","first_name,last_name,email,id");
+                request.setParameters(parameters);
+                request.executeAsync();
+                sendToMain();
 
             }
 
@@ -288,9 +282,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
 
-
-
-
       }
         });
 
@@ -404,19 +395,21 @@ public class LoginActivity extends AppCompatActivity {
         Intent main_intent = new Intent(LoginActivity.this,MainActivity.class);
         main_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK |FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(main_intent);
+        finish();
     }
 
 
     private void sendToRegister() {
         Intent reg_intent = new Intent(LoginActivity.this,RegisterActivity.class);
         startActivity(reg_intent);
+        finish();
     }
 
 //***********For Facebook
-//        private void checkLoginStatus(){
-//        if(AccessToken.getCurrentAccessToken() != null){
-//            Toast.makeText(this, AccessToken.getCurrentAccessToken().getUserId(), Toast.LENGTH_SHORT).show();
-//        }
-//}
+        private void checkLoginStatus(){
+        if(AccessToken.getCurrentAccessToken() != null){
+            Toast.makeText(this, AccessToken.getCurrentAccessToken().getUserId(), Toast.LENGTH_SHORT).show();
+        }
+}
 
 }

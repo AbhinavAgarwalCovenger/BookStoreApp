@@ -123,12 +123,14 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.click
     private void sendToMain() {
         Intent main_intent  = new Intent(CartActivity.this,MainActivity.class);
         startActivity(main_intent);
+        finish();
     }
 
     private void sentToCheckOut() {
 
         Intent checkout_intent = new Intent(CartActivity.this, CheckoutActivity.class);
         startActivity(checkout_intent);
+        finish();
 
     }
 
