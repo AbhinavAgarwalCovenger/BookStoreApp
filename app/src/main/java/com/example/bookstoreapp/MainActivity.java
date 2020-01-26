@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         actionBarDrawerToggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-cartBtn.setOnClickListener(new View.OnClickListener() {
+        cartBtn.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         sendToCart();
@@ -197,14 +197,17 @@ cartBtn.setOnClickListener(new View.OnClickListener() {
 
     private void signOut() {
         sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
         mGoogleSignInClient.signOut()
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
 //                        sendToLogin();
+                        editor.putString("user_id",null);
+                        editor.commit();
                     }
                 });
+
         editor.putString("user_id",null);
         editor.commit();
         updateUI(null);
@@ -278,28 +281,29 @@ cartBtn.setOnClickListener(new View.OnClickListener() {
         startActivity(login_intent);
     }
 
+    private void sendToOrder(){
+        sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
+        String account = sharedPreferences.getString("user_id", null);
+        if (null!=account) {
+            Intent intent = new Intent(MainActivity.this, OrderHistoryActivity.class);
+            intent.putExtra("id",account);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(getBaseContext(),"Login Required",Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void sendToProfile() {
         Intent profile_intent = new Intent(MainActivity.this, MyProfileActivity.class);
         startActivity(profile_intent);
-//        sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
-//        String account = sharedPreferences.getString("user_id", null);
-//        if (null!=account) {
-//            Intent intent = new Intent(MainActivity.this, LoginHistoryActivity.class);
-//            intent.putExtra("id",account);
-//            startActivity(intent);
-//        }
-//        else {
-//            Toast.makeText(getBaseContext(),"Login Required",Toast.LENGTH_SHORT).show();
-//        }
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_my_cart:
-
                 sendToCart();
-//                Toast.makeText(this, "cart clicked", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_logout: {
                 signOut();
@@ -309,11 +313,11 @@ cartBtn.setOnClickListener(new View.OnClickListener() {
 
             case R.id.nav_my_profile:
                 sendToProfile();
-//                Toast.makeText(this, "profile clicked", Toast.LENGTH_SHORT).show();
-
                 break;
 
-
+            case R.id.nav_my_order:
+                sendToOrder();
+                break;
             default:
                 return true;
 
