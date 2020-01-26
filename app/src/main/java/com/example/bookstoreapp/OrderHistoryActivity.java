@@ -18,7 +18,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class OrderHistoryActivity extends AppCompatActivity {
+public class OrderHistoryActivity extends AppCompatActivity implements OrderHistoryAdapter.clickOrder {
 
     private androidx.appcompat.widget.Toolbar toolbar;
     private List<OrderHistory> orderHistories;
@@ -43,7 +43,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
                 orderHistories=response.body();
                 RecyclerView recyclerView = findViewById(R.id.order_history_recycler);
                 recyclerView.scrollToPosition(1);
-                OrderHistoryAdapter orderHistoryAdapter = new OrderHistoryAdapter(orderHistories);
+                OrderHistoryAdapter orderHistoryAdapter = new OrderHistoryAdapter(orderHistories,OrderHistoryActivity.this);
                 recyclerView.setLayoutManager(new LinearLayoutManager(OrderHistoryActivity.this,LinearLayoutManager.VERTICAL,false));
                 recyclerView.setAdapter(orderHistoryAdapter);
 
@@ -55,5 +55,12 @@ public class OrderHistoryActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onClick(OrderHistory orderHistory) {
+        Intent intent = new Intent(OrderHistoryActivity.this,OrderDetailsActivity.class);
+        intent.putExtra("orderId",orderHistory.getOrderId());
+        startActivity(intent);
     }
 }

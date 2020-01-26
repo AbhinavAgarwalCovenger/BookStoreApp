@@ -16,9 +16,11 @@ import java.util.List;
 public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapter.ViewHolder>{
 
     private List<OrderHistory> orderHistories;
+    private clickOrder mClickOrder;
 
-    public OrderHistoryAdapter(List<OrderHistory> orders){
+    public OrderHistoryAdapter(List<OrderHistory> orders, clickOrder order){
         this.orderHistories = orders;
+        this.mClickOrder = order;
     }
 
     @NonNull
@@ -32,8 +34,13 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+        holder.itemView.getRootView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClickOrder.onClick(orderHistories.get(position));
+            }
+        });
         holder.order_history.setText(orderHistories.get(position).getOrderId());
         holder.timestamp.setText(orderHistories.get(position).getTimestamp());
     }
@@ -53,5 +60,9 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
             this.order_history = itemView.findViewById(R.id.order_history);
             this.timestamp = itemView.findViewById(R.id.order_timestamp);
         }
+    }
+
+    public interface clickOrder{
+        void onClick(OrderHistory orderHistory);
     }
 }
