@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bookstoreapp.pojo.CustId;
-import com.example.bookstoreapp.pojo.GoogleLogin;
+import com.example.bookstoreapp.pojo.GoogleFacebookLogin;
 import com.example.bookstoreapp.pojo.Login;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
     public static final String myPreference = "mypref";
     private Retrofit retrofit;
     private ApiInterface api;
-    private GoogleLogin googleLogin;
+    private GoogleFacebookLogin googleFacebookLogin;
     private Login login;
     private CustId custId;
 
@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        googleLogin = new GoogleLogin();
+        googleFacebookLogin = new GoogleFacebookLogin();
         //ProgressBars
         final ProgressDialog progressBar = new ProgressDialog(this);
         progressBar.setCancelable(true);
@@ -250,9 +250,9 @@ public class LoginActivity extends AppCompatActivity {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             googleIdToken = account.getIdToken();
 
-            googleLogin.setAccessToken(googleIdToken);
-            googleLogin.setLoginType("customer");
-            Call<CustId> custIdCall = api.getCustIdGoogle(googleLogin);
+            googleFacebookLogin.setAccessToken(googleIdToken);
+            googleFacebookLogin.setLoginType("customer");
+            Call<CustId> custIdCall = api.getCustIdGoogle(googleFacebookLogin);
             custIdCall.enqueue(new Callback<CustId>() {
                 @Override
                 public void onResponse(Call<CustId> call, Response<CustId> response) {

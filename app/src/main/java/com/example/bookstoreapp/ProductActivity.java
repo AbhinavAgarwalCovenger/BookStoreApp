@@ -36,6 +36,7 @@ public class ProductActivity extends AppCompatActivity  implements View.OnTouchL
 
     private List<Books> booksList;
     Button add_to_cart_btn;
+    Button view_merchant;
     Books books;
     Cart cart;
     Retrofit retrofit= RetrofitController.getRetrofit();
@@ -77,8 +78,8 @@ public class ProductActivity extends AppCompatActivity  implements View.OnTouchL
 
         bookImage = (ImageView) findViewById(R.id.book_img_prod);
         bookImage.setOnTouchListener(this);
-        add_to_cart_btn = (Button) findViewById(R.id.add_to_cart);
-
+        add_to_cart_btn = findViewById(R.id.add_to_cart);
+        view_merchant = findViewById(R.id.view_merchant);
 
 
 
@@ -177,6 +178,13 @@ public class ProductActivity extends AppCompatActivity  implements View.OnTouchL
                         Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
                     }
                 });
+            }
+        });
+
+        view_merchant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
