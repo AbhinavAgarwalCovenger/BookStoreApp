@@ -24,6 +24,8 @@ public class CurrentOrderAdapter extends RecyclerView.Adapter<CurrentOrderAdapte
         this.orderDeatils=list;
     }
 
+
+
     @NonNull
     @Override
     public CurrentOrderAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -35,17 +37,20 @@ public class CurrentOrderAdapter extends RecyclerView.Adapter<CurrentOrderAdapte
     @Override
     public void onBindViewHolder(@NonNull CurrentOrderAdapter.ViewHolder holder, int position) {
 
-        holder.prodName.setText(orderDeatils.get(position).getProductName());
-        holder.prodQuantity.setText(orderDeatils.get(position).getQuantity());
-        holder.prodPrice.setText(orderDeatils.get(position).getCost());
-        Glide.with(holder.url.getContext()).applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_launcher_foreground))
-                .load(orderDeatils.get(position).getUrl()).into(holder.url);
+                    holder.prodName.setText(orderDeatils.get(position).getProductName());
+                    holder.prodQuantity.setText(orderDeatils.get(position).getQuantity());
+                    holder.prodPrice.setText(orderDeatils.get(position).getCost());
+                    Glide.with(holder.url.getContext()).applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_launcher_foreground))
+                            .load(orderDeatils.get(position).getUrl()).into(holder.url);
+
+
     }
 
     @Override
     public int getItemCount() {
         return orderDeatils.size();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView prodName;

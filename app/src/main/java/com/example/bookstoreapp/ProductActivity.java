@@ -1,6 +1,7 @@
 package com.example.bookstoreapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.animation.Animator;
 import android.content.Context;
@@ -42,6 +43,7 @@ public class ProductActivity extends AppCompatActivity  implements View.OnTouchL
     Retrofit retrofit= RetrofitController.getRetrofit();
     ApiInterface api = retrofit.create(ApiInterface.class);
     private ImageView bookImage;
+
     private Animator currentAnimator;
     private int shortAnimationDuration;
     SharedPreferences sharedPreferences;
@@ -67,13 +69,23 @@ public class ProductActivity extends AppCompatActivity  implements View.OnTouchL
     PointF mid = new PointF();
     float oldDist = 1f;
 
-
+    private Toolbar toolbar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
+
+
+
+        //toolbar
+        toolbar = findViewById(R.id.product_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setTitle("Product");
+
 
         bookImage = (ImageView) findViewById(R.id.book_img_prod);
         bookImage.setOnTouchListener(this);
@@ -141,7 +153,13 @@ public class ProductActivity extends AppCompatActivity  implements View.OnTouchL
                     TextView authorText = findViewById(R.id.author);
                     TextView priceText = findViewById(R.id.price);
                     TextView publisherText = findViewById(R.id.publisher);
-
+                    TextView bookDescText = findViewById(R.id.product_desc);
+                    TextView ratingText = findViewById(R.id.rating);
+                    TextView isbnText = findViewById(R.id.book_isbn);
+                    TextView pagesText = findViewById(R.id.book_pages);
+                    TextView genreText = findViewById(R.id.book_genre);
+                    TextView yearText = findViewById(R.id.book_year);
+                    TextView bindingText = findViewById(R.id.book_binding);
                     Glide.with(getBaseContext()).applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_launcher_foreground))
                             .load(img)
                             .into(image);
@@ -150,6 +168,15 @@ public class ProductActivity extends AppCompatActivity  implements View.OnTouchL
                     authorText.setText(author);
                     priceText.setText(price);
                     publisherText.setText(publisher);
+                    bookDescText.setText(description);
+                    ratingText.setText(rating);
+                    isbnText.setText(isbn);
+                    pagesText.setText(pages);
+                    genreText.setText(genre);
+                    yearText.setText(year);
+                    bindingText.setText(binding);
+
+
                 }
                 else {
                     Toast.makeText(getBaseContext(),"Failed",Toast.LENGTH_SHORT).show();

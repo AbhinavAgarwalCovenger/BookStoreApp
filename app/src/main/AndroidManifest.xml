@@ -24,7 +24,9 @@
             android:parentActivityName=".MyProfileActivity" />
         <activity android:name=".OrderHistoryActivity" />
         <activity android:name=".MyProfileActivity" />
-        <activity android:name=".ProductActivity" />
+        <activity android:name=".ProductActivity"
+            android:parentActivityName=".MainActivity"
+            />
         <activity
             android:name=".CheckoutActivity"
             android:parentActivityName=".CartActivity" />
