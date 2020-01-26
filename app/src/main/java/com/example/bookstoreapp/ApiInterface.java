@@ -63,6 +63,9 @@ public interface ApiInterface {
       @POST("login/googlelogin")
       Call<CustId> getCustIdGoogle(@Body GoogleFacebookLogin googleFacebookLogin);
 
+      @POST("login/facebooklogin")
+      Call<CustId> getCustIdFB(@Body GoogleFacebookLogin googleFacebookLogin);
+
       @GET("order/getOrderHistoryByCustomerId/{id}")
       Call<List<OrderHistory>> getOrderHistory(@Path("id") String id);
 

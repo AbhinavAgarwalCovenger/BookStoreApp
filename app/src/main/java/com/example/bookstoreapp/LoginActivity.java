@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = (LoginButton) findViewById(R.id.login_button);
         callbackManager = CallbackManager.Factory.create();
         loginButton.setReadPermissions(Arrays.asList("email","public_profile"));
-        checkLoginStatus();
+//        checkLoginStatus();
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -93,28 +93,58 @@ public class LoginActivity extends AppCompatActivity {
 
                 String accessToken = loginResult.getAccessToken().getToken();
 
-                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                googleFacebookLogin.setAccessToken(accessToken);
+                googleFacebookLogin.setLoginType("customer");
+                Call<CustId> custIdCall = api.getCustIdFB(googleFacebookLogin);
+                custIdCall.enqueue(new Callback<CustId>() {
                     @Override
-                    public void onCompleted(JSONObject object, GraphResponse response) {
+                    public void onResponse(Call<CustId> call, Response<CustId> response) {
+                        custId=response.body();
 
-                        try {
-                            Log.d("response",response.toString());
-                            String first_name = object.getString("first_name");
-                            String last_name = object.getString("last_name");
-                            String email = object.getString("email");
-                            String id = object.getString("id");
-                            String image_url = "https://graph.facebook.com/"+id+ "/picture?type=normal";
-                            Toast.makeText(LoginActivity.this, "in loadProfileUser", Toast.LENGTH_SHORT).show();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        if(custId.getResponse().equals("Not Found")){
+                            Toast.makeText(LoginActivity.this, "Facebook Error", Toast.LENGTH_SHORT).show();
                         }
+                        else {
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            String id = custId.getResponse();
+                            editor.putString("user_id",id);
+                            editor.commit();
+                            Toast.makeText(LoginActivity.this, "Successful!!", Toast.LENGTH_SHORT).show();
+                            sendToMain();
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<CustId> call, Throwable t) {
+                        Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
                     }
                 });
+
+
+//                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+//                    @Override
+//                    public void onCompleted(JSONObject object, GraphResponse response) {
+//
+//                        try {
+//                            Log.d("response",response.toString());
+//                            String first_name = object.getString("first_name");
+//                            String last_name = object.getString("last_name");
+//                            String email = object.getString("email");
+//                            String id = object.getString("id");
+//                            String image_url = "https://graph.facebook.com/"+id+ "/picture?type=normal";
+//                            Toast.makeText(LoginActivity.this, "in loadProfileUser", Toast.LENGTH_SHORT).show();
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
                 //Request Graph APIS
-                Bundle parameters = new Bundle();
-                parameters.putString("fields","first_name,last_name,email,id");
-                request.setParameters(parameters);
-                request.executeAsync();
+//                Bundle parameters = new Bundle();
+//                parameters.putString("fields","first_name,last_name,email,id");
+//                request.setParameters(parameters);
+//                request.executeAsync();
 
                 Toast.makeText(LoginActivity.this, accessToken, Toast.LENGTH_SHORT).show();
               //  Toast.makeText(LoginActivity.this, "fb success", Toast.LENGTH_SHORT).show();
@@ -279,16 +309,16 @@ public class LoginActivity extends AppCompatActivity {
 
 
         //Information from google
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        if (acct != null) {
-            String personName = acct.getDisplayName();
-            String personGivenName = acct.getGivenName();
-            String personFamilyName = acct.getFamilyName();
-            String personEmail = acct.getEmail();
-            String personId = acct.getId();
-            Uri personPhoto = acct.getPhotoUrl();
-            String token = acct.getIdToken();
-        }
+//        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+//        if (acct != null) {
+//            String personName = acct.getDisplayName();
+//            String personGivenName = acct.getGivenName();
+//            String personFamilyName = acct.getFamilyName();
+//            String personEmail = acct.getEmail();
+//            String personId = acct.getId();
+//            Uri personPhoto = acct.getPhotoUrl();
+//            String token = acct.getIdToken();
+//        }
 
 
 
@@ -383,11 +413,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 //***********For Facebook
-private void checkLoginStatus(){
-        if(AccessToken.getCurrentAccessToken() != null){
-            Toast.makeText(this, AccessToken.getCurrentAccessToken().getUserId(), Toast.LENGTH_SHORT).show();
-        }
-
-}
+//        private void checkLoginStatus(){
+//        if(AccessToken.getCurrentAccessToken() != null){
+//            Toast.makeText(this, AccessToken.getCurrentAccessToken().getUserId(), Toast.LENGTH_SHORT).show();
+//        }
+//}
 
 }
