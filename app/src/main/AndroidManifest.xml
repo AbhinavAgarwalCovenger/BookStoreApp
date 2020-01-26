@@ -15,13 +15,15 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".OrderDetailsActivity"></activity>
+        <activity android:name=".OrderDetailsActivity"/>
         <activity
             android:name=".LoginHistoryActivity"
             android:parentActivityName=".MyProfileActivity" />
         <activity android:name=".OrderHistoryActivity" />
         <activity android:name=".MyProfileActivity" />
-        <activity android:name=".ProductActivity" />
+        <activity android:name=".ProductActivity"
+            android:parentActivityName=".MainActivity"
+            />
         <activity
             android:name=".CheckoutActivity"
             android:parentActivityName=".CartActivity" />

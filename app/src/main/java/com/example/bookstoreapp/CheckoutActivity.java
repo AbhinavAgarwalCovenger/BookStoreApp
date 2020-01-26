@@ -12,8 +12,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bookstoreapp.adapater.CheckoutAdapter;
 import com.example.bookstoreapp.adapater.CurrentOrderAdapter;
 import com.example.bookstoreapp.pojo.OrderDeatils;
 
@@ -30,6 +32,7 @@ public class CheckoutActivity extends AppCompatActivity {
     public static final String myPreference = "mypref";
     private List<OrderDeatils> orderDeatils;
     ImageButton done;
+    TextView order_id,total_price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,9 @@ public class CheckoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_checkout);
         done = (ImageButton) findViewById(R.id.doneButton);
 
+
+        order_id = findViewById(R.id.order_id);
+        total_price = findViewById(R.id.total_price);
 
 
 
@@ -81,8 +87,11 @@ public class CheckoutActivity extends AppCompatActivity {
                 public void onResponse(Call<List<OrderDeatils>> call, Response<List<OrderDeatils>> response) {
                     progressBar.dismiss();
                     orderDeatils = response.body();
+                    order_id.setText(orderDeatils.get(0).getOrderId());
+                    total_price.setText(orderDeatils.get(0).getCost());
                     RecyclerView recyclerView = findViewById(R.id.orderRecyclerView);
                     recyclerView.scrollToPosition(1);
+                   // CheckoutAdapter checkoutAdapter = new CheckoutAdapter(orderDeatils);
                     CurrentOrderAdapter currentOrderAdapter = new CurrentOrderAdapter(orderDeatils);
                     recyclerView.setLayoutManager(new LinearLayoutManager(CheckoutActivity.this,LinearLayoutManager.VERTICAL,false));
                     recyclerView.setAdapter(currentOrderAdapter);

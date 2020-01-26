@@ -24,12 +24,26 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-
+<TextView
+    android:id="@+id/order_id"
+    android:text="order id"
+    android:textSize="24dp"
+    android:textColor="@color/colorBlack"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/total_price"
+        android:text="total price"
+        android:textSize="24dp"
+        android:textColor="@color/colorBlack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="8dp"
         android:id="@+id/orderRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent" />
+
 
 
 
