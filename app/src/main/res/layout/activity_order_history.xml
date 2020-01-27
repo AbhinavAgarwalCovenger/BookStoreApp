@@ -9,7 +9,7 @@
     tools:context=".OrderHistoryActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/login_history_toolbar"
+        android:id="@+id/order_history_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="Order History"

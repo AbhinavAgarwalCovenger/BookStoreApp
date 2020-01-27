@@ -47,7 +47,7 @@ public class CheckoutActivity extends AppCompatActivity {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(CheckoutActivity.this, "Thanks for ordering!!", Toast.LENGTH_LONG).show();
+//                Toast.makeText(CheckoutActivity.this, "Thanks for ordering!!", Toast.LENGTH_LONG).show();
                 sendToMain();
             }
         });
