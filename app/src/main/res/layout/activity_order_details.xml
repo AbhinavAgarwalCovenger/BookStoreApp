@@ -11,8 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/checkoutToolBar"
             android:layout_width="match_parent"
@@ -20,7 +19,7 @@
             android:background="@color/colorPrimary"
             app:title="Order Details">
             <ImageButton
-                android:layout_marginStart="200dp"
+                android:layout_marginStart="130dp"
                 android:id="@+id/doneButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

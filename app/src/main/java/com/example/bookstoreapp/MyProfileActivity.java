@@ -58,7 +58,7 @@ private CircleImageView mProfilePic;
             @Override
             public void onResponse(Call<Customer> call, Response<Customer> response) {
                 customer=response.body();
-                Toast.makeText(getBaseContext(),customer.getEmail(),Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getBaseContext(),customer.getEmail(),Toast.LENGTH_SHORT).show();
                 mProfilePic = (CircleImageView) findViewById(R.id.profile_image);
 
                 Glide.with(MyProfileActivity.this).applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_launcher_background))
