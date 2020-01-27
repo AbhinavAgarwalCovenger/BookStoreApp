@@ -18,12 +18,6 @@
 
     <item android:title="Apps">
         <menu>
-            <item android:title="Settings"
-                android:icon="@drawable/settings"
-                android:id="@+id/nav_setting" />
-            <item android:title="Account"
-                android:icon="@drawable/person"
-                android:id="@+id/nav_account" />
             <item android:title="Login"
                 android:icon="@drawable/rowing"
                 android:id="@+id/nav_logout" />

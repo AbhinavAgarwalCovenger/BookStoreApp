@@ -17,7 +17,7 @@
             android:id="@+id/profile_image"
             android:layout_width="96dp"
             android:layout_height="96dp"
-            android:src="@color/colorWhite"
+            android:src="@drawable/avatar"
             android:layout_margin="32dp"
             app:civ_border_color="#FF000000"
             app:civ_border_width="2dp" />
@@ -67,11 +67,6 @@
 
 
     </LinearLayout>
-
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -127,64 +122,10 @@
 
                 </LinearLayout>
 
-                <LinearLayout
 
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/custom_background"
-                    android:padding="10dip">
-
-                    <TextView
-                        android:id="@+id/profile_my_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="4dp"
-                        android:drawableLeft="@drawable/home"
-                        android:gravity="center"
-                        android:text="Address"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/custom_background"
-                    android:padding="10dip">
-
-                    <TextView
-                        android:id="@+id/profile_my_profile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="4dp"
-                        android:drawableStart="@drawable/touch"
-                        android:gravity="center"
-                        android:text="Profile"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
 
             </LinearLayout>
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:text="Settings"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -216,61 +157,13 @@
 
                 </LinearLayout>
 
-                <LinearLayout
 
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/custom_background"
-                    android:padding="10dip">
 
-                    <TextView
-                        android:id="@+id/profile_edit_information"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="4dp"
-                        android:drawableLeft="@drawable/edit"
-                        android:gravity="center"
-                        android:text="Edit Information"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/custom_background"
-                    android:padding="10dip">
-
-                    <TextView
-                        android:id="@+id/profile_change_password"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="4dp"
-                        android:drawableStart="@drawable/security"
-                        android:gravity="center"
-                        android:text="Change Password"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="18sp" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="Logout" />
-            </LinearLayout>
 
         </LinearLayout>
-    </ScrollView>
-
-</LinearLayout>

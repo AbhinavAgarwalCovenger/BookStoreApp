@@ -60,10 +60,7 @@ private CircleImageView mProfilePic;
                 customer=response.body();
                // Toast.makeText(getBaseContext(),customer.getEmail(),Toast.LENGTH_SHORT).show();
                 mProfilePic = (CircleImageView) findViewById(R.id.profile_image);
-
-                Glide.with(MyProfileActivity.this).applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_launcher_background))
-                        .load("https://image.shutterstock.com/image-photo/beautiful-water-drop-on-dandelion-260nw-789676552.jpg")
-                        .into(mProfilePic);
+                
 
                 //setting profile details in respective text fields
                     mName.setText(customer.getName());

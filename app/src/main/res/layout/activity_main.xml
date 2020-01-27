@@ -31,6 +31,7 @@
 
 
             <ImageView
+                android:contentDescription="@string/cart_btn"
                 android:id="@+id/cart_btn"
                 android:layout_marginStart="160dp"
                 android:layout_width="wrap_content"
@@ -48,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:text="Search for books"
+                android:text="@string/search_for_books"
                 android:textColor="@android:color/black"
                 android:textAllCaps="false"
                 android:layout_marginStart="8dp"
@@ -59,7 +60,6 @@
                 />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/genre_recycler"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -84,7 +84,7 @@
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Top Picks"
+            android:text="@string/top_picks"
             android:layout_margin="8dp"
             android:textSize="16sp"
             android:textColor="@android:color/black"
