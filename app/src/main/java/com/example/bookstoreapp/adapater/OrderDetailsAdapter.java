@@ -1,9 +1,13 @@
 package com.example.bookstoreapp.adapater;
 
+import android.R.layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -42,6 +46,12 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<OrderDetailsAdapte
         Glide.with(holder.url.getContext()).applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_launcher_foreground))
                 .load(orderDeatils.get(position).getUrl()).into(holder.url);
 
+        Integer[] items = new Integer[]{1,2,3,4,5};
+      //  ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.order_details_list,items);
+        ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(holder.merchantSpinner.getContext(), android.R.layout.simple_spinner_dropdown_item, items);
+        holder.orderSpinner.setAdapter(adapter);
+        holder.merchantSpinner.setAdapter(adapter);
+
 
     }
 
@@ -56,6 +66,10 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<OrderDetailsAdapte
         TextView prodQuantity;
         TextView prodPrice;
         ImageView url;
+        Button merchantRatingButton;
+        Button orderRatingButton;
+        Spinner merchantSpinner;
+        Spinner orderSpinner;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -63,6 +77,10 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<OrderDetailsAdapte
             this.prodQuantity =itemView.findViewById(R.id.order_quantity);
             this.prodPrice = itemView.findViewById(R.id.order_price);
             this.url = itemView.findViewById(R.id.order_url);
+            this.merchantRatingButton = itemView.findViewById(R.id.btn_merchant);
+            this.orderRatingButton = itemView.findViewById(R.id.btn_order);
+            this.merchantSpinner = itemView.findViewById(R.id.spinner_merchant);
+            this.orderSpinner = itemView.findViewById(R.id.spinner_product);
         }
     }
 }
