@@ -186,7 +186,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.click
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(CartActivity.this, "Failure", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CartActivity.this, "Failed :(", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -218,6 +218,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.click
                         cartList.set(position, book);
                         cartList.remove(position);
                         cartAdapter.notifyItemRemoved(position);
+                        emptyFlag=true;
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -226,7 +227,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.click
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(CartActivity.this, "Failure", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CartActivity.this, "Failed :(", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -261,6 +262,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.click
                         if (q.equals("0")){
                             cartList.remove(position);
                             cartAdapter.notifyItemRemoved(position);
+                            emptyFlag=true;
                         }
                         else {
                             cartAdapter.notifyDataSetChanged();
@@ -273,7 +275,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.click
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(CartActivity.this, "Failure", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CartActivity.this, "Failed :(", Toast.LENGTH_SHORT).show();
             }
         });
 

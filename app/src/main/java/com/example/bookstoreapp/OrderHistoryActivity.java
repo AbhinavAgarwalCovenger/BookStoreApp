@@ -27,7 +27,8 @@ public class OrderHistoryActivity extends AppCompatActivity implements OrderHist
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_history);
-        toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.login_history_toolbar);
+
+        toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.order_history_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
