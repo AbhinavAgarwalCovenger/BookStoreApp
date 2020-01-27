@@ -257,7 +257,7 @@ public class ProductActivity extends AppCompatActivity  implements View.OnTouchL
             }
         });
     }
-    
+
 
     @Override
     public boolean onTouch(View v, MotionEvent event)
