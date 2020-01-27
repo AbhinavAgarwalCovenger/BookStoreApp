@@ -107,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                             String id = custId.getResponse();
                             editor.putString("user_id",id);
                             editor.commit();
-                            Toast.makeText(LoginActivity.this, "Successful!!", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(LoginActivity.this, "Successful!!", Toast.LENGTH_SHORT).show();
                             sendToMain();
                         }
 
@@ -132,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                             String email = object.getString("email");
                             String id = object.getString("id");
                             String image_url = "https://graph.facebook.com/"+id+ "/picture?type=normal";
-                            Toast.makeText(LoginActivity.this, "in loadProfileUser", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Loading Profile", Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -365,7 +365,7 @@ public class LoginActivity extends AppCompatActivity {
                         String id = custId.getResponse();
                         editor.putString("user_id",id);
                         editor.commit();
-                        Toast.makeText(LoginActivity.this, "Successful!!", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(LoginActivity.this, "Successful!!", Toast.LENGTH_SHORT).show();
                         sendToMain();
                     }
 
@@ -405,10 +405,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 //***********For Facebook
-        private void checkLoginStatus(){
-        if(AccessToken.getCurrentAccessToken() != null){
-            Toast.makeText(this, AccessToken.getCurrentAccessToken().getUserId(), Toast.LENGTH_SHORT).show();
-        }
-}
+//        private void checkLoginStatus(){
+//          if(AccessToken.getCurrentAccessToken() != null){
+//            Toast.makeText(this, AccessToken.getCurrentAccessToken().getUserId(), Toast.LENGTH_SHORT).show();
+//          }
+//        }
 
 }
