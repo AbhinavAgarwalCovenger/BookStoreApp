@@ -1,6 +1,5 @@
 package com.example.bookstoreapp.adapater;
 
-import android.R.layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,18 +14,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.bookstoreapp.ApiInterface;
 import com.example.bookstoreapp.R;
+import com.example.bookstoreapp.RetrofitController;
 import com.example.bookstoreapp.pojo.OrderDeatils;
 
 import java.util.List;
 
+import retrofit2.Retrofit;
+
 public class OrderDetailsAdapter extends RecyclerView.Adapter<OrderDetailsAdapter.ViewHolder> {
-    private List<OrderDeatils> orderDeatils;
-
-    public OrderDetailsAdapter(List<OrderDeatils> list){
-        this.orderDeatils=list;
+    private List<OrderDeatils> orderDetails;
+    private rating mClick;
+    public OrderDetailsAdapter(List<OrderDeatils> list, rating click){
+        this.orderDetails =list;
+        this.mClick = click;
     }
-
+    Retrofit retrofit = RetrofitController.getRetrofit();
+    ApiInterface api = retrofit.create(ApiInterface.class);
 
 
     @NonNull
@@ -38,26 +43,41 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<OrderDetailsAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OrderDetailsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final OrderDetailsAdapter.ViewHolder holder, final int position) {
 
-        holder.prodName.setText(orderDeatils.get(position).getProductName());
-        holder.prodQuantity.setText(orderDeatils.get(position).getQuantity());
-        holder.prodPrice.setText(orderDeatils.get(position).getCost());
+        holder.prodName.setText(orderDetails.get(position).getProductName());
+        holder.prodQuantity.setText(orderDetails.get(position).getQuantity());
+        holder.prodPrice.setText(orderDetails.get(position).getCost());
         Glide.with(holder.url.getContext()).applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_launcher_foreground))
-                .load(orderDeatils.get(position).getUrl()).into(holder.url);
+                .load(orderDetails.get(position).getUrl()).into(holder.url);
 
         Integer[] items = new Integer[]{1,2,3,4,5};
       //  ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.order_details_list,items);
         ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(holder.merchantSpinner.getContext(), android.R.layout.simple_spinner_dropdown_item, items);
         holder.orderSpinner.setAdapter(adapter);
         holder.merchantSpinner.setAdapter(adapter);
+        holder.merchantRatingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = holder.merchantSpinner.getSelectedItem().toString();
+                mClick.mRating(orderDetails.get(position),str);
+            }
+        });
+        holder.orderRatingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String  str = holder.orderSpinner.getSelectedItem().toString();
+                mClick.pRating(orderDetails.get(position),str);
+            }
+        });
 
 
     }
 
     @Override
     public int getItemCount() {
-        return orderDeatils.size();
+        return orderDetails.size();
     }
 
 
@@ -83,4 +103,10 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<OrderDetailsAdapte
             this.orderSpinner = itemView.findViewById(R.id.spinner_product);
         }
     }
+
+    public interface rating{
+        void mRating(OrderDeatils orderDetails, String str);
+        void pRating(OrderDeatils orderDeatils, String str);
+    }
+
 }

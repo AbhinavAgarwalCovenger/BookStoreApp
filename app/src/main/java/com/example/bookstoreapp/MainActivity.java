@@ -268,6 +268,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             TextView navUserEmail = (TextView) headerView.findViewById(R.id.header_email);
             navUsername.setText("Guest");
             navUserEmail.setVisibility(View.INVISIBLE);
+            //change drawer logout/login to logout
+
+            Menu menu = navigationView.getMenu();
+
+            // find MenuItem you want to change
+            MenuItem nav_logout = menu.findItem(R.id.nav_logout);
+
+            // set new title to the MenuItem
+            nav_logout.setTitle("Login");
             // sendToLogin();
 //            Toast.makeText(this, "" + account, Toast.LENGTH_SHORT).show();
         }

@@ -62,6 +62,12 @@
             android:orientation="vertical"
             android:layout_marginEnd="8dp">
 
+            <TextView
+                android:id="@+id/merchant_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Merchant Rating"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -80,6 +86,13 @@
                     android:text="OK" />
 
             </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/product_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Product Rating"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

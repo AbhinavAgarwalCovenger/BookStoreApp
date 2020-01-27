@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bookstoreapp.adapater.OrderDetailsAdapter;
+import com.example.bookstoreapp.pojo.Books;
+import com.example.bookstoreapp.pojo.MerchantDetails;
 import com.example.bookstoreapp.pojo.OrderDeatils;
 
 import java.util.List;
@@ -23,11 +25,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class OrderDetailsActivity extends AppCompatActivity {
+public class OrderDetailsActivity extends AppCompatActivity implements OrderDetailsAdapter.rating{
 
     private List<OrderDeatils> orderDeatils;
     ImageButton done;
     private androidx.appcompat.widget.Toolbar toolbar;
+    Retrofit retrofit = RetrofitController.getRetrofit();
+    ApiInterface api = retrofit.create(ApiInterface.class);
+  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +62,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String orderId = intent.getStringExtra("orderId");
 
-        Retrofit retrofit = RetrofitController.getRetrofit();
-        ApiInterface api = retrofit.create(ApiInterface.class);
+
         Call<List<OrderDeatils>> call = api.getOrderDetails(orderId);
         progressBar.show();
         call.enqueue(new Callback<List<OrderDeatils>>() {
@@ -69,7 +73,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
                 progressBar.dismiss();
                 RecyclerView recyclerView = findViewById(R.id.orderRecyclerView);
                 recyclerView.scrollToPosition(1);
-                OrderDetailsAdapter orderDetailsAdapter = new OrderDetailsAdapter(orderDeatils);
+                OrderDetailsAdapter orderDetailsAdapter = new OrderDetailsAdapter(orderDeatils,OrderDetailsActivity.this);
                 recyclerView.setLayoutManager(new LinearLayoutManager(OrderDetailsActivity.this,LinearLayoutManager.VERTICAL,false));
                 recyclerView.setAdapter(orderDetailsAdapter);
 
@@ -99,5 +103,44 @@ public class OrderDetailsActivity extends AppCompatActivity {
         TextView total = findViewById(R.id.price);
 
         total.setText(tot);
+    }
+
+    @Override
+    public void mRating(OrderDeatils orderDetail, String str) {
+        MerchantDetails merchantDetails = new MerchantDetails();
+        merchantDetails.setMerchantId(orderDetail.getMerchantId());
+        merchantDetails.setMerchantRating(str);
+        Call<String> merchant = api.giveMerchantrating(merchantDetails);
+        merchant.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                String res = response.body();
+                Toast.makeText(getBaseContext(),res,Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+            }
+        });
+    }
+
+    @Override
+    public void pRating(OrderDeatils orderDeatil, String str) {
+        Books book = new Books();
+        book.setProductId(orderDeatil.getProductId());
+        book.setRating(str);
+        Call<String> product = api.giveProductRating(book);
+        product.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                String res = response.body();
+                Toast.makeText(getBaseContext(),res,Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
     }
 }
