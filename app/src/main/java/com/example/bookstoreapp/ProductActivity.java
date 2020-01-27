@@ -36,13 +36,15 @@ import retrofit2.Retrofit;
 public class ProductActivity extends AppCompatActivity  implements View.OnTouchListener {
 
     private List<Books> booksList;
-    Button add_to_cart_btn;
-    Button view_merchant;
-    Books books;
-    Cart cart;
+    private Button add_to_cart_btn;
+    private Button view_merchant;
+    private Books books;
+    private Cart cart;
     Retrofit retrofit= RetrofitController.getRetrofit();
     ApiInterface api = retrofit.create(ApiInterface.class);
     private ImageView bookImage;
+    private List<Books> cartBookList;
+    int flag;
 
     private Animator currentAnimator;
     private int shortAnimationDuration;
@@ -78,7 +80,6 @@ public class ProductActivity extends AppCompatActivity  implements View.OnTouchL
         setContentView(R.layout.activity_product);
 
 
-
         //toolbar
         toolbar = findViewById(R.id.product_toolbar);
         setSupportActionBar(toolbar);
@@ -93,7 +94,6 @@ public class ProductActivity extends AppCompatActivity  implements View.OnTouchL
         view_merchant = findViewById(R.id.view_merchant);
 
 
-
         books = new Books();
         cart = new Cart();
         Intent intent = getIntent();
@@ -102,7 +102,7 @@ public class ProductActivity extends AppCompatActivity  implements View.OnTouchL
         final String merchantId = intent.getStringExtra("merchantId");
         final String merchantPrice = intent.getStringExtra("price");
 
-        Call<Books> call =api.getProductById(book_id);
+        final Call<Books> call =api.getProductById(book_id);
         call.enqueue(new Callback<Books>() {
             @Override
             public void onResponse(Call<Books> call, Response<Books> response) {
@@ -194,26 +194,10 @@ public class ProductActivity extends AppCompatActivity  implements View.OnTouchL
         add_to_cart_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<ResponseBody> call = api.addToCart(cart);
-                call.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        String res = null;
-                        try {
-                            res = response.body().string();
-                            Toast.makeText(getBaseContext(),res,Toast.LENGTH_SHORT).show();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Toast.makeText(getBaseContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
-                    }
-                });
+                addItemToCart();
             }
         });
+
 
         view_merchant.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -224,10 +208,56 @@ public class ProductActivity extends AppCompatActivity  implements View.OnTouchL
             }
         });
 
-
-
     }
 
+    public void addItemToCart(){
+        flag = 0;
+        String userId = cart.getCartId();
+        final String prodId = cart.getProductId();
+        Call<List<Books>> listCall = api.getCart(userId);
+        listCall.enqueue(new Callback<List<Books>>() {
+            @Override
+            public void onResponse(Call<List<Books>> call, Response<List<Books>> response) {
+                cartBookList = response.body();
+                if (null!=cartBookList) {
+                    for (Books list : cartBookList) {
+                        if (list.getProductId().equals(prodId)) {
+                            flag = 1;
+                            break;
+                        }
+                    }
+                }
+                if (flag==0) {
+                    Call<ResponseBody> addToCart = api.addToCart(cart);
+                    addToCart.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            String res = null;
+                            try {
+                                res = response.body().string();
+                                Toast.makeText(getBaseContext(), res, Toast.LENGTH_SHORT).show();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Toast.makeText(getBaseContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                else {
+                    Toast.makeText(getBaseContext(),"Already Added",Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Books>> call, Throwable t) {
+
+            }
+        });
+    }
+    
 
     @Override
     public boolean onTouch(View v, MotionEvent event)
