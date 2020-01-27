@@ -75,4 +75,10 @@ public interface ApiInterface {
 
       @GET("order/getOrderDetailsbyOrderId/{id}")
       Call<List<OrderDeatils>> getOrderDetails(@Path("id") String id);
+
+      @POST("merchant/addMerchantRating")
+      Call<String> giveMerchantrating(@Body MerchantDetails merchantDetails);
+
+      @POST("product/addProductRating")
+      Call<String> giveProductRating(@Body Books books);
 }
