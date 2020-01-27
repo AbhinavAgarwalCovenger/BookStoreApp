@@ -29,15 +29,19 @@ public class OrderDetailsActivity extends AppCompatActivity implements OrderDeta
 
     private List<OrderDeatils> orderDeatils;
     ImageButton done;
+    private androidx.appcompat.widget.Toolbar toolbar;
     Retrofit retrofit = RetrofitController.getRetrofit();
     ApiInterface api = retrofit.create(ApiInterface.class);
-
+  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_details);
 
-
+        toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.checkoutToolBar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         done = (ImageButton) findViewById(R.id.doneButton);
 

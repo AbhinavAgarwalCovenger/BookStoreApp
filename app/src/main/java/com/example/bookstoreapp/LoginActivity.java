@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         googleFacebookLogin = new GoogleFacebookLogin();
-        
+
         //FacebookLogin
 
         loginButton = (LoginButton) findViewById(R.id.login_button);
@@ -91,7 +91,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onSuccess(LoginResult loginResult) {
 
                 String accessToken = loginResult.getAccessToken().getToken();
-
                 googleFacebookLogin.setAccessToken(accessToken);
                 googleFacebookLogin.setLoginType("customer");
                 Call<CustId> custIdCall = api.getCustIdFB(googleFacebookLogin);
