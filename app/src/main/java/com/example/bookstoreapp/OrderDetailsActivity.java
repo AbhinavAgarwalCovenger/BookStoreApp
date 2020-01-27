@@ -78,7 +78,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements OrderDeta
             @Override
             public void onFailure(Call<List<OrderDeatils>> call, Throwable t) {
                 progressBar.dismiss();
-                Toast.makeText(OrderDetailsActivity.this,"Failer to Fetch",Toast.LENGTH_SHORT).show();
+                Toast.makeText(OrderDetailsActivity.this,"Failed to Fetch",Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -111,7 +111,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements OrderDeta
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 String res = response.body();
-                Toast.makeText(getBaseContext(),res,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(),"Average rating: "+res,Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -130,7 +130,7 @@ public class OrderDetailsActivity extends AppCompatActivity implements OrderDeta
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 String res = response.body();
-                Toast.makeText(getBaseContext(),res,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(),"Average rating: "+res,Toast.LENGTH_SHORT).show();
             }
 
             @Override
