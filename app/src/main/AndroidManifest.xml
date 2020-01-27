@@ -18,11 +18,15 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".MerchantDetailsActivity"></activity>
-        <activity android:name=".OrderDetailsActivity" />
+        <activity android:name=".OrderDetailsActivity"
+            android:parentActivityName=".OrderHistoryActivity"
+            />
         <activity
             android:name=".LoginHistoryActivity"
             android:parentActivityName=".MyProfileActivity" />
-        <activity android:name=".OrderHistoryActivity" />
+        <activity android:name=".OrderHistoryActivity"
+            android:parentActivityName=".MyProfileActivity"
+            />
         <activity android:name=".MyProfileActivity" />
         <activity android:name=".ProductActivity"
             android:parentActivityName=".MainActivity"

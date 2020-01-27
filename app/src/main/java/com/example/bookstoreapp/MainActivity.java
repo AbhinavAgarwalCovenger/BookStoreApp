@@ -20,16 +20,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.bookstoreapp.adapater.GenreMainActivityAdapter;
 import com.example.bookstoreapp.adapater.TopPicksAdapter;
 import com.example.bookstoreapp.pojo.Books;
 import com.example.bookstoreapp.pojo.Customer;
+import com.facebook.AccessToken;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -358,4 +355,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         intent.putExtra("genre",genre);
         startActivity(intent);
     }
+
 }
