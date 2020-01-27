@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
@@ -19,6 +19,7 @@
             android:background="@color/colorPrimary"
             app:title="Checkout">
             <ImageButton
+                android:contentDescription="@string/home_button"
                 android:layout_marginStart="200dp"
                 android:id="@+id/doneButton"
                 android:layout_width="wrap_content"
@@ -43,7 +44,7 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:layout_gravity="center"
-            android:text="FINAL COST : "/>
+            android:text="@string/final_cost"/>
         <TextView
             android:id="@+id/price"
             android:layout_width="wrap_content"
