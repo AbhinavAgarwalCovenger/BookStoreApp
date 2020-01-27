@@ -13,7 +13,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bookstoreapp.adapater.CurrentOrderAdapter;
+import com.example.bookstoreapp.adapater.OrderDetailsAdapter;
 import com.example.bookstoreapp.pojo.OrderDeatils;
 
 import java.util.List;
@@ -66,9 +66,9 @@ public class OrderDetailsActivity extends AppCompatActivity {
                 progressBar.dismiss();
                 RecyclerView recyclerView = findViewById(R.id.orderRecyclerView);
                 recyclerView.scrollToPosition(1);
-                CurrentOrderAdapter currentOrderAdapter = new CurrentOrderAdapter(orderDeatils);
+                OrderDetailsAdapter orderDetailsAdapter = new OrderDetailsAdapter(orderDeatils);
                 recyclerView.setLayoutManager(new LinearLayoutManager(OrderDetailsActivity.this,LinearLayoutManager.VERTICAL,false));
-                recyclerView.setAdapter(currentOrderAdapter);
+                recyclerView.setAdapter(orderDetailsAdapter);
 
             }
 

@@ -39,13 +39,6 @@ public class CheckoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_checkout);
         done = (ImageButton) findViewById(R.id.doneButton);
 
-
-        order_id = findViewById(R.id.order_id);
-        total_price = findViewById(R.id.total_price);
-
-
-
-
         sharedPreferences = getSharedPreferences(myPreference, Context.MODE_PRIVATE);
         String account = sharedPreferences.getString("user_id", null);
 
