@@ -14,7 +14,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bookstoreapp.adapater.CheckoutAdapter;
 import com.example.bookstoreapp.adapater.CurrentOrderAdapter;
 import com.example.bookstoreapp.pojo.OrderDeatils;
 
@@ -79,19 +78,24 @@ public class CheckoutActivity extends AppCompatActivity {
                 public void onResponse(Call<List<OrderDeatils>> call, Response<List<OrderDeatils>> response) {
                     progressBar.dismiss();
                     orderDeatils = response.body();
-                    totalCost(orderDeatils);
-                    RecyclerView recyclerView = findViewById(R.id.orderRecyclerView);
-                    recyclerView.scrollToPosition(1);
-                   // CheckoutAdapter checkoutAdapter = new CheckoutAdapter(orderDeatils);
-                    CurrentOrderAdapter currentOrderAdapter = new CurrentOrderAdapter(orderDeatils);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(CheckoutActivity.this,LinearLayoutManager.VERTICAL,false));
-                    recyclerView.setAdapter(currentOrderAdapter);
+                    if (null!=orderDeatils){
+
+                        totalCost(orderDeatils);
+                        RecyclerView recyclerView = findViewById(R.id.orderRecyclerView);
+                        recyclerView.scrollToPosition(1);
+                        CurrentOrderAdapter currentOrderAdapter = new CurrentOrderAdapter(orderDeatils);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(CheckoutActivity.this,LinearLayoutManager.VERTICAL,false));
+                        recyclerView.setAdapter(currentOrderAdapter);
+                    }
+                    else {
+                        Toast.makeText(getBaseContext(),"Cart was Empty",Toast.LENGTH_SHORT).show();
+                    }
                 }
 
                 @Override
                 public void onFailure(Call<List<OrderDeatils>> call, Throwable t) {
                     progressBar.dismiss();
-                    Toast.makeText(CheckoutActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(CheckoutActivity.this,"Quantity not available. Sorry For Inconvenience. :(",Toast.LENGTH_LONG).show();
 
                 }
             });
