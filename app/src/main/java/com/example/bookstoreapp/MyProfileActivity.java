@@ -60,7 +60,7 @@ private CircleImageView mProfilePic;
                 customer=response.body();
                // Toast.makeText(getBaseContext(),customer.getEmail(),Toast.LENGTH_SHORT).show();
                 mProfilePic = (CircleImageView) findViewById(R.id.profile_image);
-                
+
 
                 //setting profile details in respective text fields
                     mName.setText(customer.getName());
